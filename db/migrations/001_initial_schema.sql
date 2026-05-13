@@ -1,9 +1,9 @@
---  Atlas Database Schema
+-- Atlas Database Schema
 -- File: db/migrations/001_initial_schema.sql
 -- Author: Clarence Lee
 -- Date: 2026-05-13
 --
---Purpose:
+-- Purpose:
 -- This file defines the initial PostgreSQL schema for Atlas, a knowledge gap aware
 -- investing and trading book recommender system.
 --
