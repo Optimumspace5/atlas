@@ -113,7 +113,6 @@ for query in queries:
     seen_volume_ids |= volume_ids
     process page rows
     if len(items) == 0          : stop query
-    if len(items) < 40          : stop query
     if len(new_ids) == 0        : stop query
 ```
 
@@ -129,8 +128,7 @@ A query stops paginating when **any** is true:
 
 1. Hard cap reached (`max_pages`).
 2. Page returns 0 items.
-3. Page returns fewer than 40 items.
-4. Page returns zero new (previously unseen) volume IDs for this query.
+3. Page returns zero new (previously unseen) volume IDs for this query.
 
 ### Error handling
 
@@ -278,3 +276,4 @@ Different editions of the same work (different ISBNs, different publishers, diff
 - **[v2]** Should the collector integrate Open Library as a second source for ISBN-less or pre-2007 books?
 - **[depends]** Should `language` fallback skip be enforced or advisory? Currently advisory.
 - **[depends]** Should `categories` from Google be used to seed annotation candidates in a model-annotation pipeline?
+- **[lesson]** Google Books returns fewer than `maxResults` per page in practice; "short page" cannot be used as a stop signal. The corrected rule above relies only on empty page + zero-new-volume-IDs.
