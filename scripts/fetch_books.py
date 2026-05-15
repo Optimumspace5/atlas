@@ -2,7 +2,7 @@
 
 This script queries the Google Books API using taxonomy-aligned search terms,
 caches each raw API response on disk, and writes a normalized staging CSV for
-later review and database loading. The output is `data/corpus_raw_v1.csv`, while
+later review and database loading. The output is `data/corpus_merged_v1.csv`, while
 cached API responses are stored under `data/cache/google_books/v1/`. Run from
 the repository root with `python scripts/fetch_books.py` after setting
 `GOOGLE_BOOKS_API_KEY` in `.env`.
@@ -45,7 +45,7 @@ if not API_KEY:
 API_ENDPOINT = "https://www.googleapis.com/books/v1/volumes"
 
 CACHE_DIR = Path("data/cache/google_books/v1")
-OUTPUT_CSV = Path("data/corpus_raw_v1.csv")
+OUTPUT_CSV = Path("data/corpus_merged_v1.csv")
 
 MAX_PAGES = 3
 MAX_RESULTS_PER_PAGE = 40

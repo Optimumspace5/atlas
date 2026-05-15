@@ -1,15 +1,15 @@
 # Collector Design — Google Books v1
 
-Last updated: 2026-05-14
-Script: `fetch_books.py` (to be written)
-Output: `data/corpus_raw_v1.csv`
+Last updated: 2026-05-15
+Script: `fetch_books.py`
+Output: `data/corpus_merged_v1.csv` (Week 1 corpus, Google Books only; Open Library supplement deferred to Week 2)
 Cache: `data/cache/google_books/v1/`
 
 ## 1. Purpose
 
 Build the initial book corpus for Atlas by querying the Google Books API across investing and trading themes, caching raw responses on disk, deduplicating canonically, and writing one CSV row per unique book. The corpus is the substrate for annotation, embedding, gap detection, and recommendation in later stages.
 
-Success target: **100+ unique books** in `corpus_raw_v1.csv`. The 100+ is a floor, not a ceiling — a clean corpus of 300+ is acceptable and preferred over an artificially trimmed set.
+Success target: **100+ unique books** in `corpus_merged_v1.csv`. The 100+ is a floor, not a ceiling — a clean corpus of 300+ is acceptable and preferred over an artificially trimmed set.
 
 ## 2. Search Strategy
 
@@ -251,7 +251,7 @@ Applied in this order, monotonically eliminating candidates:
 
 ### Out of scope: edition collapse
 
-Different editions of the same work (different ISBNs, different publishers, different page counts) remain as **separate rows** in `corpus_raw_v1.csv`. Edition canonicalization is a curation problem deferred to a later stage.
+Different editions of the same work (different ISBNs, different publishers, different page counts) remain as **separate rows** in `corpus_merged_v1.csv`. Edition canonicalization is a curation problem deferred to a later stage.
 
 ## 8. Error & Logging Behavior
 
