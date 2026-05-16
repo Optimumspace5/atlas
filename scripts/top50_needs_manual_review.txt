@@ -1,0 +1,3 @@
+﻿Rank 26: Portfolio Management in Practice, CFA Institute - CFA Institute
+Reason: Google Books returned a same-title candidate by Christine Brentani, not the CFA Institute/Wiley Investment Series text. Left out of corpus to avoid bad metadata.
+Action: Backfill manually only after confirming the correct edition/ISBN from Wiley or another authoritative source.

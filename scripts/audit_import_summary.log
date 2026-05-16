@@ -1,0 +1,146 @@
+SKIP existing: row=8 concept=trend_analysis strength=1.0
+SKIP existing: row=8 concept=support_and_resistance strength=1.0
+SKIP existing: row=8 concept=chart_patterns_and_price_action strength=1.0
+SKIP existing: row=8 concept=volume_analysis strength=1.0
+SKIP existing: row=8 concept=momentum_and_technical_indicators strength=1.0
+SKIP existing: row=8 concept=market_structure_and_regime_identification strength=1.0
+SKIP existing: row=8 concept=strategy_design_and_rule_definition strength=1.0
+ADD: row=8 book=Technical Analysis of the Financial Markets concept=order_types_and_execution_mechanics strength=0.5
+ADD: row=420 book=The Intelligent Investor concept=financial_statement_analysis strength=0.5
+ADD: row=420 book=The Intelligent Investor concept=intrinsic_value_estimation strength=1.0
+ADD: row=420 book=The Intelligent Investor concept=valuation_multiples_and_relative_valuation strength=1.0
+ADD: row=420 book=The Intelligent Investor concept=margin_of_safety strength=1.0
+ADD: row=420 book=The Intelligent Investor concept=asset_allocation strength=1.0
+ADD: row=420 book=The Intelligent Investor concept=diversification strength=1.0
+ADD: row=420 book=The Intelligent Investor concept=passive_vs_active_portfolio_management strength=1.0
+ADD: row=420 book=The Intelligent Investor concept=time_horizon_and_goal_based_investing strength=0.5
+ADD: row=420 book=The Intelligent Investor concept=inflation_and_purchasing_power strength=1.0
+ADD: row=420 book=The Intelligent Investor concept=emotional_discipline strength=1.0
+ADD: row=420 book=The Intelligent Investor concept=process_oriented_decision_making strength=1.0
+ADD: row=421 book=The Psychology of Money concept=cognitive_biases strength=1.0
+ADD: row=421 book=The Psychology of Money concept=emotional_discipline strength=1.0
+ADD: row=421 book=The Psychology of Money concept=loss_aversion_and_drawdown_psychology strength=1.0
+ADD: row=421 book=The Psychology of Money concept=probabilistic_thinking_and_uncertainty strength=1.0
+ADD: row=421 book=The Psychology of Money concept=process_oriented_decision_making strength=1.0
+ADD: row=421 book=The Psychology of Money concept=overtrading_and_impulse_control strength=1.0
+ADD: row=421 book=The Psychology of Money concept=time_horizon_and_goal_based_investing strength=1.0
+ADD: row=422 book=Trading in the Zone concept=emotional_discipline strength=1.0
+ADD: row=422 book=Trading in the Zone concept=cognitive_biases strength=1.0
+ADD: row=422 book=Trading in the Zone concept=loss_aversion_and_drawdown_psychology strength=1.0
+ADD: row=422 book=Trading in the Zone concept=process_oriented_decision_making strength=1.0
+ADD: row=422 book=Trading in the Zone concept=probabilistic_thinking_and_uncertainty strength=1.0
+ADD: row=423 book=Big Debt Crises concept=credit_debt_and_financial_crises strength=1.0
+ADD: row=423 book=Big Debt Crises concept=business_cycles_and_market_cycles strength=1.0
+ADD: row=423 book=Big Debt Crises concept=interest_rates_and_monetary_policy strength=1.0
+ADD: row=423 book=Big Debt Crises concept=inflation_and_purchasing_power strength=1.0
+ADD: row=423 book=Big Debt Crises concept=currency_and_global_macro_forces strength=1.0
+ADD: row=423 book=Big Debt Crises concept=economic_indicators_and_data_interpretation strength=1.0
+ADD: row=424 book=Trading and Exchanges concept=market_participants_and_incentives strength=1.0
+ADD: row=424 book=Trading and Exchanges concept=exchanges_brokers_and_market_infrastructure strength=1.0
+ADD: row=424 book=Trading and Exchanges concept=order_types_and_execution_mechanics strength=1.0
+ADD: row=424 book=Trading and Exchanges concept=liquidity_and_market_depth strength=1.0
+ADD: row=424 book=Trading and Exchanges concept=price_formation_and_market_efficiency strength=1.0
+ADD: row=424 book=Trading and Exchanges concept=execution_quality_and_trade_implementation strength=1.0
+ADD: row=425 book=Trade Your Way to Financial Freedom concept=position_sizing strength=1.0
+ADD: row=425 book=Trade Your Way to Financial Freedom concept=stop_loss_and_exit_rules strength=1.0
+ADD: row=425 book=Trade Your Way to Financial Freedom concept=risk_reward_and_expectancy strength=1.0
+ADD: row=425 book=Trade Your Way to Financial Freedom concept=drawdown_management strength=1.0
+ADD: row=425 book=Trade Your Way to Financial Freedom concept=strategy_design_and_rule_definition strength=1.0
+ADD: row=425 book=Trade Your Way to Financial Freedom concept=backtesting_and_strategy_validation strength=1.0
+ADD: row=425 book=Trade Your Way to Financial Freedom concept=trade_planning_and_preparation strength=1.0
+ADD: row=425 book=Trade Your Way to Financial Freedom concept=system_iteration_and_continuous_improvement strength=1.0
+ADD: row=425 book=Trade Your Way to Financial Freedom concept=cognitive_biases strength=1.0
+ADD: row=425 book=Trade Your Way to Financial Freedom concept=process_oriented_decision_making strength=1.0
+ADD: row=426 book=Come Into My Trading Room concept=emotional_discipline strength=1.0
+ADD: row=426 book=Come Into My Trading Room concept=process_oriented_decision_making strength=1.0
+ADD: row=426 book=Come Into My Trading Room concept=trend_analysis strength=1.0
+ADD: row=426 book=Come Into My Trading Room concept=momentum_and_technical_indicators strength=1.0
+ADD: row=426 book=Come Into My Trading Room concept=market_structure_and_regime_identification strength=1.0
+ADD: row=426 book=Come Into My Trading Room concept=position_sizing strength=1.0
+ADD: row=426 book=Come Into My Trading Room concept=stop_loss_and_exit_rules strength=1.0
+ADD: row=426 book=Come Into My Trading Room concept=drawdown_management strength=1.0
+ADD: row=426 book=Come Into My Trading Room concept=exposure_and_concentration_limits strength=1.0
+ADD: row=426 book=Come Into My Trading Room concept=strategy_design_and_rule_definition strength=1.0
+ADD: row=426 book=Come Into My Trading Room concept=backtesting_and_strategy_validation strength=1.0
+ADD: row=426 book=Come Into My Trading Room concept=trade_planning_and_preparation strength=1.0
+ADD: row=426 book=Come Into My Trading Room concept=journaling_and_performance_review strength=1.0
+ADD: row=427 book=The New Sell and Sell Short concept=stop_loss_and_exit_rules strength=1.0
+ADD: row=427 book=The New Sell and Sell Short concept=risk_reward_and_expectancy strength=1.0
+ADD: row=427 book=The New Sell and Sell Short concept=drawdown_management strength=1.0
+ADD: row=427 book=The New Sell and Sell Short concept=trend_analysis strength=1.0
+ADD: row=427 book=The New Sell and Sell Short concept=support_and_resistance strength=1.0
+ADD: row=427 book=The New Sell and Sell Short concept=market_structure_and_regime_identification strength=1.0
+ADD: row=427 book=The New Sell and Sell Short concept=strategy_design_and_rule_definition strength=1.0
+ADD: row=427 book=The New Sell and Sell Short concept=trade_planning_and_preparation strength=1.0
+ADD: row=427 book=The New Sell and Sell Short concept=emotional_discipline strength=1.0
+ADD: row=428 book=Entries & Exits concept=trade_planning_and_preparation strength=1.0
+ADD: row=428 book=Entries & Exits concept=journaling_and_performance_review strength=1.0
+ADD: row=428 book=Entries & Exits concept=strategy_design_and_rule_definition strength=1.0
+ADD: row=428 book=Entries & Exits concept=execution_quality_and_trade_implementation strength=0.3
+ADD: row=428 book=Entries & Exits concept=process_oriented_decision_making strength=1.0
+ADD: row=428 book=Entries & Exits concept=stop_loss_and_exit_rules strength=1.0
+ADD: row=429 book=Evidence-Based Technical Analysis concept=backtesting_and_strategy_validation strength=1.0
+ADD: row=429 book=Evidence-Based Technical Analysis concept=strategy_design_and_rule_definition strength=1.0
+ADD: row=429 book=Evidence-Based Technical Analysis concept=system_iteration_and_continuous_improvement strength=1.0
+ADD: row=429 book=Evidence-Based Technical Analysis concept=process_oriented_decision_making strength=1.0
+ADD: row=429 book=Evidence-Based Technical Analysis concept=probabilistic_thinking_and_uncertainty strength=1.0
+ADD: row=429 book=Evidence-Based Technical Analysis concept=price_formation_and_market_efficiency strength=0.5
+SKIP existing: row=38 concept=trend_analysis strength=1.0
+SKIP existing: row=38 concept=support_and_resistance strength=1.0
+SKIP existing: row=38 concept=chart_patterns_and_price_action strength=1.0
+SKIP existing: row=38 concept=momentum_and_technical_indicators strength=1.0
+SKIP existing: row=38 concept=market_structure_and_regime_identification strength=1.0
+SKIP existing: row=38 concept=position_sizing strength=1.0
+SKIP existing: row=38 concept=stop_loss_and_exit_rules strength=1.0
+SKIP existing: row=38 concept=risk_reward_and_expectancy strength=1.0
+SKIP existing: row=38 concept=strategy_design_and_rule_definition strength=1.0
+SKIP existing: row=38 concept=trade_planning_and_preparation strength=1.0
+SKIP existing: row=38 concept=journaling_and_performance_review strength=1.0
+SKIP existing: row=38 concept=cognitive_biases strength=1.0
+SKIP existing: row=38 concept=emotional_discipline strength=1.0
+SKIP existing: row=38 concept=probabilistic_thinking_and_uncertainty strength=1.0
+ADD: row=430 book=Market Wizards concept=emotional_discipline strength=1.0
+ADD: row=430 book=Market Wizards concept=process_oriented_decision_making strength=1.0
+ADD: row=430 book=Market Wizards concept=probabilistic_thinking_and_uncertainty strength=1.0
+ADD: row=430 book=Market Wizards concept=position_sizing strength=1.0
+ADD: row=430 book=Market Wizards concept=stop_loss_and_exit_rules strength=1.0
+ADD: row=430 book=Market Wizards concept=drawdown_management strength=1.0
+ADD: row=430 book=Market Wizards concept=strategy_design_and_rule_definition strength=1.0
+ADD: row=430 book=Market Wizards concept=trade_planning_and_preparation strength=1.0
+ADD: row=430 book=Market Wizards concept=system_iteration_and_continuous_improvement strength=1.0
+ADD: row=431 book=A Random Walk Down Wall Street concept=price_formation_and_market_efficiency strength=1.0
+ADD: row=431 book=A Random Walk Down Wall Street concept=passive_vs_active_portfolio_management strength=1.0
+ADD: row=431 book=A Random Walk Down Wall Street concept=diversification strength=1.0
+ADD: row=431 book=A Random Walk Down Wall Street concept=asset_allocation strength=1.0
+ADD: row=431 book=A Random Walk Down Wall Street concept=portfolio_rebalancing strength=1.0
+ADD: row=431 book=A Random Walk Down Wall Street concept=risk_return_tradeoff strength=1.0
+ADD: row=431 book=A Random Walk Down Wall Street concept=time_horizon_and_goal_based_investing strength=1.0
+ADD: row=431 book=A Random Walk Down Wall Street concept=cognitive_biases strength=1.0
+ADD: row=431 book=A Random Walk Down Wall Street concept=loss_aversion_and_drawdown_psychology strength=1.0
+ADD: row=431 book=A Random Walk Down Wall Street concept=overtrading_and_impulse_control strength=1.0
+ADD: row=432 book=The Little Book of Common Sense Investing concept=price_formation_and_market_efficiency strength=1.0
+ADD: row=432 book=The Little Book of Common Sense Investing concept=passive_vs_active_portfolio_management strength=1.0
+ADD: row=432 book=The Little Book of Common Sense Investing concept=diversification strength=1.0
+ADD: row=432 book=The Little Book of Common Sense Investing concept=asset_allocation strength=1.0
+ADD: row=432 book=The Little Book of Common Sense Investing concept=risk_return_tradeoff strength=1.0
+ADD: row=432 book=The Little Book of Common Sense Investing concept=time_horizon_and_goal_based_investing strength=1.0
+ADD: row=432 book=The Little Book of Common Sense Investing concept=overtrading_and_impulse_control strength=1.0
+ADD: row=432 book=The Little Book of Common Sense Investing concept=process_oriented_decision_making strength=1.0
+ADD: row=433 book=The Little Book That Builds Wealth concept=business_quality_and_competitive_advantage strength=1.0
+ADD: row=433 book=The Little Book That Builds Wealth concept=earnings_growth_and_profitability_drivers strength=1.0
+ADD: row=433 book=The Little Book That Builds Wealth concept=intrinsic_value_estimation strength=1.0
+ADD: row=433 book=The Little Book That Builds Wealth concept=valuation_multiples_and_relative_valuation strength=1.0
+ADD: row=433 book=The Little Book That Builds Wealth concept=margin_of_safety strength=1.0
+ADD: row=433 book=The Little Book That Builds Wealth concept=financial_statement_analysis strength=1.0
+ADD: row=434 book=The Four Pillars of Investing concept=asset_classes_and_financial_instruments strength=1.0
+ADD: row=434 book=The Four Pillars of Investing concept=price_formation_and_market_efficiency strength=1.0
+ADD: row=434 book=The Four Pillars of Investing concept=market_participants_and_incentives strength=1.0
+ADD: row=434 book=The Four Pillars of Investing concept=asset_allocation strength=1.0
+ADD: row=434 book=The Four Pillars of Investing concept=diversification strength=1.0
+ADD: row=434 book=The Four Pillars of Investing concept=portfolio_rebalancing strength=1.0
+ADD: row=434 book=The Four Pillars of Investing concept=risk_return_tradeoff strength=1.0
+ADD: row=434 book=The Four Pillars of Investing concept=time_horizon_and_goal_based_investing strength=1.0
+ADD: row=434 book=The Four Pillars of Investing concept=passive_vs_active_portfolio_management strength=1.0
+ADD: row=434 book=The Four Pillars of Investing concept=cognitive_biases strength=1.0
+ADD: row=434 book=The Four Pillars of Investing concept=overtrading_and_impulse_control strength=1.0
+ADD: row=434 book=The Four Pillars of Investing concept=process_oriented_decision_making strength=1.0

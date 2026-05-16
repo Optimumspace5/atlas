@@ -34,3 +34,5 @@ Thumbs.db
 
 # Logs
 *.log
+!scripts/audit_import_conflicts.log
+!scripts/audit_import_summary.log
