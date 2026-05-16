@@ -147,7 +147,7 @@ Stores the audited mappings between books and taxonomy concepts, including how s
 | `book_id` | `UUID` | `NOT NULL`, FK to `books.id`, `ON DELETE CASCADE` | Identifies the book being annotated; see Section 2: Foreign Key Delete Semantics. |
 | `concept_id` | `UUID` | `NOT NULL`, FK to `concepts.id`, `ON DELETE CASCADE` | Identifies the concept covered by the book; see Section 2: Foreign Key Delete Semantics. |
 | `strength` | `FLOAT` | `NOT NULL`, `CHECK (strength IN (1.0, 0.5, 0.3))` | See Section 2: Controlled Annotation Strength Values. |
-| `annotation_type` | `VARCHAR(32)` | `NOT NULL`, default `'manual'` | Expected v1 values are `manual` and `model`; currently not database-constrained. |
+| `annotation_type` | `VARCHAR(32)` | `NOT NULL`, default `'manual'` | Expected v1 values are listed below; currently not database-constrained. |
 | `created_at` | `TIMESTAMPTZ` | `NOT NULL`, default `NOW()` | See Section 2: Timestamp Convention. |
 
 **Table-level constraints:**
@@ -167,6 +167,12 @@ This table does not use a surrogate `id` column. Its effective identity is the c
 The current migration enforces this identity with a `UNIQUE (book_id, concept_id, annotation_type)` constraint rather than a declared composite primary key. This is acceptable for v1, but it should be revisited when writing SQLAlchemy models because ORMs usually expect each mapped table to have a primary key.
 
 The inclusion of `annotation_type` in the uniqueness constraint allows manual and model-generated annotations to coexist for the same book-concept pair. For example, Atlas can store one `manual` annotation and one `model` annotation for the same book and concept without conflict, while still preventing duplicate manual annotations.
+
+v1 `annotation_type` values:
+
+- `manual` - created via `annotate.py` (CLI).
+- `manual_audit` - imported from `docs/audit_notes.md` via `import_audit_annotations.py`.
+- `model` - reserved for future model-generated annotations.
 
 Manual annotations should be treated as the trusted source in v1. Future model annotations should be treated as evidence to review or compare against manual labels, not as equivalent ground truth by default.
 

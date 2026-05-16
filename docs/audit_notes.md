@@ -578,3 +578,9 @@ the_four_pillars_of_investing:
 | `market_efficiency_and_indexing` is the strongest v0.2 candidate | Confirmed by two books. Currently split acceptably but warrants a dedicated leaf if passive investing books proliferate. |
 | Weak tags left unresolved | 5 weak tags remain unconfirmed. Kept in the taxonomy but flagged. Resolution deferred to expanded book database phase. |
 | `taxonomy_v0.1.yaml` frozen as of EOD 2026-05-12 | All 48 leaves confirmed. No structural issues found. Ready for book tagging and gap detection implementation phase. |
+
+---
+
+## Annotation Import Status
+
+Annotations from this document were imported into `data/annotations_v1.csv` on 2026-05-16 via `scripts/import_audit_annotations.py`. All imports use `annotation_type='manual_audit'`. Any future edits to the YAML blocks in this document are not automatically re-imported; manual reconciliation is required.

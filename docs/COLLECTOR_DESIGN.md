@@ -167,7 +167,16 @@ categories
 language
 cover_url
 source
+avg_rating
+ratings_count
 ```
+
+v1.1 additions (2026-05-16):
+
+- `avg_rating` - Google Books `averageRating` (1.0-5.0 float, nullable).
+- `ratings_count` - Google Books `ratingsCount` (integer, nullable).
+
+These enrichment fields are used by `priority_v2.csv` generation. They are not used by the recommender ranking logic.
 
 ### DB-loadable subset (maps to `books` table)
 
@@ -197,15 +206,25 @@ Remaining columns are staging/provenance/debug — used by dedup and review, dro
 | `cover_url` | prefer `thumbnail`, fallback `smallThumbnail`; rewrite `http://` → `https://` when host is Google Books |
 | `categories` | pipe-delimited string in CSV; not loaded into `books` table |
 | `language` | preserve as-is; if non-`en` and non-null, consider skipping |
-| `source` | constant `"google_books"` |
+| `source` | source label; see source values below |
+| `avg_rating` | Google Books `averageRating`; blank if missing |
+| `ratings_count` | Google Books `ratingsCount`; blank if missing |
 | `source_result_index` | **absolute** position across the query (page 0 → 0–39, page 1 → 40–79) |
 | `global_rank` | `source_start_index + source_result_index` |
 | `fetched_at` | ISO 8601 timestamp from cache envelope |
 
+### Source values
+
+- `google_books` - collected by `fetch_books.py` from taxonomy-aligned search queries.
+- `audit_must_include` - backfilled from `audit_notes.md` via `backfill_audit_books.py`.
+
 ### Explicitly discarded for v1
 
-- `averageRating` — popularity contamination risk for a gap-aware recommender. Raw cache retains it for future use.
 - `saleInfo`, `accessInfo` — not relevant to corpus.
+
+### Ratings note
+
+Google Books `averageRating` and `ratingsCount` were initially excluded to avoid popularity contamination in a gap-aware recommender. v1.1 reintroduces them as corpus-quality and annotation-prioritization fields only. They should not be used as direct recommendation ranking features.
 
 ## 7. Deduplication Algorithm
 
@@ -277,3 +296,5 @@ Different editions of the same work (different ISBNs, different publishers, diff
 - **[depends]** Should `language` fallback skip be enforced or advisory? Currently advisory.
 - **[depends]** Should `categories` from Google be used to seed annotation candidates in a model-annotation pipeline?
 - **[lesson]** Google Books returns fewer than `maxResults` per page in practice; "short page" cannot be used as a stop signal. The corrected rule above relies only on empty page + zero-new-volume-IDs.
+- **[lesson]** Google Books search ranking is SEO-driven, not curation-driven. Canonical anchor books may not appear in top-N results for generic queries. Mitigation: targeted title+author lookup via `backfill_audit_books.py` as a complementary pass.
+- **[lesson]** Dropping `averageRating` and `ratingsCount` entirely was over-restrictive. They should not drive recommendation ranking, but they are legitimate corpus-quality signals for the prioritization layer. Re-incorporated as enrichment columns via `enrich_corpus_ratings.py`.
