@@ -9,62 +9,118 @@ the repository root with `python scripts/fetch_books.py` after setting
 """
 
 # standard library imports
+# Lets Python interact with the operating system.
+# In this script, used to read the API key from environment variables
+# and safely replace completed temp files with final files.
 import os
+# Lets the script exit with a specific status code after main() finishes.
 import sys
+# Lets the script read and write JSON data.
+# Used for saving and loading raw Google Books API responses in the cache.
 import json
+# Lets the script write rows into a CSV file.
+# Used to create the final cleaned book dataset.
 import csv
+# Lets the script create a short fingerprint for each API request.
+# Used to make unique cache filenames.
 import hashlib
+# Lets the script show progress, warnings, and errors while running.
 import logging
+# Lets the script search and clean text using patterns.
+# Used for ISBN cleanup, year extraction, and title/author normalization.
 import re
+# Lets the script pause before retrying a failed API request.
 import time
+# Lets the script work with dates, times, and timezones.
+# Used to record when data was fetched and to check valid publication years.
 from datetime import datetime, timezone
+# Lets the script handle file and folder paths cleanly.
+# Used for cache folder paths and output CSV paths.
 from pathlib import Path
+# Provides type hints to make function inputs and outputs easier to understand.
+# Optional means a value can be something or None.
+# Iterable means something that can be looped over.
+# Any means the value can be any type.
 from typing import Optional, Iterable, Any
 
 # third-party imports
+# Lets the script send web requests to the Google Books API.
 import requests
+# Lets the script load secret/config values from the .env file.
+# In this script, used so the Google Books API key can be stored outside the code.
 from dotenv import load_dotenv
 
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
+# Load values from the .env file into the environment.
+# This lets the script access secrets like the Google Books API key
+# without hardcoding them directly in the code.
 load_dotenv()
 
+# Set up logging so the script can show progress, warnings, and errors clearly.
 logging.basicConfig(
+    # Show normal progress messages and anything more serious.
     level=logging.INFO,
+    # Format each log line as: time | level | message.
     format="%(asctime)s | %(levelname)-7s | %(message)s",
+    # Show only hour:minute:second for the log timestamp.
     datefmt="%H:%M:%S",
 )
+# Create a logger for this script.
 log = logging.getLogger(__name__)
+# Read the Google Books API key from the environment.
 API_KEY = os.environ.get("GOOGLE_BOOKS_API_KEY")
+# Stop the script early if the API key is missing.
 if not API_KEY:
     raise RuntimeError(
         "GOOGLE_BOOKS_API_KEY not set. Add to .env at repo root."
     )
 
+# Google Books API URL used to search for book volumes.
 API_ENDPOINT = "https://www.googleapis.com/books/v1/volumes"
 
+# Folder where raw Google Books API responses are cached.
 CACHE_DIR = Path("data/cache/google_books/v1")
+# File path where the final cleaned book dataset will be written.
 OUTPUT_CSV = Path("data/corpus_merged_v1.csv")
 
+# Number of result pages to fetch for each search query.
 MAX_PAGES = 3
+# Number of book results requested per API page.
 MAX_RESULTS_PER_PAGE = 40
 
+# Default search settings added to every Google Books API request.
 REQUEST_DEFAULTS = {
+    # Only return books.
     "printType": "books",
+
+    # Only return English-language results.
     "langRestrict": "en",
+
+    # Ask Google to return the most relevant results first.
     "orderBy": "relevance",
+
+    # Use the configured number of results per page.
     "maxResults": MAX_RESULTS_PER_PAGE,
 }
 
+# Wait times used before retrying a failed API request.
 RETRY_BACKOFF_SECONDS = [1, 4]
+# Earliest publication year considered realistic.
 PLAUSIBLE_YEAR_MIN = 1450
+# Latest publication year considered realistic: current year plus one.
 PLAUSIBLE_YEAR_MAX = datetime.now(timezone.utc).year + 1
 
 
 # ---------------------------------------------------------------------------
 # Search queries (locked in COLLECTOR_DESIGN.md)
 # ---------------------------------------------------------------------------
+# List of Google Books search terms Atlas will use to collect book data.
+# Each query has:
+# q = the actual search phrase sent to Google Books
+# target = the Atlas topic/category this query supports
+# kind = whether it is a broad parent query or a more specific gap-filler query
 QUERIES: list[dict[str, str]] = [
     # Parent-category queries (8)
     {"q": "financial markets trading investing",      "target": "market_foundations",                          "kind": "parent"},
@@ -85,8 +141,11 @@ QUERIES: list[dict[str, str]] = [
 # ---------------------------------------------------------------------------
 # Cache utilities
 # ---------------------------------------------------------------------------
+
+# Build a stable identity for one API request.
+# This includes the endpoint, search query, page start index, and default settings.
+# The API key is excluded so secrets are not stored in the cache identity.
 def _canonical_request(query: str, start_index: int) -> dict[str, Any]:
-    """Build the deterministic request identity, excluding the API key."""
     return {
         "endpoint": API_ENDPOINT,
         "q": query,
@@ -95,27 +154,31 @@ def _canonical_request(query: str, start_index: int) -> dict[str, Any]:
     }
 
 
+# Create a short stable fingerprint for a request.
+# Used to make cache filenames unique even if request settings change.
 def _request_hash(canonical: dict[str, Any]) -> str:
-    """Return the short stable hash for a canonical request."""
     serialized = json.dumps(canonical, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(serialized.encode("utf-8")).hexdigest()[:8]
 
 
+# Turn a search query into a filename-friendly string.
+# Example: "risk management trading investing" -> "risk_management_trading_investing"
 def _query_slug(query: str) -> str:
-    """Convert a controlled query string into a filename-safe slug."""
     return query.lower().replace(" ", "_")
 
 
+# Build the full cache file path for a specific query and result page.
+# This does not read or write the file; it only creates the path.
 def _cache_path(query: str, start_index: int) -> Path:
-    """Return the cache path for a query page without touching disk."""
     canonical = _canonical_request(query, start_index)
     request_hash = _request_hash(canonical)
     filename = f"{_query_slug(query)}_{start_index}_{request_hash}.json"
     return CACHE_DIR / filename
 
 
+# Try to read a cache file from disk.
+# Returns the cached data if valid, or None if the file is missing/corrupt.
 def _read_cache(path: Path) -> Optional[dict[str, Any]]:
-    """Read a cache envelope, returning None when absent or corrupt."""
     if not path.exists():
         return None
 
@@ -126,8 +189,9 @@ def _read_cache(path: Path) -> Optional[dict[str, Any]]:
         return None
 
 
+# Safely write a cache file.
+# Writes to a temporary file first, then replaces the final file when complete.
 def _write_cache_atomic(path: Path, envelope: dict[str, Any]) -> None:
-    """Write a cache envelope atomically to avoid partial cache files."""
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp_path = path.with_suffix(path.suffix + ".tmp")
     tmp_path.write_text(
@@ -137,50 +201,80 @@ def _write_cache_atomic(path: Path, envelope: dict[str, Any]) -> None:
     os.replace(tmp_path, path)
 
 
+
 # ---------------------------------------------------------------------------
 # HTTP fetch with cache
 # ---------------------------------------------------------------------------
+
+# Custom error used when the Google Books API fails after all retry attempts.
 class TransientAPIFailure(Exception):
     """Raised when the Google Books API fails after all retries."""
 
 
+# Send one request to the Google Books API for a specific query page.
+# If the request fails because of temporary problems, retry before giving up.
 def _fetch_from_api(query: str, start_index: int) -> dict[str, Any]:
     """Fetch a Google Books page, retrying transient failures.
 
     Raises:
         TransientAPIFailure: when all retries are exhausted.
     """
+
+    # Build the parameters that will be sent to Google Books.
+    # Includes the default request settings, search query, page start index,
+    # and API key.
     params = {
         **REQUEST_DEFAULTS,
         "q": query,
         "startIndex": start_index,
         "key": API_KEY,
     }
+
+    # Total tries = first attempt + one attempt for each retry delay.
     total_attempts = 1 + len(RETRY_BACKOFF_SECONDS)
+
+    # Store the latest error message so it can be reported if all attempts fail.
     last_error = "unknown error"
 
+    # Try the request up to the allowed number of attempts.
     for attempt in range(total_attempts):
         try:
+            # Send the actual HTTP GET request to Google Books.
             response = requests.get(API_ENDPOINT, params=params, timeout=30)
+
+            # HTTP 200 means success, so return the JSON response as Python data.
             if response.status_code == 200:
                 return response.json()
 
+            # Save a short preview of the error response for logging/debugging.
             response_preview = response.text[:200].replace("\n", " ")
             last_error = f"HTTP {response.status_code}: {response_preview}"
+
+            # Only retry rate-limit errors and server errors.
+            # Other errors are treated as permanent failures.
             if response.status_code != 429 and not 500 <= response.status_code < 600:
                 raise TransientAPIFailure(
                     f"Permanent Google Books API failure for q={query!r} "
                     f"start={start_index}: {last_error}"
                 )
+
+        # Handle timeout errors.
         except requests.exceptions.Timeout:
             last_error = "Timeout: request timed out"
+
+        # Handle network connection errors.
         except requests.exceptions.ConnectionError:
             last_error = "ConnectionError: connection failed"
+
+        # Handle invalid JSON responses.
         except (requests.exceptions.JSONDecodeError, json.JSONDecodeError):
             last_error = "JSONDecodeError: invalid JSON response"
+
+        # Handle other request-related errors.
         except requests.exceptions.RequestException as exc:
             last_error = f"{type(exc).__name__}: request failed"
 
+        # If retries remain, wait before trying again.
         if attempt < len(RETRY_BACKOFF_SECONDS):
             backoff = RETRY_BACKOFF_SECONDS[attempt]
             log.warning(
@@ -195,28 +289,42 @@ def _fetch_from_api(query: str, start_index: int) -> dict[str, Any]:
             )
             time.sleep(backoff)
 
+    # If every attempt failed, raise an error so the main script can stop cleanly.
     raise TransientAPIFailure(
         f"Google Books API failed after {total_attempts} attempts for "
         f"q={query!r} start={start_index}: {last_error}"
     )
 
 
+# Get one page of Google Books results, using cache first when possible.
+# If the cache is missing, fetch from the API and save the response to cache.
 def fetch_page(query: str, start_index: int) -> dict[str, Any]:
     """Return the cached/fetched envelope for a Google Books query page.
 
     On cache miss, fetches from the API and writes the response to disk
     atomically. Raises TransientAPIFailure if the network call ultimately fails.
     """
+
+    # Build the expected cache file path for this query page.
     path = _cache_path(query, start_index)
+
+    # Try to read a saved response from the cache.
     cached = _read_cache(path)
+
+    # If a valid cache file exists, use it instead of calling Google again.
     if cached is not None and "response" in cached and "fetched_at" in cached:
         log.info("cache HIT q=%r start=%s", query, start_index)
         return cached
+
+    # If a cache file exists but is missing required fields, ignore it.
     if cached is not None:
         log.warning("Ignoring cache file missing response/fetched_at: %s", path)
 
+    # No usable cache was found, so fetch fresh data from Google Books.
     log.info("cache MISS q=%r start=%s -> fetching", query, start_index)
     response_json = _fetch_from_api(query, start_index)
+
+    # Wrap the raw API response with metadata before saving it to cache.
     envelope = {
         "cache_version": 1,
         "request": _canonical_request(query, start_index),
@@ -224,20 +332,26 @@ def fetch_page(query: str, start_index: int) -> dict[str, Any]:
         "status_code": 200,
         "response": response_json,
     }
+
+    # Save the response to cache safely for future runs.
     _write_cache_atomic(path, envelope)
+
+    # Return the newly fetched response.
     return envelope
 
 
 # ---------------------------------------------------------------------------
 # ISBN canonicalization
 # ---------------------------------------------------------------------------
+
+# Clean an ISBN by removing spaces, hyphens, and dots.
+# Uppercase is used because ISBN-10 can end with X.
 def _strip_isbn(raw: str) -> str:
-    """Strip hyphens, spaces, and dots from an ISBN; uppercase trailing X."""
     return re.sub(r"[\s\-\.]", "", raw).upper()
 
 
+# Check whether a cleaned ISBN-13 is valid using its check digit.
 def _is_valid_isbn_13(stripped: str) -> bool:
-    """Validate ISBN-13 check digit."""
     if len(stripped) != 13 or not stripped.isdigit():
         return False
     digits = [int(c) for c in stripped]
@@ -248,8 +362,9 @@ def _is_valid_isbn_13(stripped: str) -> bool:
     return check == digits[12]
 
 
+# Check whether a cleaned ISBN-10 is valid using its check digit.
+# The final character can be X, which represents the value 10.
 def _is_valid_isbn_10(stripped: str) -> bool:
-    """Validate ISBN-10 check digit. Trailing X counts as 10."""
     if len(stripped) != 10:
         return False
     if not stripped[:9].isdigit():
@@ -263,8 +378,8 @@ def _is_valid_isbn_10(stripped: str) -> bool:
     return weighted_sum % 11 == 0
 
 
+# Convert a valid ISBN-10 into an ISBN-13.
 def _isbn_10_to_13(isbn_10: str) -> str:
-    """Convert a stripped, valid ISBN-10 to ISBN-13."""
     body = "978" + isbn_10[:9]
     digits = [int(c) for c in body]
     weighted_sum = sum(
@@ -274,11 +389,13 @@ def _isbn_10_to_13(isbn_10: str) -> str:
     return body + str(check)
 
 
+# Return one consistent ISBN-13 for a book when possible.
+# Prefer a valid ISBN-13 directly from Google.
+# If missing, convert a valid ISBN-10 into ISBN-13.
 def canonicalize_isbn(
     raw_isbn_13: Optional[str],
     raw_isbn_10: Optional[str],
 ) -> tuple[Optional[str], Optional[str]]:
-    """Return canonical ISBN-13 and source: explicit, promoted, or None."""
     if raw_isbn_13:
         stripped = _strip_isbn(raw_isbn_13)
         if _is_valid_isbn_13(stripped):
@@ -290,9 +407,11 @@ def canonicalize_isbn(
     return None, None
 
 
+
 # ---------------------------------------------------------------------------
 # Field extraction
 # ---------------------------------------------------------------------------
+# Extract a realistic 4-digit publication year from a raw date string.
 def _extract_year(raw: Optional[str]) -> Optional[int]:
     """Extract a plausible publication year from a raw date string."""
     if not raw:
@@ -305,7 +424,7 @@ def _extract_year(raw: Optional[str]) -> Optional[int]:
         return year
     return None
 
-
+# Extract the first ISBN-13 and ISBN-10 from Google Books identifiers.
 def _extract_isbns(identifiers: Any) -> tuple[Optional[str], Optional[str]]:
     """Extract the first raw ISBN-13 and ISBN-10 from Google identifiers."""
     isbn_13 = None
@@ -326,7 +445,8 @@ def _extract_isbns(identifiers: Any) -> tuple[Optional[str], Optional[str]]:
             isbn_10 = identifier
     return isbn_13, isbn_10
 
-
+# Pick the best available cover image URL and clean it.
+# Google Books HTTP cover links are upgraded to HTTPS.
 def _normalize_cover_url(image_links: Any) -> Optional[str]:
     """Return a preferred cover URL, upgrading Google Books HTTP links."""
     if not isinstance(image_links, dict):
@@ -339,7 +459,8 @@ def _normalize_cover_url(image_links: Any) -> Optional[str]:
         return "https://" + url[len("http://"):]
     return url
 
-
+# Convert one raw Google Books volume into one cleaned CSV row.
+# Returns None when the book is missing required data or is not English.
 def extract_row(
     volume: dict[str, Any],
     *,
@@ -438,45 +559,54 @@ def extract_row(
 # ---------------------------------------------------------------------------
 # Pagination
 # ---------------------------------------------------------------------------
+
+# Fetch all configured result pages for one search query.
+# Uses fetch_page(), so each page is loaded from cache first when possible.
 def collect_pages_for_query(
     query_meta: dict[str, str],
 ) -> list[dict[str, Any]]:
     """Paginate one query and return the rows extracted from all pages."""
-    query = query_meta["q"]
-    log.info(
-        "Query: q=%r target=%s kind=%s",
-        query,
-        query_meta.get("target"),
-        query_meta.get("kind"),
-    )
 
+    # Get the actual Google Books search phrase from the query metadata.
+    query = query_meta["q"]
+
+    # Track Google volume IDs already seen within this query to avoid repeats.
     seen_volume_ids: set[str] = set()
+
+    # Store cleaned rows extracted from all fetched pages.
     rows: list[dict[str, Any]] = []
 
+    # Fetch up to MAX_PAGES pages for this query.
     for page_idx in range(MAX_PAGES):
+        # Calculate the starting result number for this page.
         start_index = page_idx * MAX_RESULTS_PER_PAGE
+
+        # Get one page of results, using cache first if available.
         envelope = fetch_page(query, start_index)
+
+        # Pull the raw API response and fetch timestamp from the cache/API envelope.
         response = envelope["response"]
         fetched_at = envelope["fetched_at"]
 
+        # Google Books returns book records under the "items" field.
         items = response.get("items") or []
         if not isinstance(items, list):
             items = []
 
+        # Stop if this page has no results.
         if not items:
-            log.info("stop: empty page q=%r start=%s", query, start_index)
             break
 
-        new_volume_ids_this_page = 0
-        kept_before_page = len(rows)
+        # Convert each raw book volume into a cleaned row.
         for result_idx, volume in enumerate(items):
+            # Skip repeated Google volume IDs within the same query.
             volume_id = volume.get("id") if isinstance(volume, dict) else None
             if volume_id is not None and volume_id in seen_volume_ids:
                 continue
             if volume_id is not None:
                 seen_volume_ids.add(volume_id)
-            new_volume_ids_this_page += 1
 
+            # Extract and clean the fields needed for the CSV.
             row = extract_row(
                 volume,
                 query=query,
@@ -484,24 +614,15 @@ def collect_pages_for_query(
                 result_index=result_idx,
                 fetched_at=fetched_at,
             )
+
+            # Skip invalid, incomplete, or non-English books.
             if row is None:
                 continue
+
             rows.append(row)
 
-        kept_this_page = len(rows) - kept_before_page
-        log.info(
-            "page start=%s: items=%s, new=%s, kept=%s",
-            start_index,
-            len(items),
-            new_volume_ids_this_page,
-            kept_this_page,
-        )
-
-        if new_volume_ids_this_page == 0:
-            log.info("stop: no new volume IDs q=%r start=%s", query, start_index)
-            break
-
     return rows
+
 
 
 # ---------------------------------------------------------------------------
