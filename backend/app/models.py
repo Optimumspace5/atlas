@@ -1,0 +1,138 @@
+"""SQLAlchemy ORM models for Atlas.
+
+These models mirror the schema defined in db/migrations/001_initial_schema.sql
+and the subsequent Alembic migrations under backend/alembic/versions/.
+
+The SQL files are the source of truth for the database schema. These ORM
+classes exist so application code can read/write rows via the SQLAlchemy
+session API without hand-writing every query.
+
+NOTE: Book.embedding is intentionally NOT declared here. The pgvector
+extension is enabled in the database but no embedding column exists on
+the books table yet. The embedder pipeline will add both the column
+(via a new Alembic migration) and the corresponding Mapped[] field
+at the same time.
+"""
+
+import uuid
+from datetime import datetime
+
+from sqlalchemy import CheckConstraint, ForeignKey, String, Integer, Float, Date, text
+from sqlalchemy.dialects.postgresql import UUID as PG_UUID
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.sql import func
+
+class Base(DeclarativeBase):
+    """Shared declarative base. All models inherit from this so they share
+    the same MetaData object (required for Alembic autogenerate and for
+    Base.metadata.create_all in tests)."""
+    pass
+
+class Book(Base):
+    __tablename__ = "books"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text("uuid_generate_v4()"),
+    )
+    title: Mapped[str] = mapped_column(String(512), nullable=False)
+    author: Mapped[str] = mapped_column(String(512), nullable=False)
+    isbn_13: Mapped[str | None] = mapped_column(String(13), unique=True, nullable=True)
+    description: Mapped[str | None] = mapped_column(nullable=True)
+    page_count: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    publication_year: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    cover_url: Mapped[str | None] = mapped_column(nullable=True)
+    source: Mapped[str] = mapped_column(
+        String(64), nullable=False, server_default="manual"
+    )
+    created_at: Mapped[datetime] = mapped_column(
+        nullable=False, server_default=func.now()
+    )
+
+class Concept(Base):
+    __tablename__ = "concepts"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text("uuid_generate_v4()"),
+    )
+    name: Mapped[str] = mapped_column(String(256), nullable=False)
+    slug: Mapped[str] = mapped_column(String(256), nullable=False, unique=True)
+    description: Mapped[str | None] = mapped_column(nullable=True)
+    level: Mapped[int] = mapped_column(Integer, nullable=False)
+    parent_id: Mapped[uuid.UUID | None] = mapped_column(
+        PG_UUID(as_uuid=True),
+        ForeignKey("concepts.id", ondelete="CASCADE"),
+        nullable=True,
+    )
+    created_at: Mapped[datetime] = mapped_column(
+        nullable=False, server_default=func.now()
+    )
+
+    __table_args__ = (
+        CheckConstraint("level IN (0, 1)", name="concepts_level_check"),
+    )
+
+class BookConceptAnnotation(Base):
+    __tablename__ = "book_concept_annotations"
+
+    book_id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        ForeignKey("books.id", ondelete="CASCADE"),
+        primary_key=True,
+    )
+    concept_id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        ForeignKey("concepts.id", ondelete="CASCADE"),
+        primary_key=True,
+    )
+    annotation_type: Mapped[str] = mapped_column(
+        String(32),
+        primary_key=True,
+        nullable=False,
+        server_default="manual",
+    )
+    strength: Mapped[float] = mapped_column(Float, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        nullable=False, server_default=func.now()
+    )
+
+    __table_args__ = (
+        CheckConstraint(
+            "strength IN (1.0, 0.5, 0.3)",
+            name="book_concept_annotations_strength_check",
+        ),
+    )
+
+class User(Base):
+    __tablename__ = "users"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text("uuid_generate_v4()"),
+    )
+    email: Mapped[str] = mapped_column(String(256), nullable=False, unique=True)
+    created_at: Mapped[datetime] = mapped_column(
+        nullable=False, server_default=func.now()
+    )
+
+class UserBook(Base):
+    __tablename__ = "user_books"
+
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        ForeignKey("users.id", ondelete="CASCADE"),
+        primary_key=True,
+    )
+    book_id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        ForeignKey("books.id", ondelete="CASCADE"),
+        primary_key=True,
+    )
+    date_read: Mapped[datetime | None] = mapped_column(Date, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        nullable=False, server_default=func.now()
+    )
