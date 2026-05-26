@@ -55,3 +55,52 @@ class RecommendationResponse(BaseModel):
     )
 
     model_config = ConfigDict(from_attributes=True)
+
+
+# -----------------------------------------------------------------------------
+# Schemas for /users/{user_id}/* endpoints
+# -----------------------------------------------------------------------------
+class AddBookRequest(BaseModel):
+    """Body of POST /users/{user_id}/books."""
+
+    book_id: uuid.UUID = Field(..., description="UUID of the book to log as read.")
+
+
+class UserBookResponse(BaseModel):
+    """One row from user_books, returned by POST /users/{user_id}/books."""
+
+    user_id: uuid.UUID
+    book_id: uuid.UUID
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class CoverageResponse(BaseModel):
+    """Body of GET /users/{user_id}/coverage."""
+
+    user_id: uuid.UUID
+    read_book_count: int = Field(..., description="How many books the user has logged.")
+    covered_count: int = Field(..., description="Number of concepts with coverage > 0.")
+    coverage: dict[str, float] = Field(
+        ...,
+        description="48-key dict: leaf concept slug -> sum-of-strengths coverage score.",
+    )
+
+
+class GapEntry(BaseModel):
+    """One entry in the sorted gap list."""
+
+    slug: str
+    gap: float
+
+
+class GapsResponse(BaseModel):
+    """Body of GET /users/{user_id}/gaps."""
+
+    user_id: uuid.UUID
+    read_book_count: int
+    gap_count: int = Field(..., description="Number of concepts with gap > 0.")
+    gaps: list[GapEntry] = Field(
+        ...,
+        description="Sorted by gap descending. Top entries are biggest learning opportunities.",
+    )
