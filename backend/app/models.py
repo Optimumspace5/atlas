@@ -17,7 +17,7 @@ at the same time.
 import uuid
 from datetime import datetime
 
-from sqlalchemy import CheckConstraint, ForeignKey, String, Integer, Float, Date, text
+from sqlalchemy import CheckConstraint, ForeignKey, String, Integer, Float, Date, UniqueConstraint, text
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.sql import func
@@ -135,4 +135,46 @@ class UserBook(Base):
     date_read: Mapped[datetime | None] = mapped_column(Date, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         nullable=False, server_default=func.now()
+    )
+
+class ExplanationRequest(Base):
+    __tablename__ = "explanation_requests"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text("uuid_generate_v4()"),
+    )
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    book_id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        ForeignKey("books.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    prompt_version: Mapped[int] = mapped_column(Integer, nullable=False)
+    read_history_hash: Mapped[str] = mapped_column(String(64), nullable=False)
+    explanation: Mapped[str] = mapped_column(nullable=False)
+    model: Mapped[str] = mapped_column(String(64), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        nullable=False, server_default=func.now()
+    )
+    served_count: Mapped[int] = mapped_column(
+        Integer, nullable=False, server_default="1"
+    )
+    last_served_at: Mapped[datetime] = mapped_column(
+        nullable=False, server_default=func.now()
+    )
+
+    __table_args__ = (
+        UniqueConstraint(
+            "user_id",
+            "book_id",
+            "prompt_version",
+            "read_history_hash",
+            name="explanation_requests_cache_key_unique",
+        ),
     )

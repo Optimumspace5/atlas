@@ -1,11 +1,10 @@
+anthropic
 fastapi
-uvicorn
-psycopg2-binary
-SQLAlchemy>=2.0
-pgvector>=0.2
-alembic>=1.13
 httpx
+pgvector>=0.2
+psycopg2-binary
 pytest
 pytest-asyncio
-numpy>=2.4
-scikit-learn>=1.8
+SQLAlchemy>=2.0
+alembic>=1.13
+uvicorn

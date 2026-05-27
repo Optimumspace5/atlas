@@ -104,3 +104,38 @@ class GapsResponse(BaseModel):
         ...,
         description="Sorted by gap descending. Top entries are biggest learning opportunities.",
     )
+
+# -----------------------------------------------------------------------------
+# Schemas for POST /recommendations/{user_id}/explain
+# -----------------------------------------------------------------------------
+class ExplainRequest(BaseModel):
+    """Body of POST /recommendations/{user_id}/explain."""
+
+    book_id: uuid.UUID = Field(
+        ...,
+        description="UUID of the book to explain.",
+    )
+
+
+class ExplainResponse(BaseModel):
+    """Body returned by POST /recommendations/{user_id}/explain."""
+
+    book_id: uuid.UUID
+    explanation: str = Field(
+        ...,
+        description="2-3 sentence grounded explanation produced by Claude.",
+    )
+    model: str = Field(
+        ...,
+        description="Claude model ID that produced (or originally produced) the explanation.",
+    )
+    cached: bool = Field(
+        ...,
+        description="True if returned from cache; cache hits do not count toward quota.",
+    )
+    quota_remaining: int = Field(
+        ...,
+        description="New generations remaining for this user today (UTC). Cached hits don't decrement.",
+    )
+
+    model_config = ConfigDict(from_attributes=True)
