@@ -69,6 +69,25 @@ def test_phase1_end_to_end(client, db, clean_user_books):
         f"  stateful:  {stateful_titles}"
     )
 
+        # --- 6b. GET /recommendations/{user_id}?strategy=popularity ---
+    r = client.get(f"/recommendations/{TEST_USER_ID}?strategy=popularity&top_k=10")
+    assert r.status_code == 200
+    popular = r.json()
+    assert len(popular["recommendations"]) > 0
+    assert all(isinstance(b["score"], (int, float)) for b in popular["recommendations"])
+    # Popularity scores are annotation counts — monotonically non-increasing.
+    popular_scores = [b["score"] for b in popular["recommendations"]]
+    assert popular_scores == sorted(popular_scores, reverse=True), \
+        "Popularity recommendations must be sorted by score desc"
+    # Already-read books must be excluded from popularity too.
+    popular_ids = {b["id"] for b in popular["recommendations"]}
+    assert all(read_id not in popular_ids for read_id in sample_ids_str), \
+        "Popularity must exclude already-read books"
+
+    # --- 6c. Invalid strategy is rejected by the enum guard ---
+    r = client.get(f"/recommendations/{TEST_USER_ID}?strategy=bogus")
+    assert r.status_code == 422, "Unknown strategy should 422 via enum validation"
+
     # --- 7. Sanity 404s ---
     bogus_user = uuid.uuid4()
     r = client.get(f"/recommendations/{bogus_user}")

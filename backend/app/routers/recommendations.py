@@ -22,6 +22,7 @@ from backend.app.schemas import (
     RecommendationResponse,
 )
 from backend.app.services.gap_scoring import rank_candidates
+from backend.app.services.popularity import rank_by_popularity
 
 router = APIRouter(prefix="/recommendations", tags=["recommendations"])
 
@@ -29,6 +30,7 @@ class RecommendationStrategy(str, Enum):
     """Allowed values for the ?strategy= query param. New strategies will be
     added here as they're implemented."""
     GAP = "gap"
+    POPULARITY = "popularity"
 
 def _rank_to_response(
     ranked: list[tuple[Book, float]],
@@ -86,6 +88,11 @@ def recommend_for_user(
         select(UserBook.book_id).where(UserBook.user_id == user_id)
     ).scalars().all()
 
-    candidate_ids = db.execute(select(Book.id)).scalars().all()
-    ranked = rank_candidates(db, read_book_ids, candidate_ids)
+    if strategy == RecommendationStrategy.POPULARITY:
+        ranked = rank_by_popularity(db, read_book_ids, top_k)
+    else:  # RecommendationStrategy.GAP — the default
+        candidate_ids = db.execute(select(Book.id)).scalars().all()
+        ranked = rank_candidates(db, read_book_ids, candidate_ids)
+
     return _rank_to_response(ranked, top_k)
+
