@@ -7,8 +7,9 @@ are held out from their secondary concepts. The harness measures how well
 each ranking strategy surfaces those held-out books in its top-K.
 
 Strategies evaluated:
-    - gap        — rank_candidates from gap_scoring.py
-    - popularity — rank_by_popularity from popularity.py
+    - gap        - rank_candidates from gap_scoring.py
+    - popularity - rank_by_popularity from popularity.py
+    - tfidf      - rank_by_tfidf from tfidf.py
 
 Metric: NDCG@10. Held-out books are binary relevance (1 if recommended,
 0 otherwise). Per-user NDCG is averaged across users for each strategy.
@@ -43,7 +44,7 @@ sys.path.insert(0, str(REPO_ROOT))
 from backend.app.models import Book, BookConceptAnnotation, Concept  # noqa: E402
 from backend.app.services.gap_scoring import rank_candidates  # noqa: E402
 from backend.app.services.popularity import rank_by_popularity  # noqa: E402
-
+from backend.app.services.tfidf import rank_by_tfidf  # noqa: E402
 
 # --- Eval configuration --------------------------------------------------
 RANDOM_SEED = 42
@@ -255,8 +256,12 @@ def _rank_with_strategy(
         # popularity takes top_k directly and filters read_ids internally;
         # K is enough for NDCG@K.
         ranked = rank_by_popularity(session, read_ids, top_k=K)
+    elif strategy_name == "tfidf":
+        # TF-IDF also takes top_k directly and filters read_ids internally.
+        ranked = rank_by_tfidf(session, read_ids, top_k=K)
     else:
         raise ValueError(f"Unknown strategy: {strategy_name}")
+
     return [book.id for book, _ in ranked]
 
 
@@ -324,7 +329,7 @@ def main() -> int:
 
         # --- Evaluate each strategy ---
         all_results: dict[str, list[dict]] = {}
-        for strategy in ("gap", "popularity"):
+        for strategy in ("gap", "popularity", "tfidf"):
             print(f"Evaluating {strategy}...")
             results = evaluate_strategy(session, strategy, users, candidate_pool)
             all_results[strategy] = results
