@@ -5,3 +5,4 @@ python-dotenv==1.2.2
 PyYAML==6.0.2
 requests==2.34.1
 urllib3==2.7.0
+mlflow==3.12.0

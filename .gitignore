@@ -36,3 +36,9 @@ Thumbs.db
 *.log
 !scripts/audit_import_conflicts.log
 !scripts/audit_import_summary.log
+
+# MLflow tracking (regenerable, contains binary SQLite + run artifacts)
+mlflow.db
+mlruns/
+mlartifacts/
+
