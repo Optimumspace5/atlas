@@ -7,6 +7,7 @@ import {
   type BookResult,
   type Strategy,
 } from "@/lib/api";
+import { BookCover } from "../components/BookCover";
 
 
 const TEST_USER_ID = "00000000-0000-0000-0000-000000000001";
@@ -42,7 +43,6 @@ export default function RecommendationsPage() {
     Record<string, ExplainState>
   >({});
 
-  // Re-fetch whenever strategy changes.
   useEffect(() => {
     setState({ kind: "loading" });
     getRecommendations(TEST_USER_ID, strategy)
@@ -88,7 +88,6 @@ export default function RecommendationsPage() {
         </p>
       </header>
 
-      {/* Strategy switcher */}
       <div className="flex gap-2 mb-6">
         {STRATEGIES.map((s) => (
           <button
@@ -107,7 +106,6 @@ export default function RecommendationsPage() {
         ))}
       </div>
 
-      {/* Body */}
       {state.kind === "loading" && (
         <p className="text-gray-500">Loading recommendations…</p>
       )}
@@ -129,8 +127,9 @@ export default function RecommendationsPage() {
                 key={book.id}
                 className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm"
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
+                <div className="flex items-start gap-4">
+                  <BookCover url={book.cover_url} title={book.title} size="md" />
+                  <div className="flex-1 min-w-0">
                     <div className="text-xs text-gray-500 font-mono">
                       #{i + 1}
                     </div>

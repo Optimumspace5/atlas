@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getUserBooks, type BookSearchResult } from "@/lib/api";
+import { BookCover } from "../components/BookCover";
+import { CoverageChart } from "../components/CoverageChart";
 
 
-// Hardcoded test user for now; real auth is post-v0.4.0.
 const TEST_USER_ID = "00000000-0000-0000-0000-000000000001";
 
 
@@ -33,8 +34,12 @@ export default function LibraryPage() {
     <main className="w-full max-w-4xl flex flex-col">
       <header className="mt-8 mb-6">
         <h1 className="text-3xl font-bold text-gray-900">Your Library</h1>
-        <p className="text-gray-600 mt-1">Books you've logged as read.</p>
+        <p className="text-gray-600 mt-1">Books you&apos;ve logged as read.</p>
       </header>
+
+      <div className="mb-8">
+        <CoverageChart userId={TEST_USER_ID} />
+      </div>
 
       {state.kind === "loading" && (
         <p className="text-gray-500">Loading…</p>
@@ -65,17 +70,20 @@ export default function LibraryPage() {
             {state.books.map((book) => (
               <li
                 key={book.id}
-                className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition"
+                className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition flex gap-4"
               >
-                <h2 className="font-semibold text-gray-900 leading-snug">
-                  {book.title}
-                </h2>
-                <p className="text-sm text-gray-600 mt-1">{book.author}</p>
-                <p className="text-xs text-gray-500 mt-2">
-                  {book.publication_year && <>{book.publication_year}</>}
-                  {book.publication_year && book.isbn_13 && <> · </>}
-                  {book.isbn_13 && <>ISBN {book.isbn_13}</>}
-                </p>
+                <BookCover url={book.cover_url} title={book.title} size="lg" />
+                <div className="min-w-0 flex-1">
+                  <h2 className="font-semibold text-gray-900 leading-snug">
+                    {book.title}
+                  </h2>
+                  <p className="text-sm text-gray-600 mt-1">{book.author}</p>
+                  <p className="text-xs text-gray-500 mt-2">
+                    {book.publication_year && <>{book.publication_year}</>}
+                    {book.publication_year && book.isbn_13 && <> · </>}
+                    {book.isbn_13 && <>ISBN {book.isbn_13}</>}
+                  </p>
+                </div>
               </li>
             ))}
           </ul>

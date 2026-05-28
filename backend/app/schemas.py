@@ -36,6 +36,7 @@ class BookResult(BaseModel):
     id: uuid.UUID
     title: str
     author: str
+    cover_url: str | None
     score: float = Field(
         ...,
         description="Gap-fill score from rank_candidates(). Higher = better fit.",
@@ -152,5 +153,25 @@ class BookSearchResult(BaseModel):
     author: str
     isbn_13: str | None
     publication_year: int | None
+    cover_url: str | None
 
     model_config = ConfigDict(from_attributes=True)
+
+# -----------------------------------------------------------------------------
+# Schemas for GET /concepts
+# -----------------------------------------------------------------------------
+class ConceptLeaf(BaseModel):
+    """One leaf concept (level=1)."""
+
+    slug: str
+    name: str
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class ConceptParent(BaseModel):
+    """One parent category (level=0) with its leaf concepts nested."""
+
+    slug: str
+    name: str
+    leaves: list[ConceptLeaf]

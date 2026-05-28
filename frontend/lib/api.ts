@@ -21,6 +21,7 @@ export type BookSearchResult = {
   author: string;
   isbn_13: string | null;
   publication_year: number | null;
+  cover_url: string | null;
 };
 
 
@@ -83,6 +84,7 @@ export type BookResult = {
   id: string;
   title: string;
   author: string;
+  cover_url: string | null;
   score: number;
 };
 
@@ -131,6 +133,50 @@ export async function explainRecommendation(
       // body wasn't JSON; fall back to status text
     }
     throw new Error(detail || `Explain failed: ${r.status}`);
+  }
+  return r.json();
+}
+
+
+// ---------------------------------------------------------------------------
+// Concept hierarchy
+// ---------------------------------------------------------------------------
+export type ConceptLeaf = {
+  slug: string;
+  name: string;
+};
+
+export type ConceptParent = {
+  slug: string;
+  name: string;
+  leaves: ConceptLeaf[];
+};
+
+
+export async function getConcepts(): Promise<ConceptParent[]> {
+  const r = await fetch(`${API_URL}/concepts`);
+  if (!r.ok) {
+    throw new Error(`Failed to load concepts: ${r.status}`);
+  }
+  return r.json();
+}
+
+
+// ---------------------------------------------------------------------------
+// Coverage
+// ---------------------------------------------------------------------------
+export type CoverageResponse = {
+  user_id: string;
+  read_book_count: number;
+  covered_count: number;
+  coverage: Record<string, number>;
+};
+
+
+export async function getUserCoverage(userId: string): Promise<CoverageResponse> {
+  const r = await fetch(`${API_URL}/users/${userId}/coverage`);
+  if (!r.ok) {
+    throw new Error(`Failed to load coverage: ${r.status}`);
   }
   return r.json();
 }

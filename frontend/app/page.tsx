@@ -7,11 +7,13 @@ import {
   searchBooks,
   type BookSearchResult,
 } from "@/lib/api";
+import { BookCover } from "./components/BookCover";
+
 
 // Hardcoded test user for now; real auth is post-v0.4.0.
 const TEST_USER_ID = "00000000-0000-0000-0000-000000000001";
 
-// Debounce delay in milliseconds — wait for typing to settle before searching.
+// Debounce delay in milliseconds.
 const SEARCH_DEBOUNCE_MS = 250;
 
 type HealthStatus = "checking" | "ok" | "error";
@@ -21,6 +23,7 @@ type AddState =
   | { kind: "added"; title: string }
   | { kind: "error"; message: string };
 
+
 export default function HomePage() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<BookSearchResult[]>([]);
@@ -28,15 +31,12 @@ export default function HomePage() {
   const [health, setHealth] = useState<HealthStatus>("checking");
   const [addState, setAddState] = useState<AddState>({ kind: "idle" });
 
-  // Initial health check.
   useEffect(() => {
     getHealth()
       .then((res) => setHealth(res.status === "ok" ? "ok" : "error"))
       .catch(() => setHealth("error"));
   }, []);
 
-  // Debounced search: re-run whenever `query` changes, but wait for typing
-  // to pause first.
   useEffect(() => {
     const trimmed = query.trim();
     if (!trimmed) {
@@ -53,9 +53,6 @@ export default function HomePage() {
         .finally(() => setSearching(false));
     }, SEARCH_DEBOUNCE_MS);
 
-    // Cleanup: cancel this scheduled search if `query` changes before
-    // it fires. This is what makes the debounce work — only the LAST
-    // pending timeout actually executes.
     return () => clearTimeout(handle);
   }, [query]);
 
@@ -76,14 +73,14 @@ export default function HomePage() {
 
   return (
     <main className="w-full max-w-2xl flex flex-col items-center">
-      <header className="w-full max-w-2xl mt-12 mb-8">
+      <header className="w-full mt-12 mb-8">
         <h1 className="text-4xl font-bold text-gray-900">Atlas</h1>
         <p className="text-gray-600 mt-2">
           Knowledge-gap-aware book recommendations for investing and trading.
         </p>
       </header>
 
-      <section className="w-full max-w-2xl relative">
+      <section className="w-full relative">
         <label
           htmlFor="search"
           className="block text-sm font-medium text-gray-700 mb-2"
@@ -100,7 +97,6 @@ export default function HomePage() {
           className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        {/* Results dropdown */}
         {query.trim() && (
           <div className="mt-2 border border-gray-200 rounded-lg bg-white shadow-sm overflow-hidden">
             {searching && results.length === 0 && (
@@ -115,19 +111,21 @@ export default function HomePage() {
                 type="button"
                 onClick={() => handleAdd(book)}
                 disabled={addState.kind === "adding"}
-                className="w-full text-left p-3 hover:bg-gray-50 border-b last:border-b-0 border-gray-100 disabled:opacity-50"
+                className="w-full text-left p-3 hover:bg-gray-50 border-b last:border-b-0 border-gray-100 disabled:opacity-50 flex gap-3 items-center"
               >
-                <div className="font-medium text-gray-900">{book.title}</div>
-                <div className="text-sm text-gray-600">
-                  {book.author}
-                  {book.publication_year && <> · {book.publication_year}</>}
+                <BookCover url={book.cover_url} title={book.title} size="sm" />
+                <div className="min-w-0 flex-1">
+                  <div className="font-medium text-gray-900 truncate">{book.title}</div>
+                  <div className="text-sm text-gray-600 truncate">
+                    {book.author}
+                    {book.publication_year && <> · {book.publication_year}</>}
+                  </div>
                 </div>
               </button>
             ))}
           </div>
         )}
 
-        {/* Add feedback */}
         {addState.kind === "added" && (
           <p className="mt-3 text-sm text-green-700">
             Added: <span className="font-medium">{addState.title}</span>
@@ -138,12 +136,13 @@ export default function HomePage() {
         )}
       </section>
 
-      <footer className="w-full max-w-2xl mt-auto pt-12 text-sm">
+      <footer className="w-full mt-auto pt-12 text-sm">
         <BackendStatus status={health} />
       </footer>
     </main>
   );
 }
+
 
 function BackendStatus({ status }: { status: HealthStatus }) {
   const label =

@@ -53,6 +53,7 @@ def _rank_to_response(
                 id=book.id,
                 title=book.title,
                 author=book.author,
+                cover_url=book.cover_url,
                 score=score,
             )
             for book, score in ranked[:top_k]
