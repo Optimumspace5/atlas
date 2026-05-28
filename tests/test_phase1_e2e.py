@@ -69,7 +69,7 @@ def test_phase1_end_to_end(client, db, clean_user_books):
         f"  stateful:  {stateful_titles}"
     )
 
-        # --- 6b. GET /recommendations/{user_id}?strategy=popularity ---
+    # --- 6b. GET /recommendations/{user_id}?strategy=popularity ---
     r = client.get(f"/recommendations/{TEST_USER_ID}?strategy=popularity&top_k=10")
     assert r.status_code == 200
     popular = r.json()
@@ -83,8 +83,25 @@ def test_phase1_end_to_end(client, db, clean_user_books):
     popular_ids = {b["id"] for b in popular["recommendations"]}
     assert all(read_id not in popular_ids for read_id in sample_ids_str), \
         "Popularity must exclude already-read books"
+    # --- 6c. GET /recommendations/{user_id}?strategy=tfidf ---
+    r = client.get(f"/recommendations/{TEST_USER_ID}?strategy=tfidf&top_k=10")
+    assert r.status_code == 200
+    tfidf = r.json()
+    assert len(tfidf["recommendations"]) > 0
+    assert all(isinstance(b["score"], (int, float)) for b in tfidf["recommendations"])
+    # TF-IDF scores are cosine similarities — sorted desc.
+    tfidf_scores = [b["score"] for b in tfidf["recommendations"]]
+    assert tfidf_scores == sorted(tfidf_scores, reverse=True), \
+        "TF-IDF recommendations must be sorted by score desc"
+    # All scores in [0, 1] since TF-IDF vectors are non-negative.
+    assert all(0.0 <= s <= 1.0 for s in tfidf_scores), \
+        "Cosine similarity must be in [0, 1]"
+    # Already-read books excluded.
+    tfidf_ids = {b["id"] for b in tfidf["recommendations"]}
+    assert all(read_id not in tfidf_ids for read_id in sample_ids_str), \
+        "TF-IDF must exclude already-read books"
 
-    # --- 6c. Invalid strategy is rejected by the enum guard ---
+    # --- 6d. Invalid strategy is rejected by the enum guard ---
     r = client.get(f"/recommendations/{TEST_USER_ID}?strategy=bogus")
     assert r.status_code == 422, "Unknown strategy should 422 via enum validation"
 
