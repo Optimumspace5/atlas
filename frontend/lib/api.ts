@@ -64,3 +64,11 @@ export async function addUserBook(
     throw new Error(`Add book failed: ${r.status}`);
   }
 }
+
+export async function getUserBooks(userId: string): Promise<BookSearchResult[]> {
+  const r = await fetch(`${API_URL}/users/${userId}/books`);
+  if (!r.ok) {
+    throw new Error(`Failed to load library: ${r.status}`);
+  }
+  return r.json();
+}

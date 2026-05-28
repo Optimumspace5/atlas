@@ -75,7 +75,7 @@ export default function HomePage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 flex flex-col items-center p-8">
+    <main className="w-full max-w-2xl flex flex-col items-center">
       <header className="w-full max-w-2xl mt-12 mb-8">
         <h1 className="text-4xl font-bold text-gray-900">Atlas</h1>
         <p className="text-gray-600 mt-2">

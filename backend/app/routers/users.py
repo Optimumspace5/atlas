@@ -24,6 +24,14 @@ from backend.app.schemas import (
     GapsResponse,
     UserBookResponse,
 )
+from backend.app.schemas import (
+    AddBookRequest,
+    BookSearchResult,
+    CoverageResponse,
+    GapEntry,
+    GapsResponse,
+    UserBookResponse,
+)
 from backend.app.services.gap_scoring import get_coverage_vector, get_gap_vector
 
 
@@ -49,6 +57,26 @@ def _get_user_book_ids(db: Session, user_id: uuid.UUID) -> list[uuid.UUID]:
     return db.execute(
         select(UserBook.book_id).where(UserBook.user_id == user_id)
     ).scalars().all()
+# -----------------------------------------------------------------------------
+# GET /users/{user_id}/books — list books the user has logged
+# -----------------------------------------------------------------------------
+@router.get(
+    "/{user_id}/books",
+    response_model=list[BookSearchResult],
+)
+def list_user_books(
+    user_id: uuid.UUID,
+    db: Session = Depends(get_db),
+) -> list[Book]:
+    """Return all books the user has logged, ordered by title."""
+    _get_user_or_404(db, user_id)
+    stmt = (
+        select(Book)
+        .join(UserBook, UserBook.book_id == Book.id)
+        .where(UserBook.user_id == user_id)
+        .order_by(Book.title)
+    )
+    return db.execute(stmt).scalars().all()
 
 
 # -----------------------------------------------------------------------------
