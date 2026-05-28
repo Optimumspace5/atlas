@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.app.routers import recommendations, users
+from backend.app.routers import books, recommendations, users
 
 app = FastAPI(title="Atlas API")
 
@@ -15,6 +15,7 @@ app.add_middleware(
 
 app.include_router(recommendations.router)
 app.include_router(users.router)
+app.include_router(books.router)
 
 
 @app.get("/health")

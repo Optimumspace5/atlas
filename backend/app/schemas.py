@@ -139,3 +139,18 @@ class ExplainResponse(BaseModel):
     )
 
     model_config = ConfigDict(from_attributes=True)
+
+
+# -----------------------------------------------------------------------------
+# Schemas for GET /books
+# -----------------------------------------------------------------------------
+class BookSearchResult(BaseModel):
+    """One result row from GET /books?q=..."""
+
+    id: uuid.UUID
+    title: str
+    author: str
+    isbn_13: str | None
+    publication_year: int | None
+
+    model_config = ConfigDict(from_attributes=True)
