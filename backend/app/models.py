@@ -18,6 +18,7 @@ import uuid
 from datetime import datetime
 
 from sqlalchemy import CheckConstraint, ForeignKey, String, Integer, Float, Date, UniqueConstraint, text
+from pgvector.sqlalchemy import Vector
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.sql import func
@@ -177,4 +178,24 @@ class ExplanationRequest(Base):
             "read_history_hash",
             name="explanation_requests_cache_key_unique",
         ),
+    )
+
+class BookEmbedding(Base):
+    """One 384-dim sentence embedding per book.
+
+    Dimension locked at 384 to match BAAI/bge-small-en-v1.5. Switching to a
+    768-dim model requires a new migration that alters or recreates this
+    column.
+    """
+    __tablename__ = "book_embeddings"
+
+    book_id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        ForeignKey("books.id", ondelete="CASCADE"),
+        primary_key=True,
+    )
+    embedding: Mapped[list[float]] = mapped_column(Vector(384), nullable=False)
+    model: Mapped[str] = mapped_column(String(128), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        nullable=False, server_default=func.now()
     )

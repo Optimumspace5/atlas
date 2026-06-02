@@ -7,5 +7,6 @@ psycopg2-binary
 pytest
 pytest-asyncio
 scikit-learn
+sentence-transformers
 SQLAlchemy>=2.0
 uvicorn
