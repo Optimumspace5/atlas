@@ -26,6 +26,7 @@ from backend.app.schemas import (
 from backend.app.services.gap_scoring import rank_candidates
 from backend.app.services.popularity import rank_by_popularity
 from backend.app.services.tfidf import rank_by_tfidf
+from backend.app.services.embedding import rank_by_embedding
 from backend.app.services.explanation import (
     ClaudeAPIError,
     DAILY_LIMIT,
@@ -41,6 +42,7 @@ class RecommendationStrategy(str, Enum):
     GAP = "gap"
     POPULARITY = "popularity"
     TFIDF = "tfidf"
+    EMBEDDING = "embedding"
 
 def _rank_to_response(
     ranked: list[tuple[Book, float]],
@@ -99,6 +101,8 @@ def recommend_for_user(
         ranked = rank_by_popularity(db, read_book_ids, top_k)
     elif strategy == RecommendationStrategy.TFIDF:
         ranked = rank_by_tfidf(db, read_book_ids, top_k)
+    elif strategy == RecommendationStrategy.EMBEDDING:
+        ranked = rank_by_embedding(db, read_book_ids, top_k)
     else:  # RecommendationStrategy.GAP — the default
         candidate_ids = db.execute(select(Book.id)).scalars().all()
         ranked = rank_candidates(db, read_book_ids, candidate_ids)

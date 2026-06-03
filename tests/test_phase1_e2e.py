@@ -100,8 +100,25 @@ def test_phase1_end_to_end(client, db, clean_user_books):
     tfidf_ids = {b["id"] for b in tfidf["recommendations"]}
     assert all(read_id not in tfidf_ids for read_id in sample_ids_str), \
         "TF-IDF must exclude already-read books"
+    # --- 6d. GET /recommendations/{user_id}?strategy=embedding ---
+    r = client.get(f"/recommendations/{TEST_USER_ID}?strategy=embedding&top_k=10")
+    assert r.status_code == 200
+    embedding = r.json()
+    assert len(embedding["recommendations"]) > 0
+    assert all(isinstance(b["score"], (int, float)) for b in embedding["recommendations"])
+    # Embedding scores are cosine similarities in (-1, 1] — sorted desc.
+    embedding_scores = [b["score"] for b in embedding["recommendations"]]
+    assert embedding_scores == sorted(embedding_scores, reverse=True), \
+        "Embedding recommendations must be sorted by score desc"
+    # Cosine similarity bound: at most 1.0 (identical) for normalized vectors.
+    assert all(s <= 1.0 for s in embedding_scores), \
+        "Cosine similarity must be <= 1.0"
+    # Already-read books excluded.
+    embedding_ids = {b["id"] for b in embedding["recommendations"]}
+    assert all(read_id not in embedding_ids for read_id in sample_ids_str), \
+        "Embedding must exclude already-read books"
 
-    # --- 6d. Invalid strategy is rejected by the enum guard ---
+    # --- 6e. Invalid strategy is rejected by the enum guard ---
     r = client.get(f"/recommendations/{TEST_USER_ID}?strategy=bogus")
     assert r.status_code == 422, "Unknown strategy should 422 via enum validation"
 

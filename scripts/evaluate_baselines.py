@@ -45,6 +45,7 @@ from backend.app.models import Book, BookConceptAnnotation, Concept  # noqa: E40
 from backend.app.services.gap_scoring import rank_candidates  # noqa: E402
 from backend.app.services.popularity import rank_by_popularity  # noqa: E402
 from backend.app.services.tfidf import rank_by_tfidf  # noqa: E402
+from backend.app.services.embedding import rank_by_embedding  # noqa: E402
 
 # --- Eval configuration --------------------------------------------------
 RANDOM_SEED = 42
@@ -259,6 +260,8 @@ def _rank_with_strategy(
     elif strategy_name == "tfidf":
         # TF-IDF also takes top_k directly and filters read_ids internally.
         ranked = rank_by_tfidf(session, read_ids, top_k=K)
+    elif strategy_name == "embedding":
+        ranked = rank_by_embedding(session, read_ids, top_k=K)
     else:
         raise ValueError(f"Unknown strategy: {strategy_name}")
 
@@ -329,7 +332,7 @@ def main() -> int:
 
         # --- Evaluate each strategy ---
         all_results: dict[str, list[dict]] = {}
-        for strategy in ("gap", "popularity", "tfidf"):
+        for strategy in ("gap", "popularity", "tfidf", "embedding"):
             print(f"Evaluating {strategy}...")
             results = evaluate_strategy(session, strategy, users, candidate_pool)
             all_results[strategy] = results
