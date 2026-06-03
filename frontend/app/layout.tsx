@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Nav } from "./components/Nav";
+import { AppShell } from "./components/AppShell";
 
 export const metadata: Metadata = {
   title: "Atlas",
@@ -13,10 +13,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="min-h-screen bg-gray-50 flex flex-col items-center px-8">
-          <Nav />
-          {children}
-        </div>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );
