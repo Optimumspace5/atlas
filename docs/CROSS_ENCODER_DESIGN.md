@@ -4,11 +4,20 @@ Status: planned for Week 6. This document defines the schema, training
 pair strategy, and evaluation methodology so implementation can be
 mechanical rather than improvised.
 
-This is a v2 of the design. v1 (pre-2026-06-05) used embedding-only
-Stage 1 retrieval, which was directionally wrong for Atlas's gap-fill
-mission. The v2 design uses hybrid retrieval with four sources and
-introduces source-typed training negatives with explicit ambiguous-skip
+This is a v2 of the design. v1 (pre-2026-06-05) used embedding-only Stage 1
+retrieval, which was directionally wrong for Atlas's gap-fill mission. The
+v2 design uses hybrid retrieval with four sources, RRF rank fusion as
+Stage 1b, and source-typed training negatives with explicit ambiguous-skip
 rules to prevent false-negative poisoning.
+
+**Updated 2026-06-06 with Phase 1.5 findings.** Measured candidate-pool
+NDCG@10 for the 3-source insertion-order merge: 0.063 — same as raw gap
+ranking, because insertion-order is dominated by the first-inserted source.
+Adding RRF rank fusion (Cormack et al., k=60, weights gap=1.0
+popularity=0.7 embedding_read=0.4) lifts NDCG@10 to 0.132 (+0.069, 2.1×)
+with no ML. RRF is now an official Stage 1b component. The cross-encoder's
+revised benchmark is "beat RRF" (0.132), not "beat insertion-order gap"
+(0.063).
 
 ## 1. Why a cross-encoder
 
@@ -29,19 +38,18 @@ single relevance score conditioned on both sides. Joint encoding lets
 it model signals like "this book is exactly the right depth for this
 user's top gap" that no single-signal strategy expresses.
 
-### The two-stage architecture
+### The multi-stage architecture
 
-The cross-encoder is the SECOND stage. Stage 1 is HYBRID candidate
-generation — a union of four sources (gap scoring, gap-query embedding,
-read-similarity embedding, popularity) that produces ~100-130 dedupli-
-cated candidates per query. Stage 2 reranks those.
+The cross-encoder is the FINAL stage. Stage 1 is hybrid candidate
+generation followed by deterministic rank fusion. Stage 2 is the
+learned reranker.
 
-    Stage 1 (hybrid retrieval):    ~100-130 candidates from 4 sources
-    Stage 2 (cross-encoder):       rerank to a final top-10
+    Stage 1a (hybrid retrieval):   ~100-130 candidates from 4 sources
+    Stage 1b (RRF rank fusion):    deterministic reorder of merged pool
+    Stage 2  (cross-encoder):      learned rerank to a final top-10
 
-For Atlas's 468-book corpus we could cross-encode every book per
-request in ~1 second. The two-stage pattern is a deliberate choice
-anyway:
+For Atlas's 468-book corpus we could cross-encode every book per request
+in ~1 second. The multi-stage pattern is a deliberate choice anyway:
 
 1. SCALE: as the corpus grows past ~5,000 books, single-stage cross-
    encoding becomes infeasible. The architecture future-proofs.
@@ -377,6 +385,60 @@ after candidate recall evaluation:
 Changes to top-K and source mix do NOT require retraining the
 cross-encoder. Only query/document format changes do.
 
+### Stage 1b: RRF rank fusion (added Phase 1.5)
+
+Insertion order from Stage 1a is dominated by the first-inserted source
+(gap). Measured Phase 1.5: insertion-order NDCG@10 ≈ raw gap NDCG@10 ≈
+0.063. This wastes the cross-source agreement signal — a book ranked low
+by gap but high by embedding_read or popularity stays low in insertion
+order.
+
+Stage 1b applies Reciprocal Rank Fusion (RRF) to the merged pool. For
+each candidate:
+
+    rrf_score(book) = Σ over sources s of  weight_s / (k_constant + rank_s)
+
+where:
+- rank_s is the candidate's 1-indexed rank in source s (None if not surfaced)
+- weight_s reflects per-source confidence; sources that didn't surface the
+  candidate contribute 0
+- k_constant = 60 (standard from Cormack et al., TREC RRF paper)
+
+Weights (v1, 3 sources):
+
+| Source | Weight | Rationale |
+|---|---|---|
+| gap | 1.0 | Mission-aligned, primary signal |
+| popularity | 0.7 | Strong baseline; current eval winner |
+| embedding_read | 0.4 | Mission-orthogonal but sharp when relevant |
+
+When gap_query_embedding lands (Phase 2), reweight roughly:
+
+| Source | Weight |
+|---|---|
+| gap_query_embedding | 1.2 |
+| gap | 1.0 |
+| popularity | 0.5 |
+| embedding_read | 0.3 |
+
+Phase 1.5 measured lift over insertion order (3 sources, 20 synthetic
+users):
+
+| Metric | Insertion | RRF | Lift |
+|---|---|---|---|
+| Recall @ 10 | 0.075 | 0.175 | 2.3× |
+| Recall @ 20 | 0.250 | 0.425 | 1.7× |
+| NDCG @ 10 | 0.063 | 0.132 | 2.1× |
+| Median held-out rank in pool | 30 | 25 | -5 positions |
+
+RRF reclaims 7.3% of the available NDCG gap (0.063 → 0.132 vs oracle
+1.000). The remaining 92.7% is the cross-encoder's opportunity.
+
+RRF is fast (sort N candidates by computed score), deterministic, and
+explainable. It runs after Stage 1a deduplication and before Stage 2
+cross-encoder reranking. The cross-encoder's input pool order is the
+RRF output, not raw insertion order.
+
 ## 6. Training pair generation
 
 ### Approach: synthetic users with qualified hold-out + source-typed
@@ -595,21 +657,27 @@ Not just bi-encoder alone. Compare against the full set:
 
 | Baseline | Why include |
 |---|---|
-| Hybrid retrieval alone (no cross-encoder rerank) | Establishes Stage 1 ceiling |
-| Popularity | Current eval winner; must beat this to justify the project |
+| Hybrid retrieval + RRF (no cross-encoder rerank) | Establishes Stage 1 ceiling — THE primary target to beat |
+| Popularity | Current eval winner on the standalone strategy benchmark |
 | Gap scoring v1 | Original mission-aligned strategy |
 | Gap scoring v2 (if A/B established) | Better mission-aligned strategy |
 | Bi-encoder alone (rank_by_embedding) | What the prior design proposed as Stage 1 |
 
 ### Success criterion
 
-The cross-encoder must improve NDCG@10 by >= 0.05 absolute over the
-**strongest non-rerank strategy** measured on the test split. If the
-strongest baseline is popularity at 0.18, the cross-encoder must hit
->= 0.23. If a baseline is at 0.30, the cross-encoder must hit >= 0.35.
+The cross-encoder must improve NDCG@10 by >= 0.05 absolute over **hybrid
+retrieval + RRF** — the strongest non-ML baseline.
 
-This is a stricter criterion than "improve over bi-encoder" because
-bi-encoder isn't actually the most relevant baseline for Atlas.
+Phase 1.5 measured baseline (3 sources, no gap_query_embedding):
+    Hybrid + RRF NDCG@10 = 0.132
+
+Phase 2 will re-measure with gap_query_embedding added. The cross-encoder
+target is whichever Phase 2 RRF NDCG@10 number is current, plus 0.05.
+
+This is a stricter criterion than "improve over insertion-order gap" or
+"improve over bi-encoder," because RRF is a real deterministic baseline
+that anyone can implement without training. If the cross-encoder can't
+beat RRF + 0.05, it isn't earning its place in the pipeline.
 
 ### Per-negative-type discrimination
 
@@ -668,3 +736,10 @@ invalidating training data already generated.
 - **MMR diversification in production**: a future enhancement could
   add MMR-style diversity at the final top-10 stage to avoid
   surfacing 10 books on the same concept. Out of scope for v1.
+
+- **Synthetic-eval bias toward annotated books**: held-outs are
+  sampled from annotated books, so the recall metric is structurally
+  bounded to recall@~60 books. Union recall=1.00 in Phase 1.5 reflects
+  this, not real-world recall over the full 468. A long-tail recall
+  evaluation is a separate workstream (likely paired with auto-
+  annotation).
