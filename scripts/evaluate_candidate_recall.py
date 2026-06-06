@@ -1,15 +1,17 @@
-"""Phase 1 + 1.5 candidate recall baseline.
+"""Phase 1 + 1.5 + 2 candidate recall baseline + rank diagnostics
++ gap-query alignment audit.
 
 Measures per-source and union recall, rank distributions, and NDCG@10
 on synthetic archetype users for TWO pool orderings:
 
   1. Insertion order (current generate_candidates output —
-     gap first, then embedding_read, then popularity)
+     gap first, then gap_query, then embedding_read, then popularity)
   2. Reciprocal Rank Fusion (RRF — weighted rank fusion across sources)
 
-The comparison reveals whether a non-ML merge policy already lifts NDCG
-meaningfully. If RRF doubles or triples NDCG, the cross-encoder must
-beat RRF, not just insertion order — a stronger baseline.
+Plus a gap-query diagnostic: are the concepts gap_query embedding
+queries actually aligned with the concepts of the user's held-out books?
+Tests the hypothesis that tied gap values (gap = COVERAGE_TARGET for many
+unconsidered concepts) cause gap_query to pick semi-random query slugs.
 
 See docs/CROSS_ENCODER_DESIGN.md Section 8 for the recall quality gate.
 
@@ -28,18 +30,21 @@ import uuid
 from pathlib import Path
 
 import mlflow
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
+from backend.app.models import BookConceptAnnotation, Concept  # noqa: E402
 from backend.app.services.candidate_generation import (  # noqa: E402
     Candidate,
     SOURCE_ORDER,
     generate_candidates,
     reciprocal_rank_fusion,
 )
+from backend.app.services.gap_query_embedding import TOP_N_GAPS  # noqa: E402
+from backend.app.services.gap_scoring import COVERAGE_TARGET, get_gap_vector  # noqa: E402
 from scripts.evaluate_baselines import (  # noqa: E402
     ARCHETYPES,
     N_USERS_PER_ARCHETYPE,
@@ -100,16 +105,70 @@ def heldout_ranks_in_pool(
     return ranks
 
 
+def get_gap_query_concepts(
+    session: Session,
+    read_book_ids: list[uuid.UUID],
+) -> list[str]:
+    """Reproduce the slug selection that rank_by_gap_query_embedding uses.
+
+    Returns the top TOP_N_GAPS concept slugs the user's gap_query was built
+    from. Sort by gap value descending; tie-break is dict iteration order
+    (potentially non-deterministic across runs if multiple concepts share
+    the max gap).
+    """
+    if not read_book_ids:
+        return []
+    gap_vector = get_gap_vector(session, read_book_ids)
+    top = sorted(
+        ((slug, gap) for slug, gap in gap_vector.items() if gap > 0),
+        key=lambda kv: kv[1],
+        reverse=True,
+    )[:TOP_N_GAPS]
+    return [slug for slug, _ in top]
+
+
+def get_book_concepts(
+    session: Session,
+    book_ids: list[uuid.UUID],
+) -> set[str]:
+    """Return the set of concept slugs annotated against any of these books."""
+    if not book_ids:
+        return set()
+    rows = session.execute(
+        select(Concept.slug)
+        .join(BookConceptAnnotation, BookConceptAnnotation.concept_id == Concept.id)
+        .where(BookConceptAnnotation.book_id.in_(book_ids))
+        .distinct()
+    ).scalars().all()
+    return set(rows)
+
+
+def gap_distribution(
+    session: Session,
+    read_book_ids: list[uuid.UUID],
+) -> dict:
+    """Count partial vs saturated gaps for the user.
+
+    A 'partial gap' is one where 0 < gap < COVERAGE_TARGET (concept the
+    user has touched but not completed). A 'saturated gap' is gap ==
+    COVERAGE_TARGET (concept the user has not touched at all). Partial
+    gaps are more actionable — they represent natural-progression
+    recommendations.
+    """
+    if not read_book_ids:
+        return {"partial": 0, "saturated": 0, "covered": 0}
+    gap_vector = get_gap_vector(session, read_book_ids)
+    partial = sum(1 for g in gap_vector.values() if 0 < g < COVERAGE_TARGET)
+    saturated = sum(1 for g in gap_vector.values() if g >= COVERAGE_TARGET)
+    covered = sum(1 for g in gap_vector.values() if g <= 0)
+    return {"partial": partial, "saturated": saturated, "covered": covered}
+
+
 def measure_recall_for_user(
     pool: list[Candidate],
     heldout_ids: list[uuid.UUID],
 ) -> dict:
-    """For one user, compute recall + rank + NDCG metrics from a generated pool.
-
-    Order-sensitive metrics (union_recall, heldout_union_ranks, ndcg_at_10)
-    depend on pool ordering. Order-independent metrics (per_source_*,
-    oracle_ndcg, union_pool_size) are intrinsic to pool membership.
-    """
+    """For one user, compute recall + rank + NDCG metrics from a generated pool."""
     heldout_set = set(heldout_ids)
     n_heldout = len(heldout_set)
     pool_ids = [c.book_id for c in pool]
@@ -142,6 +201,7 @@ def measure_recall_for_user(
     # Per-source held-out ranks (order-independent — uses Candidate rank fields)
     rank_attr = {
         "gap": "gap_rank",
+        "gap_query_embedding": "gap_query_rank",
         "embedding_read": "embedding_rank",
         "popularity": "popularity_rank",
     }
@@ -219,7 +279,6 @@ def main() -> int:
             m_rrf["user_idx"] = user["user_idx"]
             results_rrf.append(m_rrf)
 
-            # Per-user MLflow run — both orderings
             run_name = f"{user['archetype']}__u{user['user_idx']}"
             with mlflow.start_run(run_name=run_name):
                 mlflow.log_params({
@@ -237,10 +296,72 @@ def main() -> int:
                 mlflow.log_metric("rrf_ndcg_at_10", m_rrf["ndcg_at_10"])
                 mlflow.log_metric("oracle_ndcg_at_10", m_ins["oracle_ndcg_at_10"])
 
+        # ---- Gap-query diagnostic ----
+        # The reviewer's hypothesis: if multiple concepts tie at gap=TARGET,
+        # gap_query picks 5 essentially at random. If those random concepts
+        # don't overlap with the held-outs' concepts, gap_query is querying
+        # the wrong things.
+        gq_diagnostics = []
+        for user in users:
+            query_concepts = get_gap_query_concepts(session, user["read_ids"])
+            heldout_concepts = get_book_concepts(session, user["heldout_ids"])
+            gap_dist = gap_distribution(session, user["read_ids"])
+
+            query_set = set(query_concepts)
+            overlap = query_set & heldout_concepts
+            union = query_set | heldout_concepts
+            jaccard = len(overlap) / len(union) if union else 0.0
+
+            gq_diagnostics.append({
+                "archetype": user["archetype"],
+                "user_idx": user["user_idx"],
+                "query_concepts": query_concepts,
+                "heldout_concepts": sorted(heldout_concepts),
+                "overlap_count": len(overlap),
+                "overlap_slugs": sorted(overlap),
+                "jaccard": jaccard,
+                "partial_gaps": gap_dist["partial"],
+                "saturated_gaps": gap_dist["saturated"],
+            })
+
+        print()
+        print("=" * 78)
+        print("GAP-QUERY DIAGNOSTIC (is gap-query querying the right concepts?)")
+        print("=" * 78)
+
+        mean_overlap = statistics.mean(d["overlap_count"] for d in gq_diagnostics)
+        mean_jaccard = statistics.mean(d["jaccard"] for d in gq_diagnostics)
+        mean_partial = statistics.mean(d["partial_gaps"] for d in gq_diagnostics)
+        mean_saturated = statistics.mean(d["saturated_gaps"] for d in gq_diagnostics)
+        n_zero_overlap = sum(1 for d in gq_diagnostics if d["overlap_count"] == 0)
+
+        print(f"\nAGGREGATE:")
+        print(f"  Mean overlap (query concepts ∩ held-out concepts): {mean_overlap:.2f} / 5")
+        print(f"  Mean Jaccard similarity:                            {mean_jaccard:.4f}")
+        print(f"  Users with ZERO overlap:                            {n_zero_overlap}/{len(gq_diagnostics)}")
+        print(f"  Mean partial gaps per user (0 < gap < TARGET):      {mean_partial:.1f}")
+        print(f"  Mean saturated gaps per user (gap == TARGET):       {mean_saturated:.1f}")
+        print(f"  → If saturated is high, gap_query is picking from ties.")
+
+        # Sample 4 users (one per archetype) for visual inspection
+        print(f"\nSAMPLE (one user per archetype — visually check alignment):")
+        seen_archetypes = set()
+        for d in gq_diagnostics:
+            if d["archetype"] in seen_archetypes:
+                continue
+            seen_archetypes.add(d["archetype"])
+            print(f"\n  [{d['archetype']} u{d['user_idx']}]")
+            print(f"    query gaps: {d['query_concepts']}")
+            print(f"    held-out concepts: {d['heldout_concepts'][:8]}"
+                  f"{' (truncated)' if len(d['heldout_concepts']) > 8 else ''}")
+            print(f"    overlap: {d['overlap_slugs'] if d['overlap_slugs'] else '(none)'}")
+            print(f"    gap distribution: partial={d['partial_gaps']}, "
+                  f"saturated={d['saturated_gaps']}")
+
         # ---- Console summary ----
         print()
         print("=" * 78)
-        print("PHASE 1 + 1.5: insertion-order vs RRF on the same candidate pool")
+        print("PHASE 1 + 1.5 + 2: insertion-order vs RRF on the same candidate pool")
         print("=" * 78)
 
         n = len(results_insertion)
@@ -256,7 +377,7 @@ def main() -> int:
             rrf = statistics.mean(r["union_recall"][K] for r in results_rrf)
             print(f"{K:>5}  {ins:>10.4f}  {rrf:>10.4f}  {rrf - ins:>+10.4f}")
 
-        # NDCG comparison — the headline diagnostic
+        # NDCG comparison
         ndcg_ins = statistics.mean(r["ndcg_at_10"] for r in results_insertion)
         ndcg_rrf = statistics.mean(r["ndcg_at_10"] for r in results_rrf)
         oracle = statistics.mean(r["oracle_ndcg_at_10"] for r in results_insertion)
@@ -264,8 +385,9 @@ def main() -> int:
         print(f"  insertion order : {ndcg_ins:.4f}")
         print(f"  RRF             : {ndcg_rrf:.4f}  ({ndcg_rrf - ndcg_ins:+.4f} lift)")
         print(f"  oracle (perfect): {oracle:.4f}")
-        print(f"  RRF reclaims {(ndcg_rrf - ndcg_ins) / (oracle - ndcg_ins) * 100:.1f}% "
-              f"of the available NDCG gap.")
+        if oracle > ndcg_ins:
+            print(f"  RRF reclaims {(ndcg_rrf - ndcg_ins) / (oracle - ndcg_ins) * 100:.1f}% "
+                  f"of the available NDCG gap.")
 
         # Held-out rank comparison
         def collect_ranks(results, key):
@@ -293,9 +415,9 @@ def main() -> int:
             print(f"{'max':<12}  {max(ranks_ins):>10}  {max(ranks_rrf):>10}")
             print(f"{'missing':<12}  {miss_ins:>10}  {miss_rrf:>10}")
 
-        # Per-source held-out ranks (order-independent — show once)
+        # Per-source held-out ranks
         print(f"\nPER-SOURCE HELD-OUT RANKS (rank within source's top-K, intrinsic):")
-        print(f"{'source':<20}  {'mean':>8}  {'median':>8}  {'min':>6}  "
+        print(f"{'source':<22}  {'mean':>8}  {'median':>8}  {'min':>6}  "
               f"{'max':>6}  {'n found':>8}")
         for source in SOURCE_ORDER:
             ranks = []
@@ -305,7 +427,7 @@ def main() -> int:
                         ranks.append(rank)
             if ranks:
                 print(
-                    f"{source:<20}  "
+                    f"{source:<22}  "
                     f"{statistics.mean(ranks):>8.1f}  "
                     f"{statistics.median(ranks):>8.1f}  "
                     f"{min(ranks):>6}  "
@@ -313,25 +435,25 @@ def main() -> int:
                     f"{len(ranks):>8}"
                 )
             else:
-                print(f"{source:<20}  (no held-outs surfaced by this source)")
+                print(f"{source:<22}  (no held-outs surfaced by this source)")
 
-        # Per-source recall (order-independent)
+        # Per-source recall
         print("\nPER-SOURCE RECALL (at each source's configured top-K):")
-        print(f"{'source':<20}  {'mean':>8}  {'std':>8}  {'pool size':>10}")
+        print(f"{'source':<22}  {'mean':>8}  {'std':>8}  {'pool size':>10}")
         for source in SOURCE_ORDER:
             recalls = [r["per_source_recall"][source] for r in results_insertion]
             sizes = [r["per_source_pool_size"][source] for r in results_insertion]
             mean = statistics.mean(recalls)
             std = statistics.stdev(recalls) if len(recalls) > 1 else 0.0
             mean_size = statistics.mean(sizes)
-            print(f"{source:<20}  {mean:>8.4f}  {std:>8.4f}  {mean_size:>10.1f}")
+            print(f"{source:<22}  {mean:>8.4f}  {std:>8.4f}  {mean_size:>10.1f}")
 
-        # Per-source unique contribution (order-independent)
+        # Per-source unique contribution
         print("\nPER-SOURCE UNIQUE CONTRIBUTION (mean # books found ONLY by this source):")
         for source in SOURCE_ORDER:
             uniques = [r["per_source_unique"][source] for r in results_insertion]
             mean = statistics.mean(uniques)
-            print(f"  {source:<20}  {mean:>6.1f} books / user")
+            print(f"  {source:<22}  {mean:>6.1f} books / user")
 
         # Quality gate
         print()
@@ -352,7 +474,7 @@ def main() -> int:
                 "n_users": n,
                 "seed": RANDOM_SEED,
                 "sources": ",".join(SOURCE_ORDER),
-                "phase": "1.5_rrf_vs_insertion",
+                "phase": "2_audit_gap_query_diagnostic",
             })
             for K in RECALL_KS:
                 ins = statistics.mean(r["union_recall"][K] for r in results_insertion)
@@ -367,6 +489,10 @@ def main() -> int:
             mlflow.log_metric("mean_rrf_ndcg_at_10", ndcg_rrf)
             mlflow.log_metric("mean_oracle_ndcg_at_10", oracle)
             mlflow.log_metric("rrf_ndcg_lift", ndcg_rrf - ndcg_ins)
+            mlflow.log_metric("gap_query_mean_overlap", mean_overlap)
+            mlflow.log_metric("gap_query_zero_overlap_users", n_zero_overlap)
+            mlflow.log_metric("mean_partial_gaps", mean_partial)
+            mlflow.log_metric("mean_saturated_gaps", mean_saturated)
             mlflow.log_metric("gate_passed", float(gate_passed))
 
         print(f"\nMLflow runs at: ./mlruns/  (run `mlflow ui` to browse)")

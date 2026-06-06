@@ -199,3 +199,28 @@ class BookEmbedding(Base):
     created_at: Mapped[datetime] = mapped_column(
         nullable=False, server_default=func.now()
     )
+
+
+class ConceptEmbedding(Base):
+    """One 384-dim sentence embedding per concept.
+
+    Used by gap_query_embedding service: at query time, fetch the
+    user's top gap concepts' vectors, weight-sum by gap value, and
+    find books with embeddings nearest to the resulting query vector.
+
+    Dimension locked at 384 to match BAAI/bge-small-en-v1.5 (same
+    model as book_embeddings). Switching to a 768-dim model requires
+    a new migration.
+    """
+    __tablename__ = "concept_embeddings"
+
+    concept_id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
+        ForeignKey("concepts.id", ondelete="CASCADE"),
+        primary_key=True,
+    )
+    embedding: Mapped[list[float]] = mapped_column(Vector(384), nullable=False)
+    model: Mapped[str] = mapped_column(String(128), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        nullable=False, server_default=func.now()
+    )

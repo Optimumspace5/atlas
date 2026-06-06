@@ -19,6 +19,17 @@ with no ML. RRF is now an official Stage 1b component. The cross-encoder's
 revised benchmark is "beat RRF" (0.132), not "beat insertion-order gap"
 (0.063).
 
+**Updated 2026-06-06 with Phase 2 findings.** Added gap_query_embedding as
+the 4th Stage 1a source. Initial weight of 1.2 caused a 0.045 NDCG
+regression (0.132 → 0.087) because gap-vector tie-breaking made the
+synthetic gap queries fire on alphabetical-first concepts. Re-tuning to
+weight 0.4 restored baseline (NDCG@10 = 0.133). Manual review of 40
+candidates (10 per archetype, see Section 5) confirmed gap_query produces
+mostly plausible long-tail picks (85% good/plausible) that the synthetic
+eval can't measure because held-outs are restricted to annotated books.
+Decision: keep gap_query at weight 0.4; unannotated picks remain
+ambiguous_skip per Section 6.
+
 ## 1. Why a cross-encoder
 
 Atlas ranks books to fill the user's knowledge gaps. The four existing
@@ -307,6 +318,48 @@ Implementation:
         - concept_embeddings table (new migration)
         - scripts/generate_concept_embeddings.py (new script)
 
+#### Phase 2 audit (2026-06-06)
+
+After adding gap_query_embedding at the designed weight of 1.2,
+candidate-pool NDCG@10 dropped from 0.132 (Phase 1.5, 3 sources) to
+0.087. Investigation:
+
+- Synthetic users typically have many concepts tied at the saturated
+  gap value (gap = COVERAGE_TARGET = 2.0). Top-5 selection by
+  gap-then-slug alphabetical produced near-identical queries across
+  users — mean overlap with user-specific held-out concepts: 0.80 / 5.
+- The 1.2 weight gave this near-uniform signal more pull than the
+  user-specific gap_scoring source. RRF was dominated by a
+  weakly-individuated signal.
+
+Remediation: drop weight 1.2 → 0.4 (matching embedding_read). Phase 2
+NDCG@10 returned to 0.133 — equivalent to the Phase 1.5 baseline,
+with gap_query now contributing as a low-weight discovery source
+rather than a dominant signal.
+
+Manual review (40 candidates across 4 archetype users,
+scripts/inspect_gap_query.py):
+
+| Label | Count | % |
+|---|---|---|
+| good_gap_candidate | 7 | 17.5% |
+| plausible_long_tail | 27 | 67.5% |
+| redundant_similar | 1 | 2.5% |
+| irrelevant_noise | 4 | 10% |
+| unknown | 1 | 2.5% |
+
+85% good/plausible. The "noise" cases were domain-narrow (forex-specific
+books for a value-investor user) or depth-mismatched (beginner books for
+an advanced reader). The "plausible" cases were semantic-adjacency
+discoveries (market microstructure for users with no microstructure
+reading, behavioral finance for value-heavy readers).
+
+Verdict: gap_query is doing useful semantic gap-fill work the synthetic
+eval cannot measure (held-outs are restricted to the 60 annotated books).
+Keep at low weight. Per Section 6, gap_query's unannotated picks become
+ambiguous_skip automatically — gap_query widens the candidate pool but
+does not define hard negatives.
+
 Known limitations:
 - Quality depends on concept.description text quality
 - Indirect signal — semantic similarity to gap concepts ≠ guaranteed
@@ -404,22 +457,14 @@ where:
   candidate contribute 0
 - k_constant = 60 (standard from Cormack et al., TREC RRF paper)
 
-Weights (v1, 3 sources):
+v2.1 weights (4 sources, post-Phase-2-audit — current production):
 
 | Source | Weight | Rationale |
 |---|---|---|
-| gap | 1.0 | Mission-aligned, primary signal |
-| popularity | 0.7 | Strong baseline; current eval winner |
-| embedding_read | 0.4 | Mission-orthogonal but sharp when relevant |
-
-When gap_query_embedding lands (Phase 2), reweight roughly:
-
-| Source | Weight |
-|---|---|
-| gap_query_embedding | 1.2 |
-| gap | 1.0 |
-| popularity | 0.5 |
-| embedding_read | 0.3 |
+| gap | 1.0 | Mission-aligned, user-specific primary signal |
+| popularity | 0.7 | Strong baseline; gap-blind broad coverage |
+| gap_query_embedding | 0.4 | Long-tail discovery; deweighted from planned 1.2 after Phase 2 audit (Section 5) |
+| embedding_read | 0.4 | Mission-orthogonal; sharp when relevant |
 
 Phase 1.5 measured lift over insertion order (3 sources, 20 synthetic
 users):
@@ -507,6 +552,13 @@ Track is_annotated on every pair. Apply differently per negative type:
 
 Conservative on purpose. False negatives poison training much more
 than missing negatives slow convergence.
+
+This rule is especially important for gap_query_embedding (Phase 2
+audit, Section 5): the manual review found 85% of its picks are
+semantically useful but most are unannotated, so they are not provably
+weaker than positives. The ambiguous_skip default is the right
+treatment — gap_query widens the candidate pool but does not get to
+define hard negatives.
 
 ### Target volume
 
@@ -671,8 +723,10 @@ retrieval + RRF** — the strongest non-ML baseline.
 Phase 1.5 measured baseline (3 sources, no gap_query_embedding):
     Hybrid + RRF NDCG@10 = 0.132
 
-Phase 2 will re-measure with gap_query_embedding added. The cross-encoder
-target is whichever Phase 2 RRF NDCG@10 number is current, plus 0.05.
+Phase 2 measured baseline (4 sources, gap_query_embedding at weight 0.4):
+    Hybrid + RRF NDCG@10 = 0.133
+
+The cross-encoder target is Phase 2 RRF + 0.05 absolute = NDCG@10 >= 0.183.
 
 This is a stricter criterion than "improve over insertion-order gap" or
 "improve over bi-encoder," because RRF is a real deterministic baseline
@@ -743,3 +797,10 @@ invalidating training data already generated.
   this, not real-world recall over the full 468. A long-tail recall
   evaluation is a separate workstream (likely paired with auto-
   annotation).
+
+- **gap_query Phase 2 audit residual**: 4 of 40 candidates (10%) were
+  labelled irrelevant_noise — forex-narrow or country-specific books
+  whose tokens overlap "trading" / "markets" but not the user's actual
+  reading direction. Consider a domain filter (e.g., book-level topic
+  tags) at gap_query-embedding time if this fraction grows when the
+  corpus expands beyond 468 books.
