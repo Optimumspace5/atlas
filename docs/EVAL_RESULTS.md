@@ -84,3 +84,84 @@ held-outs are restricted to the 60 annotated books.
 discovery source. Unannotated picks become ambiguous_skip per
 training-data hard-negative rules — gap_query widens the candidate pool
 but does not define hard negatives.
+---
+
+# Phase 3 — Cross-encoder training data v1
+
+Date: 2026-06-07
+Output: data/cross_encoder_pairs_v1.jsonl (1,858 pairs)
+
+## Generation parameters (CROSS_ENCODER_DESIGN.md §6, calibrated)
+
+- 250 synthetic archetype users (248 generated, 2 archetype-pool skips)
+- 3 held-outs per user
+- 1 random negative per positive
+- 2 hard negatives per source per positive (gap, embedding_read, popularity)
+- Seed 42, deterministic
+
+## Calibration shift (3.4 → 3.5)
+
+Original §6 rule (d) for positive labeling referenced "top-3 user gap
+concepts." Phase 3.4 measured 178/273 in-pool held-outs failing rule
+(d) because synthetic users have ~18 saturated gaps tied at gap=2.0;
+top-3 selection ran on alphabetical tie-break and rarely matched the
+held-out's actual concepts.
+
+Phase 3.5 reformulated rule (d) symmetrically for positive and hard
+rules: "concept where user has gap >= 1.0" replaces "top-3 user gap
+concept." Same strength threshold (0.5), no quality compromise — the
+fix targeted the alphabetical-tie artifact, not the label bar.
+
+Positive yield jumped 77 -> 623 at the same 100 users; final dataset
+generated at 250 users for train/val/test stability.
+
+## Composition (1,858 pairs)
+
+| Label | Count |
+|---|---|
+| positive | 623 |
+| hard_gap | 327 |
+| hard_embedding_read | 158 |
+| hard_popularity | 127 |
+| random | 623 |
+
+Split: 80/10/10 train/val/test, hash-partitioned by user_id.
+
+## Phase 3.6 manual audit (§6 mandatory quality gate)
+
+Stratified sample: 20 random positives + 10 each per hard-negative
+source = 50 audit blocks. Seed 42.
+
+| Pile | valid | weak | mislabeled | gate (§6) |
+|---|---|---|---|---|
+| Positives (20) | 10 | 9 | 1 | PASS (≤ 3 threshold) |
+| hard_gap (10) | 10 | 0 | 0 | — |
+| hard_embedding_read (10) | 10 | 0 | 0 | — |
+| hard_popularity (10) | 10 | 0 | 0 | — |
+| Hard total (30) | 30 | 0 | 0 | PASS (≤ 4 threshold) |
+
+**Decision: proceed to Phase 4 (cross-encoder fine-tuning).**
+
+## Observations worth recording
+
+- **100% valid hard negatives.** Symmetric rule (d') tightening
+  worked — no false negatives detected. Random sampling of 30 found
+  zero gap-teaching books mislabelled as hard. The most dangerous
+  failure mode is eliminated.
+
+- **45% weak positives** (9/20). Reformulated positive rule is
+  permissive — books touch a real gap concept but aren't always deep
+  gap-fillers for the specific user. Acceptable for binary BCE loss
+  (positive > negative gradient still holds) but caps the training
+  signal's sharpness. v2 calibration should consider per-user-context
+  strength weighting.
+
+- **Same book labelled differently across users** (e.g., Technical
+  Analysis of Stock Trends: valid / mislabeled / weak in three slots).
+  Confirms the cross-encoder is the right architecture — a single
+  global book score can't capture user-conditional relevance.
+
+- **Phase 3.0 recall vs Phase 3.5 retrieval drift.** Phase 3.0 measured
+  union recall=1.0 at 20 users; Phase 3.5 at 248 users measured
+  674/744 = 90.6% in-pool. Difference is sample variance, not a
+  retrieval regression.

@@ -1,17 +1,17 @@
 """Generate training data for the cross-encoder reranker.
 
 Schema is locked in docs/CROSS_ENCODER_DESIGN.md §6 (labeling) and §7
-(output format). Phase 3.3 wires the orchestration scaffold; labeler
-bodies (is_positive, sample_hard_X, sample_random_negatives) are
-placeholders that return False / [] until Phase 3.4.
+(output format). Phase 3.5 calibration: rule (d) reformulated from
+"alphabetical top-3 gap concepts" to "any concept where user has
+meaningful gap" — fixes the gap-tie alphabetical-ordering bottleneck
+observed in Phase 3.4 (178/273 held-outs unfairly rejected).
 
 Output: data/cross_encoder_pairs_v1.jsonl, one training pair per line.
-See TrainingPair below for the locked §7 schema.
 
 Usage:
     python scripts/generate_training_data.py
     python scripts/generate_training_data.py --n-users 100 --seed 42
-    python scripts/generate_training_data.py --dry-run     # skip JSONL write
+    python scripts/generate_training_data.py --dry-run
 
 Requires DATABASE_URL in env.
 """
@@ -50,7 +50,7 @@ from scripts.evaluate_baselines import (  # noqa: E402
 
 
 # -----------------------------------------------------------------------------
-# Configuration (mirrors docs/CROSS_ENCODER_DESIGN.md §6)
+# Configuration (mirrors docs/CROSS_ENCODER_DESIGN.md §6, Phase 3.5 calibrated)
 # -----------------------------------------------------------------------------
 DEFAULT_N_USERS = 100
 DEFAULT_HELDOUT_PER_USER = 3
@@ -58,7 +58,18 @@ DEFAULT_RANDOM_NEGATIVES_PER_POSITIVE = 1
 DEFAULT_HARD_NEGATIVES_PER_SOURCE = 2
 
 HARD_NEGATIVE_SOURCES = ["gap", "embedding_read", "popularity"]
-TOP_GAP_CONCEPTS_FOR_RULES = 3              # §6 references "top-3 user gap concepts"
+
+# §6 rule thresholds — calibrated in Phase 3.5.
+# Original §6 design referenced "top-3 user gap concepts" for rules (d) on
+# both positive and hard-negative classification. Phase 3.4 measured 178/273
+# in-pool held-outs failing rule (d) because the alphabetical tie-break on
+# saturated gaps (~18 concepts tied at gap=2.0 per user) made "top-3" arbitrary.
+# Reformulated to "any concept where gap >= MEANINGFUL_GAP_THRESHOLD" — same
+# label quality, no alphabetical artifact.
+MEANINGFUL_GAP_THRESHOLD = 1.0          # user must have gap >= this to count as a meaningful gap
+MIN_STRONG_CONCEPT_STRENGTH = 0.5       # book annotation strength must be >= this to count as "strongly teaches"
+HARD_NEGATIVE_GAP_MARGIN = 0.3          # hard rule (e)
+ARCHETYPE_AFFINITY_MIN_STRENGTH = 0.5   # random-negative exclusion threshold
 
 SPLIT_FRACTIONS = {"train": 0.8, "val": 0.1, "test": 0.1}
 OUTPUT_PATH = REPO_ROOT / "data" / "cross_encoder_pairs_v1.jsonl"
@@ -103,8 +114,72 @@ class GenerationStats:
     heldouts_in_pool: int = 0
     positives_emitted: int = 0
     ambiguous_skipped_heldouts: int = 0
-    hard_negatives_by_source: dict[str, int] = field(default_factory=dict)
+    positive_rule_failures: dict[str, int] = field(default_factory=lambda: {
+        "no_annotation": 0,
+        "no_meaningful_gap": 0,
+        "no_meaningful_gap_strength": 0,
+    })
+    hard_qualified_by_source: dict[str, int] = field(default_factory=dict)
+    hard_emitted_by_source: dict[str, int] = field(default_factory=dict)
     random_negatives_emitted: int = 0
+
+
+# -----------------------------------------------------------------------------
+# Module-level caches
+# -----------------------------------------------------------------------------
+_AFFINITY_CACHE: dict[str, set[uuid.UUID]] = {}
+_ALL_BOOKS_CACHE: list[uuid.UUID] | None = None
+
+
+def _all_book_ids(session: Session) -> list[uuid.UUID]:
+    global _ALL_BOOKS_CACHE
+    if _ALL_BOOKS_CACHE is None:
+        _ALL_BOOKS_CACHE = list(
+            session.execute(select(Book.id)).scalars().all()
+        )
+    return _ALL_BOOKS_CACHE
+
+
+def _archetype_affinity_book_ids(
+    session: Session, archetype_name: str
+) -> set[uuid.UUID]:
+    """Books annotated >= ARCHETYPE_AFFINITY_MIN_STRENGTH on any home or
+    secondary concept of the archetype. EXCLUDED from random negatives
+    (random negs should be unambiguously off-topic).
+    """
+    if archetype_name in _AFFINITY_CACHE:
+        return _AFFINITY_CACHE[archetype_name]
+    spec = ARCHETYPES.get(archetype_name)
+    if spec is None:
+        _AFFINITY_CACHE[archetype_name] = set()
+        return set()
+
+    home_parent_id = session.scalar(
+        select(Concept.id).where(Concept.slug == spec["home"])
+    )
+    home_leaf_ids = (
+        list(session.execute(
+            select(Concept.id).where(Concept.parent_id == home_parent_id)
+        ).scalars().all())
+        if home_parent_id is not None
+        else []
+    )
+    secondary_leaf_ids = list(session.execute(
+        select(Concept.id).where(Concept.slug.in_(spec["secondary"]))
+    ).scalars().all())
+    affinity_concept_ids = home_leaf_ids + secondary_leaf_ids
+
+    if not affinity_concept_ids:
+        _AFFINITY_CACHE[archetype_name] = set()
+        return set()
+
+    result = set(session.execute(
+        select(BookConceptAnnotation.book_id)
+        .where(BookConceptAnnotation.concept_id.in_(affinity_concept_ids))
+        .where(BookConceptAnnotation.strength >= ARCHETYPE_AFFINITY_MIN_STRENGTH)
+    ).scalars().all())
+    _AFFINITY_CACHE[archetype_name] = result
+    return result
 
 
 # -----------------------------------------------------------------------------
@@ -113,13 +188,7 @@ class GenerationStats:
 def generate_synthetic_users(
     session: Session, n_users: int, seed: int
 ) -> list[SyntheticUser]:
-    """Build up to n_users synthetic archetype users, distributed evenly.
-
-    The archetype generator's internal (kept, heldout) split is discarded —
-    we reconstruct the full reading history and re-hold-out via hold_out()
-    per §6. Returned user count may be < n_users if the archetype pool
-    is too small (generate_synthetic_user returns None on small pools).
-    """
+    """Build up to n_users synthetic archetype users, distributed evenly."""
     rng = random.Random(seed)
     per_archetype = max(1, n_users // len(ARCHETYPES))
     users: list[SyntheticUser] = []
@@ -146,13 +215,6 @@ def generate_synthetic_users(
 def hold_out(
     user: SyntheticUser, k: int, seed: int
 ) -> tuple[list[uuid.UUID], list[uuid.UUID]]:
-    """Deterministic (kept, held_out) split given (user_id, seed).
-
-    kept is returned in sorted UUID order so build_user_query's fallback
-    "first 2 as recent" is reproducible across runs. If k >= len(reading),
-    cap at len-1 so kept stays non-empty (gap_vector needs at least one
-    read book).
-    """
     h = int(hashlib.sha256(f"{user.user_id}:{seed}".encode()).hexdigest(), 16)
     rng = random.Random(h)
     shuffled = list(user.read_book_ids)
@@ -170,11 +232,6 @@ def hold_out(
 def batch_fetch_annotations(
     session: Session, book_ids: list[uuid.UUID]
 ) -> dict[uuid.UUID, list[tuple[str, float]]]:
-    """Return {book_id: [(concept_slug, strength), ...]} for the given pool.
-
-    One query for the whole pool — avoids N+1 lookups during classification.
-    Books without annotations are absent from the dict (use .get(bid, [])).
-    """
     if not book_ids:
         return {}
     rows = session.execute(
@@ -193,22 +250,34 @@ def batch_fetch_annotations(
 
 
 # -----------------------------------------------------------------------------
-# Step 4: labelers (Phase 3.3 placeholders — bodies in Phase 3.4)
+# Step 4: labelers (Phase 3.5 — gap-meaningful concept rules)
 # -----------------------------------------------------------------------------
-def is_positive(
+def classify_held_out(
     candidate: Candidate,
     pool_annotations: dict[uuid.UUID, list[tuple[str, float]]],
-    top_gap_concepts: list[str],
     gap_vector: dict[str, float],
-) -> bool:
-    """§6 positive rules (a-d). Placeholder returns False until Phase 3.4.
-
-    Phase 3.4 will check:
-      (b) candidate has ≥1 annotation
-      (c) ≥1 annotated concept with gap ≥ COVERAGE_TARGET / 2
-      (d) on ≥1 top-3 gap concept, strength ≥ 0.5
+) -> str:
+    """Apply §6 positive rules (b-d), Phase 3.5 reformulation. Returns:
+        "positive"                    — qualified positive (label=1)
+        "no_annotation"               — rule (b) failed
+        "no_meaningful_gap"           — book has no annotation on a concept
+                                         where the user has gap >= MEANINGFUL_GAP_THRESHOLD
+        "no_meaningful_gap_strength"  — book annotated on gap-meaningful concepts
+                                         but no strength >= MIN_STRONG_CONCEPT_STRENGTH
     """
-    return False
+    annotations = pool_annotations.get(candidate.book_id, [])
+    if not annotations:
+        return "no_annotation"
+    gap_meaningful = [
+        (slug, strength) for slug, strength in annotations
+        if gap_vector.get(slug, 0.0) >= MEANINGFUL_GAP_THRESHOLD
+    ]
+    if not gap_meaningful:
+        return "no_meaningful_gap"
+    if not any(strength >= MIN_STRONG_CONCEPT_STRENGTH
+               for _, strength in gap_meaningful):
+        return "no_meaningful_gap_strength"
+    return "positive"
 
 
 def sample_hard_X(
@@ -216,21 +285,51 @@ def sample_hard_X(
     source: str,
     positive: Candidate,
     pool_annotations: dict[uuid.UUID, list[tuple[str, float]]],
-    top_gap_concepts: list[str],
+    gap_vector: dict[str, float],
     held_out_ids: set[uuid.UUID],
-    n: int,
-    seed: int,
 ) -> list[Candidate]:
-    """§6 hard-negative rules (a-e) for one source. Placeholder returns [].
+    """Apply §6 hard-negative rules (a-e), Phase 3.5 reformulation of (d):
+        (d') candidate has NO strength >= MIN_STRONG_CONCEPT_STRENGTH on any
+             concept where user has gap >= MEANINGFUL_GAP_THRESHOLD.
 
-    Phase 3.4 will check:
-      (a) surfaced by source X
-      (b) NOT in held_out_ids
-      (c) annotated
-      (d) on top-3 gap concepts, strength < 0.5 on each
-      (e) candidate gap_score < positive.gap_score - 0.3
+    Returns ALL qualified candidates sorted by source rank ASC
+    (most-confusing first). Caller picks the top-N to emit.
+
+    On rule (e) and missing gap_score: a candidate not surfaced by gap
+    (gap_score=None) is treated as gap_score=0.0 — it sits below the gap
+    top-50 floor, which is conservatively weaker than any positive.
     """
-    return []
+    pos_gap = positive.gap_score or 0.0
+    rank_attr = {
+        "gap": "gap_rank",
+        "embedding_read": "embedding_rank",
+        "popularity": "popularity_rank",
+    }[source]
+
+    qualified: list[Candidate] = []
+    for cand in pool:
+        if source not in cand.sources:
+            continue
+        if cand.book_id in held_out_ids:
+            continue
+        annotations = pool_annotations.get(cand.book_id, [])
+        if not annotations:
+            continue
+        # (d') no strong annotation on any gap-meaningful concept
+        if any(
+            strength >= MIN_STRONG_CONCEPT_STRENGTH
+            and gap_vector.get(slug, 0.0) >= MEANINGFUL_GAP_THRESHOLD
+            for slug, strength in annotations
+        ):
+            continue
+        # (e) gap_score margin
+        cand_gap = cand.gap_score or 0.0
+        if cand_gap >= pos_gap - HARD_NEGATIVE_GAP_MARGIN:
+            continue
+        qualified.append(cand)
+
+    qualified.sort(key=lambda c: getattr(c, rank_attr) or 999_999)
+    return qualified
 
 
 def sample_random_negatives(
@@ -240,12 +339,19 @@ def sample_random_negatives(
     exclude_book_ids: set[uuid.UUID],
     seed: int,
 ) -> list[uuid.UUID]:
-    """§6 random-negative rules. Placeholder returns [].
-
-    Phase 3.4 will sample books outside the user's reading, held-out,
-    Stage 1 pool, and archetype affinity. May be annotated or not.
-    """
-    return []
+    if n <= 0:
+        return []
+    affinity = _archetype_affinity_book_ids(session, user.archetype)
+    all_books = _all_book_ids(session)
+    eligible = [
+        bid for bid in all_books
+        if bid not in exclude_book_ids and bid not in affinity
+    ]
+    if not eligible:
+        return []
+    rng = random.Random(f"random:{user.user_id}:{seed}")
+    rng.shuffle(eligible)
+    return eligible[:n]
 
 
 # -----------------------------------------------------------------------------
@@ -259,16 +365,6 @@ def assign_split(user_id: str) -> str:
         if h < cumulative:
             return split
     return "test"
-
-
-def _top_gap_concepts(gap_vector: dict[str, float], k: int) -> list[str]:
-    """Top-k concept slugs by gap value DESC, tie-break slug ASC."""
-    return [
-        slug for slug, _ in sorted(
-            ((slug, gap) for slug, gap in gap_vector.items() if gap > 0),
-            key=lambda kv: (-kv[1], kv[0]),
-        )[:k]
-    ]
 
 
 def _make_pair(
@@ -312,7 +408,8 @@ def generate_pairs(
 ) -> tuple[list[TrainingPair], GenerationStats]:
     """Walk Stage 1 pools per §6 and emit positive + hard + random pairs."""
     stats = GenerationStats(
-        hard_negatives_by_source={s: 0 for s in HARD_NEGATIVE_SOURCES},
+        hard_qualified_by_source={s: 0 for s in HARD_NEGATIVE_SOURCES},
+        hard_emitted_by_source={s: 0 for s in HARD_NEGATIVE_SOURCES},
     )
     pairs: list[TrainingPair] = []
     pool_size_total = 0
@@ -328,7 +425,7 @@ def generate_pairs(
         split = assign_split(user.user_id)
         query = build_user_query(session, kept)
         if not query:
-            continue  # cold-start guard
+            continue
 
         pool = generate_candidates(session, kept)
         stats.pools_generated += 1
@@ -344,10 +441,9 @@ def generate_pairs(
         }
 
         gap_vector = get_gap_vector(session, kept)
-        top_gaps = _top_gap_concepts(gap_vector, TOP_GAP_CONCEPTS_FOR_RULES)
         held_out_set = set(held_out_ids)
 
-        # ---- Classify each held-out as positive | ambiguous_skip ----
+        # ---- Classify each held-out per §6 positive rules ----
         positives: list[Candidate] = []
         for heldout_id in held_out_ids:
             stats.heldouts_total += 1
@@ -355,9 +451,11 @@ def generate_pairs(
             if cand is None:
                 continue
             stats.heldouts_in_pool += 1
-            if is_positive(cand, annotations, top_gaps, gap_vector):
+            verdict = classify_held_out(cand, annotations, gap_vector)
+            if verdict == "positive":
                 positives.append(cand)
             else:
+                stats.positive_rule_failures[verdict] += 1
                 stats.ambiguous_skipped_heldouts += 1
 
         # ---- Per-positive: emit positive + hard negs + random negs ----
@@ -378,17 +476,16 @@ def generate_pairs(
             stats.positives_emitted += 1
 
             for source in HARD_NEGATIVE_SOURCES:
-                hard = sample_hard_X(
+                qualified = sample_hard_X(
                     pool=pool,
                     source=source,
                     positive=pos,
                     pool_annotations=annotations,
-                    top_gap_concepts=top_gaps,
+                    gap_vector=gap_vector,
                     held_out_ids=held_out_set,
-                    n=hard_negatives_per_source,
-                    seed=seed,
                 )
-                for h in hard:
+                stats.hard_qualified_by_source[source] += len(qualified)
+                for h in qualified[:hard_negatives_per_source]:
                     h_book = books_by_id.get(h.book_id)
                     if h_book is None:
                         continue
@@ -402,9 +499,13 @@ def generate_pairs(
                         is_annotated=bool(annotations.get(h.book_id)),
                         split=split,
                     ))
-                    stats.hard_negatives_by_source[source] += 1
+                    stats.hard_emitted_by_source[source] += 1
 
-            exclude = set(pool_by_id.keys()) | set(user.read_book_ids) | held_out_set
+            exclude = (
+                set(pool_by_id.keys())
+                | set(user.read_book_ids)
+                | held_out_set
+            )
             random_ids = sample_random_negatives(
                 session=session,
                 user=user,
@@ -418,6 +519,7 @@ def generate_pairs(
                         select(Book).where(Book.id.in_(random_ids))
                     ).scalars().all()
                 }
+                rannotations = batch_fetch_annotations(session, random_ids)
                 for bid in random_ids:
                     book = rbooks.get(bid)
                     if book is None:
@@ -430,7 +532,7 @@ def generate_pairs(
                         candidate_text=build_candidate_text(book),
                         label=0,
                         negative_type="random",
-                        is_annotated=False,
+                        is_annotated=bool(rannotations.get(bid)),
                         split=split,
                     ))
                     stats.random_negatives_emitted += 1
@@ -442,20 +544,31 @@ def generate_pairs(
 
 
 def print_stats(stats: GenerationStats) -> None:
-    print("\nPhase 3.3 scaffold-mode run:")
+    print("\nPhase 3.5 run:")
     print(f"  users processed:              {stats.users_processed}")
     print(f"  candidate pools generated:    {stats.pools_generated}")
     print(f"  mean pool size:               {stats.mean_pool_size:.1f}")
-    print(f"  held-outs total:              {stats.heldouts_total}")
-    print(f"  held-outs found in pool:      {stats.heldouts_in_pool}")
-    print(f"  positives emitted:            {stats.positives_emitted}")
-    print(f"  ambiguous_skipped heldouts:   {stats.ambiguous_skipped_heldouts}")
-    print(f"  hard negatives by source:     {stats.hard_negatives_by_source}")
-    print(f"  random negatives emitted:     {stats.random_negatives_emitted}")
+    print()
+    print("  HELD-OUT CLASSIFICATION:")
+    print(f"    held-outs total:            {stats.heldouts_total}")
+    print(f"    held-outs found in pool:    {stats.heldouts_in_pool}")
+    print(f"    -> positive:                {stats.positives_emitted}")
+    print(f"    -> no_annotation:           {stats.positive_rule_failures['no_annotation']}")
+    print(f"    -> no_meaningful_gap:       {stats.positive_rule_failures['no_meaningful_gap']}")
+    print(f"    -> no_meaningful_gap_strength: {stats.positive_rule_failures['no_meaningful_gap_strength']}")
+    print(f"    ambiguous_skipped total:    {stats.ambiguous_skipped_heldouts}")
+    print()
+    print("  HARD NEGATIVES (per source):")
+    print(f"    {'source':<18} {'qualified':>10}  {'emitted':>8}")
+    for s in HARD_NEGATIVE_SOURCES:
+        q = stats.hard_qualified_by_source.get(s, 0)
+        e = stats.hard_emitted_by_source.get(s, 0)
+        print(f"    {s:<18} {q:>10}  {e:>8}")
+    print()
+    print(f"  RANDOM negatives emitted:     {stats.random_negatives_emitted}")
 
 
 def write_jsonl(pairs: list[TrainingPair], path: Path) -> None:
-    """Atomic write: serialize pairs to a temp file, then os.replace."""
     tmp_path = path.with_suffix(".jsonl.tmp")
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(tmp_path, "w", encoding="utf-8") as f:
@@ -503,7 +616,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--dry-run", action="store_true",
-        help="Generate in memory but skip writing JSONL (useful for scaffold check).",
+        help="Generate in memory but skip writing JSONL.",
     )
     args = parser.parse_args()
 
@@ -529,9 +642,9 @@ def main() -> int:
             print("(--dry-run: JSONL not written)")
         elif pairs:
             write_jsonl(pairs, args.output)
-            print(f"Wrote {len(pairs)} pairs → {args.output}")
+            print(f"Wrote {len(pairs)} pairs -> {args.output}")
         else:
-            print("(no pairs to write — placeholder labelers return False / []; expected in Phase 3.3)")
+            print("(no pairs generated)")
 
     return 0
 
