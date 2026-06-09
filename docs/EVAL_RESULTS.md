@@ -165,3 +165,61 @@ source = 50 audit blocks. Seed 42.
   union recall=1.0 at 20 users; Phase 3.5 at 248 users measured
   674/744 = 90.6% in-pool. Difference is sample variance, not a
   retrieval regression.
+
+---
+
+# Phase 4 — Cross-encoder fine-tune v1
+
+Date: 2026-06-09
+Output: models/cross_encoder_v1_epoch2/ (gitignored, regeneratable)
+
+## Training run
+
+- Base model: BAAI/bge-reranker-base
+- Library: sentence-transformers v3 CrossEncoder.fit() (HF Trainer under the hood)
+- Epochs: 2 (chosen because 3-epoch diagnostic trial showed best NDCG at epoch 2)
+- Batch size: 8, LR 2e-5, warmup 35 steps (10%), max_length 480, seed 42
+- Dataset SHA256: 8fb11f587f146dfa4083771b5f8506faa88ab8955589bf4d769a566056451b99
+- Training time: 154.9 min on CPU (Win10, no GPU)
+- Train pairs 1,414, val groups 30, test pairs 225 (untouched, reserved for Phase 5)
+
+## Val NDCG@10 (diagnostic only)
+
+| Run | Epoch 1 | Epoch 2 | Epoch 3 |
+|---|---|---|---|
+| 3-epoch diagnostic | 0.9522 | 0.9547 | 0.9442 (slight overfit) |
+| 2-epoch final | — | 0.9506 | — |
+
+NOTE: Val NDCG@10 is computed against val-split negatives only, not the
+full RRF candidate pool. Phase 5 is the §9 success-bar evaluation.
+
+## Smoke test (5 random test-split users, never seen during training)
+
+| User | archetype | pos avg | neg avg | gap |
+|---|---|---|---|---|
+| u25 | value_investor | +0.672 | +0.002 | +0.670 |
+| u7  | behavioral_trader | +0.670 | +0.147 | +0.523 |
+| u46 | behavioral_trader | +1.000 | +0.039 | +0.960 |
+| u22 | macro_thinker | +0.672 | +0.004 | +0.669 |
+| u0  | behavioral_trader | +0.700 | +0.848 | -0.148 |
+
+Overall: +0.535 gap, 4/5 PASS.
+
+The single failure (u0) has 3 hard negatives scoring 1.000 — likely
+label noise from rule (d') or cross-user book-level leakage. Worth
+investigating in Phase 5 with per-archetype slicing, not blocking.
+
+## Implementation gotchas
+
+- sentence-transformers v3+ `.fit(save_best_model=True, output_path=...)`
+  silently fails to write weights. Required explicit
+  `model.save_pretrained(path)` after fit() as a safety net.
+- New `.fit()` API routes through HuggingFace Trainer, requires
+  `datasets` and `accelerate>=1.1.0` (added to requirements.txt).
+- `save_pretrained()` saves the FINAL epoch state, not the BEST.
+  Worked around by training exactly 2 epochs (best observed epoch).
+
+## Decision
+
+Proceed to Phase 5: evaluate against the full RRF candidate pool and
+the §9 success bar (NDCG@10 ≥ 0.183).

@@ -10,3 +10,5 @@ scikit-learn
 sentence-transformers
 SQLAlchemy>=2.0
 uvicorn
+datasets
+accelerate>=1.1.0

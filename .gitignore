@@ -41,4 +41,6 @@ Thumbs.db
 mlflow.db
 mlruns/
 mlartifacts/
+# Trained model weights (large, regeneratable from training script)
+models/
 
