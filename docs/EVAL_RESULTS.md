@@ -223,3 +223,79 @@ investigating in Phase 5 with per-archetype slicing, not blocking.
 
 Proceed to Phase 5: evaluate against the full RRF candidate pool and
 the §9 success bar (NDCG@10 ≥ 0.183).
+
+---
+
+# Phase 5 — Cross-encoder evaluation vs RRF baseline
+
+Date: 2026-06-10
+Model: models/cross_encoder_v1_epoch2 (gitignored)
+Dataset SHA256: 8fb11f587f146dfa4083771b5f8506faa88ab8955589bf4d769a566056451b99
+MLflow experiment: cross_encoder_eval_v1
+
+## Phase 5.1 — full RRF pool eval on test split (§9 gate)
+
+28 test-split users, mean pool size 108.2, mean 2.61 qualified held-outs/user.
+Primary NDCG uses QUALIFIED held-outs (JSONL positives) only. Query-match
+safeguard passed for all 28 users (0 mismatches).
+
+NDCG@10 (primary, qualified held-outs):
+
+| Strategy | mean | std |
+|---|---|---|
+| **cross-encoder** | **0.2179** | 0.2117 |
+| RRF baseline | 0.1062 | 0.1729 |
+| popularity | 0.1830 | — |
+| embedding_read | 0.1158 | — |
+| gap (single) | 0.0850 | — |
+
+- CE lift vs RRF: **+0.1117**
+- Success target (RRF + 0.05): 0.1562
+- **GATE: PASS** (CE clears target by +0.062)
+
+Per-archetype NDCG@10 (all four positive lift, no regression):
+
+| Archetype | n | CE | RRF | lift |
+|---|---|---|---|---|
+| technical_trader | 6 | 0.3779 | 0.0645 | +0.3134 |
+| value_investor | 7 | 0.1415 | 0.0647 | +0.0767 |
+| macro_thinker | 7 | 0.0776 | 0.0239 | +0.0537 |
+| behavioral_trader | 8 | 0.2875 | 0.2460 | +0.0416 |
+
+Caveats:
+- Small N (28 users); CE std 0.21 means the lift CI lower bound dips
+  near +0.05. Pass is real but not bulletproof.
+- macro_thinker absolute CE 0.078 is poor (4/7 users had CE=0). v2 should
+  balance archetype training data.
+- Bimodal: 13/28 users had CE=0 (no qualified held-out in top-10); when CE
+  works it lifts +0.30 to +0.65.
+- popularity (0.183) beat RRF (0.106) on this small test set — worth a v2
+  look at gap-weighting in RRF, not blocking.
+
+## Phase 5.2 — per-negative-type rejection rate
+
+Strict: positive_score > negative_score. Margin: pos >= neg + 0.1.
+
+| negative_type | n | pos_mean | neg_mean | strict | margin |
+|---|---|---|---|---|---|
+| hard_gap | 107 | 0.817 | 0.196 | 0.925 | 0.673 |
+| hard_embedding_read | 56 | 0.804 | 0.108 | 0.911 | 0.732 |
+| hard_popularity | 49 | 0.661 | 0.180 | 0.898 | 0.653 |
+| OVERALL | 212 | — | — | 0.915 | 0.684 |
+
+All three hard-negative types rejected at ~90%+ strict — no specific
+blind spot. behavioral_trader is the weakest archetype (84% / 92% / 79%),
+consistent with its 5.1 result. macro_thinker, value_investor, and
+technical_trader hit 100% strict on most types.
+
+Worst failures concentrate in behavioral_trader-u0 and -u7, where the
+model preferred an on-archetype book (Trading in the Zone; Little Book
+That Beats the Market) over a weaker held-out positive (Bogle index;
+Munger almanack). These are label-noise artifacts (the 9 weak + 1
+mislabeled positives from the Phase 3.6 audit surfacing), not systematic
+model errors.
+
+## Decision
+
+Both §9 gates pass. Proceed to Phase 5.3: wire the reranker into the
+recommender service behind ?strategy=cross_encoder.
