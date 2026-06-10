@@ -27,6 +27,7 @@ from backend.app.services.gap_scoring import rank_candidates
 from backend.app.services.popularity import rank_by_popularity
 from backend.app.services.tfidf import rank_by_tfidf
 from backend.app.services.embedding import rank_by_embedding
+from backend.app.services.reranker import rank_by_cross_encoder
 from backend.app.services.explanation import (
     ClaudeAPIError,
     DAILY_LIMIT,
@@ -43,6 +44,7 @@ class RecommendationStrategy(str, Enum):
     POPULARITY = "popularity"
     TFIDF = "tfidf"
     EMBEDDING = "embedding"
+    CROSS_ENCODER = "cross_encoder"
 
 def _rank_to_response(
     ranked: list[tuple[Book, float]],
@@ -93,8 +95,12 @@ def recommend_for_user(
             detail=f"User {user_id} not found",
         )
 
+    # Ordered recency-first so read_book_ids[:2] are the user's most recent
+    # books — the cross-encoder query's "Recent reading" anchors (§3).
     read_book_ids = db.execute(
-        select(UserBook.book_id).where(UserBook.user_id == user_id)
+        select(UserBook.book_id)
+        .where(UserBook.user_id == user_id)
+        .order_by(UserBook.created_at.desc())
     ).scalars().all()
 
     if strategy == RecommendationStrategy.POPULARITY:
@@ -103,6 +109,12 @@ def recommend_for_user(
         ranked = rank_by_tfidf(db, read_book_ids, top_k)
     elif strategy == RecommendationStrategy.EMBEDDING:
         ranked = rank_by_embedding(db, read_book_ids, top_k)
+    elif strategy == RecommendationStrategy.CROSS_ENCODER:
+        # read_book_ids is already ordered recency-first; the first two
+        # become the "Recent reading" anchors in the query (§3).
+        ranked = rank_by_cross_encoder(
+            db, list(read_book_ids), top_k, recent_book_ids=list(read_book_ids)
+        )
     else:  # RecommendationStrategy.GAP — the default
         candidate_ids = db.execute(select(Book.id)).scalars().all()
         ranked = rank_candidates(db, read_book_ids, candidate_ids)
@@ -174,4 +186,3 @@ def explain_recommendation(
         cached=cached,
         quota_remaining=quota_remaining,
     )
-

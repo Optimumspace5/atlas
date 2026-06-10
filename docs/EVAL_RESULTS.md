@@ -299,3 +299,81 @@ model errors.
 
 Both §9 gates pass. Proceed to Phase 5.3: wire the reranker into the
 recommender service behind ?strategy=cross_encoder.
+
+---
+
+# Phase 5.3 — Production wiring + the trajectory-continuation finding
+
+Date: 2026-06-10
+
+## Wiring
+
+Added cross-encoder as a 5th `?strategy=` value. New service
+backend/app/services/reranker.py composes the full pipeline:
+
+    read_book_ids
+      -> generate_candidates()        Stage 1a (4-source pool, ~110)
+      -> reciprocal_rank_fusion()     Stage 1b (RRF order)
+      -> top ATLAS_CE_RERANK_K (default 50)   latency pre-filter
+      -> CrossEncoder.predict()       Stage 2 (learned rerank)
+
+Graceful degradation:
+  - < 3 read books -> popularity fallback (gap query too noisy, §3)
+  - model missing  -> RRF ordering fallback (loud warning, no HTTP 500)
+
+Model is a lazy process-level singleton. Router orders the stateful read
+query by user_books.created_at DESC so the query's "Recent reading"
+anchors are genuinely recent. Live endpoint verified end-to-end on a
+seeded value-investor user (scripts/seed_test_user.py).
+
+## The trajectory-continuation finding (most important result)
+
+Same seeded value-investor user, two strategies:
+
+| ?strategy=gap | ?strategy=cross_encoder |
+|---|---|
+| 100% technical-analysis / trading books | mostly value + behavioral books |
+
+Gap is a horizon-broadener (recommends maximally-distant concepts — TA
+for a value investor with no TA reading). The cross-encoder learned the
+OPPOSITE: trajectory continuation (books aligned with the user's existing
+direction).
+
+Mechanism — a training-data finding:
+- Training positives = held-out books from each synthetic user's reading
+  list. Synthetic users are archetype-coherent, so a value investor's
+  held-outs are also value/behavioral books.
+- But the query's "Reader gaps:" line lists the saturated distant
+  concepts (TA). The model was repeatedly shown "gaps = TA, answer =
+  value book" and learned to IGNORE the gap signal, predicting from the
+  "Recent reading" anchor instead.
+
+Why the §9 eval (CE 0.218 vs RRF 0.106) didn't catch it:
+- Held-out test books are also archetype-coherent, so "predict the
+  user's held-outs" structurally measures trajectory, not gap-fill. The
+  synthetic-eval framework cannot distinguish good gap-fill from good
+  trajectory prediction. This is the deepest form of the synthetic-eval
+  bias toward annotated/archetype-coherent books.
+
+Implication: gap and cross_encoder are two complementary products
+(blind-spots vs what's-next), not rivals. The v1 cross-encoder is a real,
+working trajectory recommender that beats RRF on the trajectory metric.
+But it is NOT the gap-filler the mission describes. The v2 priority is a
+training-data + eval redesign so positives reward gap-fill, not the
+re-tuning of rerank caps.
+
+## Score saturation (separate v1 artifact)
+
+Top-10 cross-encoder scores all cluster at ~0.99996. BCE training on
+cleanly-separated binary labels pushes most plausible candidates to the
+1.0 ceiling, so ordering within the saturated top group is near-arbitrary
+(good picks interleaved with off-archetype ones). v2 fixes: temperature
+scaling on logits, or graded labels (CROSS_ENCODER_DESIGN.md §6 already
+flags graded labels as a fallback if NDCG plateaus).
+
+## Status
+
+Phase 5 complete. The cross-encoder pipeline is built, evaluated, wired,
+and live. Two findings (trajectory continuation, score saturation) are
+documented as v2 priorities. The gate (§9, RRF + 0.05) passed; the deeper
+lesson is that the gate measures trajectory, not mission.
