@@ -1,0 +1,278 @@
+book,author,concept_slug,status,pred_strength,truth_strength,rationale
+Capital Markets Trading and Investment Strategies in China,Xiaojiang Zhang,currency_and_global_macro_forces,FP,1.0,,"The book specifically covers foreign exchange markets as a major area, along with the macro economic framework and liberalization processes in Chinese capital markets."
+Capital Markets Trading and Investment Strategies in China,Xiaojiang Zhang,leverage_and_margin_risk,FP,0.5,,Coverage of derivatives and risk management techniques in capital markets typically includes leverage and margin risk considerations.
+Capital Markets Trading and Investment Strategies in China,Xiaojiang Zhang,business_cycles_and_market_cycles,FP,0.5,,"The book covers the macro and industry economic framework in the context of Chinese capital markets, which includes cyclical analysis."
+Capital Markets Trading and Investment Strategies in China,Xiaojiang Zhang,exchanges_brokers_and_market_infrastructure,FP,0.5,,"The book covers the liberalization processes and market infrastructure of Chinese capital markets, including how various participants interact within these markets."
+Capital Markets Trading and Investment Strategies in China,Xiaojiang Zhang,economic_indicators_and_data_interpretation,FP,0.5,,"The book covers the macro and industry economic framework, suggesting coverage of economic indicators relevant to Chinese markets."
+Capital Markets Trading and Investment Strategies in China,Xiaojiang Zhang,diversification,FP,0.5,,"The book is aimed at global practitioners seeking to develop or strengthen their global strategy application, implying coverage of portfolio diversification across geographies."
+Capital Markets Trading and Investment Strategies in China,Xiaojiang Zhang,drawdown_management,FP,0.5,,The book explicitly covers risk management techniques as a component of trading and investment in Chinese capital markets.
+Capital Markets Trading and Investment Strategies in China,Xiaojiang Zhang,interest_rates_and_monetary_policy,FP,1.0,,"The book covers money markets and fixed income in China, including the macro economic framework and term structure analysis, which directly involves interest rates and monetary policy."
+Capital Markets Trading and Investment Strategies in China,Xiaojiang Zhang,market_participants_and_incentives,FP,1.0,,"The book explicitly covers the interaction of various participants in the markets, their trading and investment objectives and rationales."
+Capital Markets Trading and Investment Strategies in China,Xiaojiang Zhang,price_formation_and_market_efficiency,FP,0.5,,"The book covers analytical pricing term structure of financial instruments, implying coverage of how prices are formed in Chinese capital markets."
+Capital Markets Trading and Investment Strategies in China,Xiaojiang Zhang,strategy_design_and_rule_definition,FP,1.0,,The book explicitly covers some of the most frequently applied trading and investment strategies in Chinese capital markets.
+Capital Markets Trading and Investment Strategies in China,Xiaojiang Zhang,intrinsic_value_estimation,FP,0.5,,"The book covers analytical pricing and term structure of financial instruments, which includes valuation methodology for fixed income and derivatives."
+Common Sense on Mutual Funds,John C. Bogle,market_participants_and_incentives,FP,0.5,,"Bogle critically examines the mutual fund industry's incentive structures, including how fund managers and companies profit at investors' expense."
+Common Sense on Mutual Funds,John C. Bogle,emotional_discipline,FN,,0.5,
+Common Sense on Mutual Funds,John C. Bogle,overtrading_and_impulse_control,FN,,0.5,
+Common Sense on Mutual Funds,John C. Bogle,asset_classes_and_financial_instruments,FN,,1.0,
+Common Sense on Mutual Funds,John C. Bogle,portfolio_rebalancing,FN,,0.5,
+Technical Analysis,"Charles D. Kirkpatrick II, Julie R. Dahlquist",market_participants_and_incentives,FP,0.5,,"Sentiment indicators and flow of funds are explicitly mentioned topics, which involve understanding market participant behavior and incentives."
+Technical Analysis,"Charles D. Kirkpatrick II, Julie R. Dahlquist",risk_return_tradeoff,FP,0.5,,"The book includes risk mitigation strategies and portfolio management plans, addressing the risk-return relationship."
+Technical Analysis,"Charles D. Kirkpatrick II, Julie R. Dahlquist",diversification,FP,0.5,,"The book presents portfolio management plans covering portfolio selection, implying coverage of diversification principles."
+Technical Analysis,"Charles D. Kirkpatrick II, Julie R. Dahlquist",price_formation_and_market_efficiency,FP,0.5,,"The book presents academic evidence both for and against technical analysis, directly engaging with market efficiency theory."
+Technical Analysis,"Charles D. Kirkpatrick II, Julie R. Dahlquist",risk_reward_and_expectancy,FN,,1.0,
+Technical Analysis,"Charles D. Kirkpatrick II, Julie R. Dahlquist",asset_classes_and_financial_instruments,FN,,0.5,
+Technical Analysis,"Charles D. Kirkpatrick II, Julie R. Dahlquist",business_cycles_and_market_cycles,FN,,1.0,
+Mastering Value Investing,Peter Benedikt,cognitive_biases,FP,0.5,,"The description mentions spotting 'psychological traps,' suggesting coverage of cognitive biases that affect investment decisions."
+Mastering Value Investing,Peter Benedikt,intrinsic_value_estimation,FP,1.0,,"The description explicitly highlights intrinsic value estimation as a core teaching, consistent with Graham's value investing framework."
+Mastering Value Investing,Peter Benedikt,margin_of_safety,FP,1.0,,"The description explicitly names 'margin of safety' as a key concept taught, rooted in Benjamin Graham's principles."
+Mastering Value Investing,Peter Benedikt,emotional_discipline,FP,1.0,,"The description explicitly covers staying calm during market swings, spotting psychological traps, and avoiding rash decisions as a major topic."
+Mastering Value Investing,Peter Benedikt,business_quality_and_competitive_advantage,FP,0.5,,"The description references looking beyond market noise to assess a company's real worth, implying some coverage of business quality evaluation."
+Mastering Value Investing,Peter Benedikt,time_horizon_and_goal_based_investing,FP,0.5,,"The description emphasizes building wealth for the long run and sustainable growth as a recurring theme, indicating coverage of long-term investing principles."
+Technical Analysis of Stock Trends,"Robert D. Edwards, John Magee, W.H.C. Bassetti",risk_reward_and_expectancy,FP,0.5,,"The description mentions low and high risk assessment and trading tactics, indicating coverage of risk-reward considerations in trade planning."
+Technical Analysis of Stock Trends,"Robert D. Edwards, John Magee, W.H.C. Bassetti",asset_allocation,FP,0.5,,The expanded material on Pragmatic Portfolio Theory as an alternative to Modern Portfolio Theory implies coverage of asset allocation principles.
+Technical Analysis of Stock Trends,"Robert D. Edwards, John Magee, W.H.C. Bassetti",leverage_and_margin_risk,FN,,1.0,
+Technical Analysis of Stock Trends,"Robert D. Edwards, John Magee, W.H.C. Bassetti",exposure_and_concentration_limits,FN,,1.0,
+Technical Analysis of Stock Trends,"Robert D. Edwards, John Magee, W.H.C. Bassetti",drawdown_management,FN,,0.5,
+The Little Book That Builds Wealth,Pat Dorsey,financial_statement_analysis,FN,,1.0,
+The Little Book That Builds Wealth,Pat Dorsey,valuation_multiples_and_relative_valuation,FN,,1.0,
+Common Stocks and Uncommon Profits,Philip A. Fisher,market_participants_and_incentives,FP,0.5,,Fisher discusses management quality and the incentives of company leadership as a key factor in evaluating common stocks.
+Common Stocks and Uncommon Profits,Philip A. Fisher,cognitive_biases,FP,0.5,,Fisher addresses common investor mistakes and psychological pitfalls that lead to poor investment decisions.
+Common Stocks and Uncommon Profits,Philip A. Fisher,business_cycles_and_market_cycles,FN,,0.3,
+Common Stocks and Uncommon Profits,Philip A. Fisher,valuation_multiples_and_relative_valuation,FN,,0.5,
+Common Stocks and Uncommon Profits,Philip A. Fisher,risk_reward_and_expectancy,FN,,0.5,
+Common Stocks and Uncommon Profits,Philip A. Fisher,diversification,FN,,0.5,
+Common Stocks and Uncommon Profits,Philip A. Fisher,emotional_discipline,FN,,1.0,
+Common Stocks and Uncommon Profits,Philip A. Fisher,price_formation_and_market_efficiency,FN,,0.5,
+Common Stocks and Uncommon Profits,Philip A. Fisher,process_oriented_decision_making,FN,,1.0,
+Common Stocks and Uncommon Profits,Philip A. Fisher,time_horizon_and_goal_based_investing,FN,,1.0,
+Fooled by Randomness,Nassim Nicholas Taleb,market_participants_and_incentives,FP,0.5,,"The book uses traders and entrepreneurs as primary examples to illustrate how luck is mistaken for skill, offering substantive commentary on market participant behavior and incentives."
+Fooled by Randomness,Nassim Nicholas Taleb,process_oriented_decision_making,FN,,0.5,
+Fooled by Randomness,Nassim Nicholas Taleb,risk_reward_and_expectancy,FN,,1.0,
+Japanese Candlestick Charting Techniques,Steve Nison,stop_loss_and_exit_rules,FP,0.5,,"The description mentions a greater spotlight on capital preservation, suggesting coverage of exit rules and stop-loss placement in the context of candlestick-based trading."
+Japanese Candlestick Charting Techniques,Steve Nison,market_structure_and_regime_identification,FP,0.5,,"The book addresses active trading for swing, online, and day traders, and candlestick techniques are used to identify market phases such as reversals, continuations, and turning points."
+Japanese Candlestick Charting Techniques,Steve Nison,volume_analysis,FN,,1.0,
+Japanese Candlestick Charting Techniques,Steve Nison,trade_planning_and_preparation,FN,,0.5,
+Value Investing,"Bruce C. Greenwald, Judd Kahn, Erin Bellissimo, Mark A. Cooper, Tano Santos",valuation_multiples_and_relative_valuation,FP,0.5,,Relative valuation metrics are a standard component of the Graham and Dodd framework covered in the book alongside intrinsic value methods.
+Value Investing,"Bruce C. Greenwald, Judd Kahn, Erin Bellissimo, Mark A. Cooper, Tano Santos",passive_vs_active_portfolio_management,FP,0.5,,The book is grounded in active security selection and implicitly addresses the case for active value investing versus passive approaches.
+Value Investing,"Bruce C. Greenwald, Judd Kahn, Erin Bellissimo, Mark A. Cooper, Tano Santos",drawdown_management,FP,0.5,,"The book includes an extended discussion of modern risk management best practices, including mitigating permanent capital loss."
+The Bogleheads' Guide to Investing,"Mel Lindauer, Taylor Larimore, Michael LeBoeuf",price_formation_and_market_efficiency,FP,0.5,,The book's central argument that beating the market is a zero-sum game reflects substantive coverage of market efficiency concepts underpinning Bogle's philosophy.
+The Bogleheads' Guide to Investing,"Mel Lindauer, Taylor Larimore, Michael LeBoeuf",emotional_discipline,FN,,1.0,
+The Bogleheads' Guide to Investing,"Mel Lindauer, Taylor Larimore, Michael LeBoeuf",risk_return_tradeoff,FN,,0.5,
+The Bogleheads' Guide to Investing,"Mel Lindauer, Taylor Larimore, Michael LeBoeuf",portfolio_rebalancing,FN,,1.0,
+Technical Analysis of the Financial Markets,John J. Murphy,asset_classes_and_financial_instruments,FP,0.5,,"The book covers technical analysis applied across futures markets, stocks, and other financial markets, touching on multiple asset classes."
+Technical Analysis of the Financial Markets,John J. Murphy,business_cycles_and_market_cycles,FP,0.5,,Market cycle analysis is referenced as part of tracking and analyzing market behavior across financial markets.
+Technical Analysis of the Financial Markets,John J. Murphy,order_types_and_execution_mechanics,FN,,0.5,
+Technical Analysis of the Financial Markets,John J. Murphy,strategy_design_and_rule_definition,FN,,1.0,
+Fixed Income Analysis,Frank J. Fabozzi,valuation_multiples_and_relative_valuation,FP,0.5,,Relative valuation of fixed income securities and spread analysis are typically part of comprehensive fixed income analysis coverage.
+Fixed Income Analysis,Frank J. Fabozzi,financial_statement_analysis,FP,0.5,,"Credit analysis principles are covered, which typically involves analyzing financial statements to assess issuer creditworthiness."
+Fixed Income Analysis,Frank J. Fabozzi,currency_and_global_macro_forces,FN,,1.0,
+Fixed Income Analysis,Frank J. Fabozzi,portfolio_rebalancing,FN,,0.5,
+Fixed Income Analysis,Frank J. Fabozzi,passive_vs_active_portfolio_management,FN,,1.0,
+Fixed Income Analysis,Frank J. Fabozzi,liquidity_and_market_depth,FN,,0.5,
+Fixed Income Analysis,Frank J. Fabozzi,price_formation_and_market_efficiency,FN,,0.5,
+Equity Asset Valuation,"Jerald E. Pinto, Elaine Henry, Thomas R. Robinson, John D. Stowe",margin_of_safety,FP,0.5,,"A comprehensive equity valuation text typically addresses buying below intrinsic value as part of the valuation framework, though it is not the primary focus here."
+Equity Asset Valuation,"Jerald E. Pinto, Elaine Henry, Thomas R. Robinson, John D. Stowe",price_formation_and_market_efficiency,FN,,0.5,
+Equity Asset Valuation,"Jerald E. Pinto, Elaine Henry, Thomas R. Robinson, John D. Stowe",risk_return_tradeoff,FN,,1.0,
+Quality Investing,"Torkell T. Eide, Patrick Hargreaves, Lawrence A. Cunningham",passive_vs_active_portfolio_management,FP,0.5,,"The book references AKO Capital's consistent outperformance versus the market, situating quality investing as an active management philosophy that beats benchmarks."
+Quality Investing,"Torkell T. Eide, Patrick Hargreaves, Lawrence A. Cunningham",intrinsic_value_estimation,FP,0.5,,"The investment philosophy of owning outstanding companies for the long term implies assessing economic value and future cash flows, though this is not the book's primary focus."
+Quality Investing,"Torkell T. Eide, Patrick Hargreaves, Lawrence A. Cunningham",time_horizon_and_goal_based_investing,FP,0.5,,The book explicitly emphasizes owning outstanding companies for the long term as a key tenet of the quality investing philosophy.
+Quality Investing,"Torkell T. Eide, Patrick Hargreaves, Lawrence A. Cunningham",process_oriented_decision_making,FN,,1.0,
+Quality Investing,"Torkell T. Eide, Patrick Hargreaves, Lawrence A. Cunningham",cognitive_biases,FN,,0.5,
+"Manias, Panics, and Crashes","Robert Z. Aliber, Charles P. Kindleberger, Robert N. McCauley",asset_classes_and_financial_instruments,FP,0.5,,"The book includes a new chapter on cryptocurrency alongside discussion of property bubbles and other asset classes, indicating some coverage of different financial instruments."
+"Manias, Panics, and Crashes","Robert Z. Aliber, Charles P. Kindleberger, Robert N. McCauley",loss_aversion_and_drawdown_psychology,FN,,0.5,
+"Manias, Panics, and Crashes","Robert Z. Aliber, Charles P. Kindleberger, Robert N. McCauley",leverage_and_margin_risk,FN,,0.5,
+"Manias, Panics, and Crashes","Robert Z. Aliber, Charles P. Kindleberger, Robert N. McCauley",price_formation_and_market_efficiency,FN,,0.5,
+"Manias, Panics, and Crashes","Robert Z. Aliber, Charles P. Kindleberger, Robert N. McCauley",market_structure_and_regime_identification,FN,,0.5,
+Pioneering Portfolio Management,David F. Swensen,market_participants_and_incentives,FP,0.5,,"The book discusses selecting advisors, handling relationships with fund managers, and the institutional investment world, touching on the incentives and behaviors of market participants."
+Pioneering Portfolio Management,David F. Swensen,business_cycles_and_market_cycles,FP,0.5,,"The book references weathering market pitfalls and pitfalls of trend following, implying coverage of how market cycles affect institutional investment decisions."
+Pioneering Portfolio Management,David F. Swensen,journaling_and_performance_review,FN,,1.0,
+Pioneering Portfolio Management,David F. Swensen,asset_classes_and_financial_instruments,FN,,1.0,
+Pioneering Portfolio Management,David F. Swensen,portfolio_rebalancing,FN,,0.5,
+A Random Walk Down Wall Street,Burton Gordon Malkiel,valuation_multiples_and_relative_valuation,FP,0.5,,"The book discusses fundamental and technical analysis approaches, including valuation metrics, primarily to argue their limitations in a market-efficient world."
+A Random Walk Down Wall Street,Burton Gordon Malkiel,asset_classes_and_financial_instruments,FP,1.0,,"The book covers a broad range of investment vehicles including stocks, bonds, ETFs, and other instruments as part of its comprehensive investment guide."
+A Random Walk Down Wall Street,Burton Gordon Malkiel,loss_aversion_and_drawdown_psychology,FN,,1.0,
+A Random Walk Down Wall Street,Burton Gordon Malkiel,overtrading_and_impulse_control,FN,,1.0,
+A Random Walk Down Wall Street,Burton Gordon Malkiel,portfolio_rebalancing,FN,,1.0,
+Valuation,"McKinsey & Company Inc., Tim Koller, Marc Goedhart, David Wessels",margin_of_safety,FP,0.5,,"As a professional valuation guide covering acquisitions and major transactions, it addresses valuation uncertainty and conservative assumption-making inherent in deal assessment."
+Valuation,"McKinsey & Company Inc., Tim Koller, Marc Goedhart, David Wessels",asset_allocation,FP,0.5,,"The book covers capital structure design that supports strategy and minimizes risk, touching on how capital is allocated across a firm's financial structure."
+Valuation,"McKinsey & Company Inc., Tim Koller, Marc Goedhart, David Wessels",currency_and_global_macro_forces,FN,,0.5,
+Valuation,"McKinsey & Company Inc., Tim Koller, Marc Goedhart, David Wessels",leverage_and_margin_risk,FN,,0.5,
+Valuation,"McKinsey & Company Inc., Tim Koller, Marc Goedhart, David Wessels",risk_return_tradeoff,FN,,1.0,
+The Intelligent Investor,Benjamin Graham,business_quality_and_competitive_advantage,FP,0.5,,"Graham addresses evaluation of business stability and durability as part of stock selection criteria, though it is less central than in later value investing literature."
+The Intelligent Investor,Benjamin Graham,market_participants_and_incentives,FP,0.5,,"Graham analyzes the behavior of Wall Street analysts, speculators, and institutional investors and how their incentives affect market prices."
+The Intelligent Investor,Benjamin Graham,price_formation_and_market_efficiency,FP,0.5,,Graham's Mr. Market metaphor and discussion of market fluctuations address how prices deviate from intrinsic value due to investor behavior and sentiment.
+The Intelligent Investor,Benjamin Graham,cognitive_biases,FP,0.5,,"Graham addresses irrational investor behavior and the tendency to follow market sentiment, laying groundwork for what would later be formalized as behavioral finance."
+The Intelligent Investor,Benjamin Graham,process_oriented_decision_making,FN,,1.0,
+The Intelligent Investor,Benjamin Graham,inflation_and_purchasing_power,FN,,1.0,
+The Intelligent Investor,Benjamin Graham,time_horizon_and_goal_based_investing,FN,,0.5,
+You Can Be a Stock Market Genius,Joel Greenblatt,business_quality_and_competitive_advantage,FP,0.5,,"Evaluating special situations requires some assessment of business quality and underlying value, which is implicitly covered through the case studies."
+You Can Be a Stock Market Genius,Joel Greenblatt,valuation_multiples_and_relative_valuation,FP,0.5,,Case studies in the book use valuation comparisons to identify cheap securities in special situations.
+You Can Be a Stock Market Genius,Joel Greenblatt,trade_planning_and_preparation,FN,,0.5,
+You Can Be a Stock Market Genius,Joel Greenblatt,leverage_and_margin_risk,FN,,1.0,
+You Can Be a Stock Market Genius,Joel Greenblatt,diversification,FN,,0.5,
+You Can Be a Stock Market Genius,Joel Greenblatt,credit_debt_and_financial_crises,FN,,1.0,
+"Thinking, Fast and Slow",Daniel Kahneman,emotional_discipline,FP,0.5,,"The book discusses how intuitive, fast thinking can distort judgment and offers techniques to improve decision-making, touching on emotional and impulsive influences on choices."
+"Thinking, Fast and Slow",Daniel Kahneman,risk_reward_and_expectancy,FN,,0.5,
+Market Wizards,Jack D. Schwager,market_participants_and_incentives,FP,0.5,,"The interviews provide insight into how top professional traders, hedge fund managers, and speculators operate and think about markets."
+Market Wizards,Jack D. Schwager,risk_reward_and_expectancy,FP,0.5,,Multiple traders discuss their approach to managing risk versus reward as a core component of their trading edge.
+Market Wizards,Jack D. Schwager,system_iteration_and_continuous_improvement,FN,,1.0,
+Market Wizards,Jack D. Schwager,trade_planning_and_preparation,FN,,1.0,
+Market Wizards,Jack D. Schwager,drawdown_management,FN,,1.0,
+The Essays of Warren Buffett,Warren Buffett,emotional_discipline,FP,0.5,,"Buffett emphasizes the importance of remaining rational and calm under market pressure, avoiding fear and greed as decision drivers."
+The Essays of Warren Buffett,Warren Buffett,valuation_multiples_and_relative_valuation,FP,0.5,,"Buffett discusses P/E ratios, P/B ratios, and other valuation metrics as secondary tools in evaluating relative cheapness or expensiveness of businesses."
+The Essays of Warren Buffett,Warren Buffett,cognitive_biases,FP,0.5,,"Buffett's essays discuss systematic investor errors such as overconfidence, anchoring, and herd behavior that distort financial judgment."
+The Essays of Warren Buffett,Warren Buffett,leverage_and_margin_risk,FN,,0.5,
+The Essays of Warren Buffett,Warren Buffett,risk_return_tradeoff,FN,,1.0,
+The Essays of Warren Buffett,Warren Buffett,asset_classes_and_financial_instruments,FN,,0.5,
+The Essays of Warren Buffett,Warren Buffett,time_horizon_and_goal_based_investing,FN,,0.5,
+Big Debt Crises,Ray Dalio,leverage_and_margin_risk,FP,1.0,,"The book's central theme is how excessive debt and leverage in the financial system lead to systemic crises, making this a foundational concept throughout."
+Financial Statement Analysis and Security Valuation,Stephen H. Penman,margin_of_safety,FP,0.5,,A rigorous security valuation framework oriented toward investors typically incorporates the concept of buying at a discount to estimated intrinsic value to protect against estimation error.
+Financial Statement Analysis and Security Valuation,Stephen H. Penman,risk_return_tradeoff,FN,,1.0,
+Financial Statement Analysis and Security Valuation,Stephen H. Penman,credit_debt_and_financial_crises,FN,,0.5,
+Financial Statement Analysis and Security Valuation,Stephen H. Penman,price_formation_and_market_efficiency,FN,,0.5,
+Trade Your Way to Financial Freedom,Van K. Tharp,emotional_discipline,FP,1.0,,"As a famed psychologist of trading, Tharp substantially covers how psychological and emotional factors affect trading decisions and system adherence."
+Trade Your Way to Financial Freedom,Van K. Tharp,market_structure_and_regime_identification,FP,0.5,,Tharp covers different market conditions and how trading systems must account for varying market environments.
+Trade Your Way to Financial Freedom,Van K. Tharp,system_iteration_and_continuous_improvement,FN,,1.0,
+Trade Your Way to Financial Freedom,Van K. Tharp,trade_planning_and_preparation,FN,,1.0,
+The Psychology of Money,Morgan Housel,overtrading_and_impulse_control,FN,,1.0,
+Trading and Exchanges,Larry Harris,asset_classes_and_financial_instruments,FP,0.5,,The book covers securities and contracts across various asset types as part of its broader treatment of trading and market structure.
+Principles for Dealing with the Changing World Order,Ray Dalio,asset_allocation,FP,0.5,,"Dalio concludes with practical principles for positioning oneself for what's ahead, implying guidance on how to allocate capital across asset classes in light of the changing world order."
+Entries & Exits,Alexander Elder,chart_patterns_and_price_action,FP,0.5,,"Elder's trading methodology typically relies on chart-based setups, suggesting chart patterns and price action are covered as part of entry criteria."
+Entries & Exits,Alexander Elder,emotional_discipline,FP,0.5,,"Elder consistently incorporates trading psychology into his books, and managing emotions around entries and exits is a recurring theme in his work."
+Entries & Exits,Alexander Elder,risk_reward_and_expectancy,FP,0.5,,"Defining entries and exits inherently involves evaluating risk-reward ratios, a topic Elder addresses in his trading methodology."
+Entries & Exits,Alexander Elder,momentum_and_technical_indicators,FP,0.5,,"Elder is known for using indicators such as MACD, RSI, and moving averages to time entries and exits, likely covered in this book."
+Entries & Exits,Alexander Elder,execution_quality_and_trade_implementation,FN,,0.3,
+Entries & Exits,Alexander Elder,process_oriented_decision_making,FN,,1.0,
+The Art and Science of Technical Analysis,Adam Grimes,process_oriented_decision_making,FP,0.5,,"The book aims to help traders understand their own performance and find a more productive path forward, emphasizing process over outcomes."
+The Art and Science of Technical Analysis,Adam Grimes,backtesting_and_strategy_validation,FP,1.0,,"The book is supported by extensive statistical analysis and research to validate specific patterns and strategies, directly addressing strategy validation methodology."
+The Art and Science of Technical Analysis,Adam Grimes,price_formation_and_market_efficiency,FP,1.0,,"The book bridges academic views of markets with technical analysis, directly addressing how randomness prevails most of the time and how buying/selling pressure causes price patterns."
+The Art and Science of Technical Analysis,Adam Grimes,trade_planning_and_preparation,FN,,1.0,
+The Art and Science of Technical Analysis,Adam Grimes,stop_loss_and_exit_rules,FN,,1.0,
+The Art and Science of Technical Analysis,Adam Grimes,journaling_and_performance_review,FN,,1.0,
+The Art and Science of Technical Analysis,Adam Grimes,position_sizing,FN,,1.0,
+Poor Charlie’s Almanack,Charles T. Munger,financial_statement_analysis,FN,,0.5,
+Poor Charlie’s Almanack,Charles T. Munger,diversification,FN,,0.5,
+Active Portfolio Management: A Quantitative Approach for Producing Superior Returns and Selecting Superior Returns and Controlling Risk,"Richard C. Grinold, Ronald N. Kahn",market_participants_and_incentives,FP,0.5,,"The book discusses investment managers, benchmarks, and the broader context of active versus passive management, implying coverage of participant roles and incentives."
+Active Portfolio Management: A Quantitative Approach for Producing Superior Returns and Selecting Superior Returns and Controlling Risk,"Richard C. Grinold, Ronald N. Kahn",asset_allocation,FP,0.5,,The second edition explicitly expands coverage to include asset allocation as a new topic.
+Active Portfolio Management: A Quantitative Approach for Producing Superior Returns and Selecting Superior Returns and Controlling Risk,"Richard C. Grinold, Ronald N. Kahn",drawdown_management,FP,0.5,,"Controlling risk and minimizing portfolio volatility relative to benchmarks is a key theme, which includes managing drawdowns."
+Active Portfolio Management: A Quantitative Approach for Producing Superior Returns and Selecting Superior Returns and Controlling Risk,"Richard C. Grinold, Ronald N. Kahn",execution_quality_and_trade_implementation,FN,,1.0,
+Active Portfolio Management: A Quantitative Approach for Producing Superior Returns and Selecting Superior Returns and Controlling Risk,"Richard C. Grinold, Ronald N. Kahn",liquidity_and_market_depth,FN,,0.5,
+Market Microstructure in Practice,"Charles-Albert Lehalle, Sophie Laruelle",strategy_design_and_rule_definition,FN,,0.5,
+The Four Pillars of Investing,William J. Bernstein,emotional_discipline,FP,0.5,,The behavioral finance component and exercises to determine risk tolerance suggest coverage of emotional discipline in investing.
+The Four Pillars of Investing,William J. Bernstein,business_cycles_and_market_cycles,FP,0.5,,"The description mentions 'fascinating history lessons from the market,' suggesting coverage of market history including cycles and historical market behavior."
+The Four Pillars of Investing,William J. Bernstein,overtrading_and_impulse_control,FN,,1.0,
+The Four Pillars of Investing,William J. Bernstein,portfolio_rebalancing,FN,,1.0,
+The Four Pillars of Investing,William J. Bernstein,asset_classes_and_financial_instruments,FN,,1.0,
+The Four Pillars of Investing,William J. Bernstein,market_participants_and_incentives,FN,,1.0,
+The Four Pillars of Investing,William J. Bernstein,price_formation_and_market_efficiency,FN,,1.0,
+The Four Pillars of Investing,William J. Bernstein,process_oriented_decision_making,FN,,1.0,
+Systematic Trading,Robert Carver,portfolio_rebalancing,FP,0.5,,"The description mentions avoiding costly and unnecessary portfolio churn, implying coverage of disciplined rebalancing within a systematic framework."
+Systematic Trading,Robert Carver,risk_reward_and_expectancy,FP,0.5,,The book warns against excessive optimism about returns and covers the relationship between risk and expected profitability in systematic strategies.
+Systematic Trading,Robert Carver,asset_classes_and_financial_instruments,FP,0.5,,"The framework is described as applicable across equities, bonds, forex, and commodities, covering multiple asset classes."
+Systematic Trading,Robert Carver,passive_vs_active_portfolio_management,FP,0.5,,The book addresses traditional long-only investors and compares systematic approaches to discretionary decision-making.
+Systematic Trading,Robert Carver,system_iteration_and_continuous_improvement,FP,0.5,,"The book discusses adapting strategies based on trading costs and capital, and refining systematic approaches over time."
+Systematic Trading,Robert Carver,trade_planning_and_preparation,FP,0.5,,"The framework covers pre-trade planning, forecasting prices, and defining triggers within a systematic context."
+Systematic Trading,Robert Carver,risk_return_tradeoff,FN,,1.0,
+Systematic Trading,Robert Carver,journaling_and_performance_review,FN,,0.5,
+Systematic Trading,Robert Carver,stop_loss_and_exit_rules,FN,,0.5,
+Systematic Trading,Robert Carver,asset_allocation,FN,,1.0,
+Systematic Trading,Robert Carver,emotional_discipline,FN,,1.0,
+Systematic Trading,Robert Carver,exposure_and_concentration_limits,FN,,0.5,
+One Up On Wall Street,Peter Lynch,passive_vs_active_portfolio_management,FP,0.5,,"Lynch argues that individual investors can beat professional fund managers through active stock-picking, implicitly contrasting active selection with passive approaches."
+One Up On Wall Street,Peter Lynch,business_cycles_and_market_cycles,FP,0.5,,"Lynch provides guidelines for investing in cyclical and turnaround companies, which requires understanding business and market cycles."
+One Up On Wall Street,Peter Lynch,process_oriented_decision_making,FN,,1.0,
+One Up On Wall Street,Peter Lynch,emotional_discipline,FN,,0.5,
+One Up On Wall Street,Peter Lynch,stop_loss_and_exit_rules,FN,,0.5,
+One Up On Wall Street,Peter Lynch,risk_return_tradeoff,FN,,0.5,
+The New Sell and Sell Short,Alexander Elder,chart_patterns_and_price_action,FP,1.0,,The book includes 17 chart studies and extensive technical analysis of price action to identify when to sell or initiate short positions.
+The New Sell and Sell Short,Alexander Elder,position_sizing,FP,0.5,,Managing positions by adjusting exit points as trades unfold implies some coverage of position management and sizing decisions.
+The New Sell and Sell Short,Alexander Elder,momentum_and_technical_indicators,FP,0.5,,"Elder, known for indicator-based analysis, discusses technical approaches to selling including use of technical indicators to identify weakness."
+The New Sell and Sell Short,Alexander Elder,support_and_resistance,FN,,1.0,
+The New Sell and Sell Short,Alexander Elder,trend_analysis,FN,,1.0,
+The New Sell and Sell Short,Alexander Elder,drawdown_management,FN,,1.0,
+Asset Allocation: Balancing Financial Risk,Roger C. Gibson,emotional_discipline,FN,,0.5,
+Asset Allocation: Balancing Financial Risk,Roger C. Gibson,passive_vs_active_portfolio_management,FN,,0.5,
+Algorithmic Trading & DMA,Barry Johnson (analiza finansowa),trade_planning_and_preparation,FN,,1.0,
+Algorithmic Trading & DMA,Barry Johnson (analiza finansowa),risk_return_tradeoff,FN,,0.5,
+Algorithmic Trading & DMA,Barry Johnson (analiza finansowa),asset_classes_and_financial_instruments,FN,,0.5,
+Against the Gods,Peter L. Bernstein,loss_aversion_and_drawdown_psychology,FN,,0.5,
+Against the Gods,Peter L. Bernstein,risk_reward_and_expectancy,FN,,1.0,
+Against the Gods,Peter L. Bernstein,diversification,FN,,1.0,
+The Little Book of Common Sense Investing,John C. Bogle,cognitive_biases,FP,0.5,,"Bogle warns against chasing fads, marketing hype, and frantic trading, implying behavioral errors investors must avoid."
+The Little Book of Common Sense Investing,John C. Bogle,earnings_growth_and_profitability_drivers,FP,0.5,,"The book identifies dividend yield, earnings growth, and change in market valuation as the three sources of stock returns to establish rational return expectations."
+The Little Book of Common Sense Investing,John C. Bogle,process_oriented_decision_making,FN,,1.0,
+The Little Book of Common Sense Investing,John C. Bogle,price_formation_and_market_efficiency,FN,,1.0,
+The Little Book That Beats the Market,Joel Greenblatt,earnings_growth_and_profitability_drivers,FP,0.5,,"Return on invested capital, a core component of the magic formula, is a key profitability metric tied to long-term compounding and value creation."
+The Little Book That Beats the Market,Joel Greenblatt,margin_of_safety,FP,1.0,,"The book's core premise is buying good companies at bargain prices, directly embodying the margin of safety principle of purchasing below intrinsic value."
+The Little Book That Beats the Market,Joel Greenblatt,passive_vs_active_portfolio_management,FP,0.5,,"Greenblatt contrasts his systematic formula approach with both passive indexing and active professional management, explaining why most managers fail to beat the market."
+The Little Book That Beats the Market,Joel Greenblatt,price_formation_and_market_efficiency,FP,0.5,,"The book addresses why the formula continues to work even when widely known, touching on market efficiency and why success eludes most investors."
+The Little Book That Beats the Market,Joel Greenblatt,intrinsic_value_estimation,FP,1.0,,"The 'magic formula' centers on buying good companies at bargain prices, which requires estimating what a company is worth relative to its price."
+The Little Book That Beats the Market,Joel Greenblatt,portfolio_rebalancing,FN,,1.0,
+The Little Book That Beats the Market,Joel Greenblatt,financial_statement_analysis,FN,,0.5,
+The Little Book That Beats the Market,Joel Greenblatt,diversification,FN,,0.5,
+The Little Book That Beats the Market,Joel Greenblatt,emotional_discipline,FN,,0.5,
+The Little Book That Beats the Market,Joel Greenblatt,backtesting_and_strategy_validation,FN,,0.5,
+The Alchemy of Finance,George Soros,intrinsic_value_estimation,FP,0.5,,"The book presents a theoretical framework for understanding asset values that departs from classical valuation, touching on how prices relate to underlying economic realities."
+The Alchemy of Finance,George Soros,backtesting_and_strategy_validation,FN,,0.5,
+The Alchemy of Finance,George Soros,interest_rates_and_monetary_policy,FN,,1.0,
+The Alchemy of Finance,George Soros,credit_debt_and_financial_crises,FN,,1.0,
+The Alchemy of Finance,George Soros,market_structure_and_regime_identification,FN,,1.0,
+Come Into My Trading Room,Alexander Elder,chart_patterns_and_price_action,FP,0.5,,"The book covers technical analysis broadly as part of trading methodology, which typically includes chart patterns in Elder's framework."
+Come Into My Trading Room,Alexander Elder,asset_classes_and_financial_instruments,FP,0.5,,"The book reviews the basics of trading stocks, futures, and options as part of its comprehensive introduction."
+Come Into My Trading Room,Alexander Elder,risk_reward_and_expectancy,FP,0.5,,Money management strategy and trade profitability are substantially covered as part of the 'Money' pillar.
+Come Into My Trading Room,Alexander Elder,cognitive_biases,FP,0.5,,"As a practicing psychiatrist, Elder addresses psychological tactics including the cognitive pitfalls that affect traders' decision-making."
+Come Into My Trading Room,Alexander Elder,journaling_and_performance_review,FN,,1.0,
+Come Into My Trading Room,Alexander Elder,drawdown_management,FN,,1.0,
+Come Into My Trading Room,Alexander Elder,backtesting_and_strategy_validation,FN,,1.0,
+Come Into My Trading Room,Alexander Elder,exposure_and_concentration_limits,FN,,1.0,
+Come Into My Trading Room,Alexander Elder,market_structure_and_regime_identification,FN,,1.0,
+The Outsiders,William Thorndike,financial_statement_analysis,FP,0.5,,"Evaluating the exceptional financial performance of these firms requires analysis of cash flows, margins, and returns on capital across their tenures."
+The Outsiders,William Thorndike,passive_vs_active_portfolio_management,FP,0.5,,"The book implicitly contrasts active, unconventional CEO capital allocation against conventional benchmarks, touching on active management philosophy vs. passive benchmarking."
+The Outsiders,William Thorndike,intrinsic_value_estimation,FP,0.5,,The outsider CEOs are known for their focus on per-share intrinsic value and owner earnings as a framework for capital allocation decisions.
+The Outsiders,William Thorndike,process_oriented_decision_making,FN,,0.5,
+All About Asset Allocation,Richard Ferri,inflation_and_purchasing_power,FN,,0.5,
+All About Asset Allocation,Richard Ferri,emotional_discipline,FN,,1.0,
+Lords of Finance,Liaquat Ahamed,market_participants_and_incentives,FN,,0.5,
+Security Analysis,"Benjamin Graham, David Le Fevre Dodd",market_participants_and_incentives,FN,,0.5,
+Security Analysis,"Benjamin Graham, David Le Fevre Dodd",risk_reward_and_expectancy,FN,,0.5,
+Security Analysis,"Benjamin Graham, David Le Fevre Dodd",exposure_and_concentration_limits,FN,,0.5,
+Security Analysis,"Benjamin Graham, David Le Fevre Dodd",price_formation_and_market_efficiency,FN,,0.5,
+This Time Is Different,"Carmen M. Reinhart, Kenneth S. Rogoff",interest_rates_and_monetary_policy,FN,,0.5,
+Investment Valuation,Aswath Damodaran,margin_of_safety,FP,0.5,,Valuation uncertainty and conservative assumptions are implicitly covered when teaching investment valuation methodologies.
+Investment Valuation,Aswath Damodaran,leverage_and_margin_risk,FN,,0.5,
+Investment Valuation,Aswath Damodaran,credit_debt_and_financial_crises,FN,,0.5,
+Investment Valuation,Aswath Damodaran,probabilistic_thinking_and_uncertainty,FN,,1.0,
+Investment Valuation,Aswath Damodaran,interest_rates_and_monetary_policy,FN,,0.5,
+Investment Valuation,Aswath Damodaran,price_formation_and_market_efficiency,FN,,1.0,
+Financial Shenanigans,"Howard M. Schilit, Yoni Engelhart, Jeremy Perler",process_oriented_decision_making,FN,,0.5,
+International Financial Statement Analysis,"Thomas R. Robinson, Elaine Henry, Wendy L. Pirie, Michael A. Broihahn",business_quality_and_competitive_advantage,FN,,0.5,
+International Financial Statement Analysis,"Thomas R. Robinson, Elaine Henry, Wendy L. Pirie, Michael A. Broihahn",asset_classes_and_financial_instruments,FN,,0.5,
+International Financial Statement Analysis,"Thomas R. Robinson, Elaine Henry, Wendy L. Pirie, Michael A. Broihahn",credit_debt_and_financial_crises,FN,,0.5,
+Quantitative Trading,Ernie Chan,stop_loss_and_exit_rules,FN,,0.5,
+Quantitative Trading,Ernie Chan,leverage_and_margin_risk,FN,,1.0,
+Quantitative Trading,Ernie Chan,drawdown_management,FN,,0.5,
+Margin of Safety,Seth A. Klarman,business_quality_and_competitive_advantage,FP,0.5,,Value investing philosophy typically involves evaluating business quality and durability as part of the investment assessment process.
+Margin of Safety,Seth A. Klarman,cognitive_biases,FP,0.5,,"The book explicitly addresses avoiding investment fads, which involves understanding the behavioral and cognitive errors that lead investors astray."
+Margin of Safety,Seth A. Klarman,asset_allocation,FP,0.5,,The description explicitly mentions portfolio management advice as a covered topic.
+Margin of Safety,Seth A. Klarman,risk_return_tradeoff,FN,,1.0,
+Margin of Safety,Seth A. Klarman,credit_debt_and_financial_crises,FN,,0.5,
+Margin of Safety,Seth A. Klarman,emotional_discipline,FN,,1.0,
+Margin of Safety,Seth A. Klarman,process_oriented_decision_making,FN,,1.0,
+Margin of Safety,Seth A. Klarman,execution_quality_and_trade_implementation,FN,,0.5,
+Evidence-Based Technical Analysis,David Aronson,momentum_and_technical_indicators,FP,0.5,,"Technical trading signals and rules are the subject of evaluation throughout the book, indicating meaningful coverage of technical indicators and signal-based approaches."
+Evidence-Based Technical Analysis,David Aronson,system_iteration_and_continuous_improvement,FN,,1.0,
+Evidence-Based Technical Analysis,David Aronson,price_formation_and_market_efficiency,FN,,0.5,
+The Most Important Thing,Howard Marks,market_structure_and_regime_identification,FP,1.0,,Marks is described as judging market cycles and identifying market conditions to achieve returns through aggressive yet measured action.
+The Most Important Thing,Howard Marks,drawdown_management,FP,0.5,,"Defensive investing and protecting capital from ruin are recurring themes, suggesting meaningful coverage of surviving adverse conditions."
+The Most Important Thing,Howard Marks,process_oriented_decision_making,FN,,1.0,
+The Most Important Thing,Howard Marks,passive_vs_active_portfolio_management,FN,,0.5,
+The Most Important Thing,Howard Marks,risk_reward_and_expectancy,FN,,1.0,
+"Stocks for the Long Run: The Definitive Guide to Financial Market Returns & Long-Term Investment Strategies, Sixth Edition",Jeremy J. Siegel,business_quality_and_competitive_advantage,FP,0.5,,"The updated edition includes a chapter on value investing, which involves evaluating business quality and competitive positioning."
+"Stocks for the Long Run: The Definitive Guide to Financial Market Returns & Long-Term Investment Strategies, Sixth Edition",Jeremy J. Siegel,intrinsic_value_estimation,FP,0.5,,Value investing coverage implies discussion of estimating intrinsic value and what stocks are worth based on fundamentals.
+"Stocks for the Long Run: The Definitive Guide to Financial Market Returns & Long-Term Investment Strategies, Sixth Edition",Jeremy J. Siegel,price_formation_and_market_efficiency,FP,0.5,,"As a definitive guide to stock market behavior and past trends, the book addresses how market prices are formed and efficiency-related concepts."
+"Stocks for the Long Run: The Definitive Guide to Financial Market Returns & Long-Term Investment Strategies, Sixth Edition",Jeremy J. Siegel,credit_debt_and_financial_crises,FP,0.5,,The book covers black swan events including the financial crisis and their long-run impact on equity markets.
+"Stocks for the Long Run: The Definitive Guide to Financial Market Returns & Long-Term Investment Strategies, Sixth Edition",Jeremy J. Siegel,backtesting_and_strategy_validation,FN,,0.5,
+"Stocks for the Long Run: The Definitive Guide to Financial Market Returns & Long-Term Investment Strategies, Sixth Edition",Jeremy J. Siegel,economic_indicators_and_data_interpretation,FN,,1.0,
+"Stocks for the Long Run: The Definitive Guide to Financial Market Returns & Long-Term Investment Strategies, Sixth Edition",Jeremy J. Siegel,leverage_and_margin_risk,FN,,0.5,
+"Stocks for the Long Run: The Definitive Guide to Financial Market Returns & Long-Term Investment Strategies, Sixth Edition",Jeremy J. Siegel,earnings_growth_and_profitability_drivers,FN,,0.5,

@@ -377,3 +377,55 @@ Phase 5 complete. The cross-encoder pipeline is built, evaluated, wired,
 and live. Two findings (trajectory continuation, score saturation) are
 documented as v2 priorities. The gate (§9, RRF + 0.05) passed; the deeper
 lesson is that the gate measures trajectory, not mission.
+
+---
+
+# Phase 6 — Auto-annotation (corpus coverage 60 -> 416 books)
+
+Date: 2026-06-11
+Scripts: auto_annotate.py, validate_annotator.py, load_annotations.py
+
+## Validation (6.3) — model + prompt selection on the 60 manual books
+
+| Config | precision | recall | F1 | strength agree | empty books |
+|---|---|---|---|---|---|
+| **Sonnet v1 prompt (CHOSEN)** | 0.752 | 0.659 | 0.702 | 0.690 | 0 |
+| Opus v1 prompt | 0.827 | 0.478 | 0.606 | 0.504 | 3 |
+| Sonnet v2 (stricter) prompt | 0.813 | 0.536 | 0.646 | 0.601 | 1 |
+
+Post-load regression re-run (validator fixed to exclude auto rows from
+ground truth): P=0.755 R=0.690 F1=0.721 — reproduces the selection run
+within sampling variance. The committed audit CSV is from this re-run.
+
+Opus won precision by predicting less (5.0 concepts/book vs truth 8.7) and
+zero-annotated three content-rich books — disqualifying for a coverage-
+expansion task. A stricter v2 prompt reproduced the same failure mode on
+Sonnet (recall -0.123) and was rejected per the pre-agreed decision tree.
+Sonnet v1's effective precision is ~0.78 after excluding two thin-truth
+books (Capital Markets China, Mastering Value Investing — truth=1 each,
+day-1 smoke annotations; flagged for ground-truth revision).
+
+Known annotator bias: mild over-inference ("involves/implies" reasoning),
+confined to strength 0.5 in practice. Known recall limit: concepts not
+inferable from a short description (e.g., Fabozzi -> currency forces).
+
+## Batch + load (6.4)
+
+- 2,301 annotation rows across 356 books (claude-sonnet-4-6, taxonomy
+  block prompt-cached, crash-safe resume)
+- ~52 books returned zero concepts — audited: mostly off-topic corpus
+  noise (regulatory directories, marketing texts, a parallel-computing
+  book) correctly rejected; 3-4 borderline on-topic misses noted
+  (Bond and Money Markets, CFA curriculum box set)
+- Loaded as annotation_type='auto' (PK includes type — manual rows
+  untouchable by construction; idempotent delete-then-insert)
+- Coverage: 60 -> 416 of 468 books (89%)
+
+## Consequence for all prior evals (6.5 pending)
+
+Every prior eval number in this file was measured under the 60-book
+annotation regime. The synthetic-user generator, gap vectors, and
+held-out sampling all derive from annotations, so the eval landscape has
+materially changed. Phase 6.5 re-runs the recall preflight and Phase 5
+comparisons under the de-biased regime — including re-testing the
+trajectory-continuation finding.
