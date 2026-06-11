@@ -429,3 +429,128 @@ held-out sampling all derive from annotations, so the eval landscape has
 materially changed. Phase 6.5 re-runs the recall preflight and Phase 5
 comparisons under the de-biased regime — including re-testing the
 trajectory-continuation finding.
+
+---
+
+# Phase 6.5 — Re-evaluation under the de-biased corpus (the two-axis capstone)
+
+Date: 2026-06-11
+Regime: 416 annotated books (Phase 6.4), vs the 60-book regime all prior
+numbers were measured under.
+
+## 6.5a — Recall preflight re-run (trajectory axis, Stage 1)
+
+The §8 gate FAILED honestly for the first time: union recall@100 = 0.275
+(the old 1.000 was an artifact — gap's top-50 covered nearly the whole
+60-book annotated set, so held-outs had nowhere to hide). 28/40 held-outs
+never enter the ~119-candidate pool; pool-ordering NDCG@10 = 0.000 for
+both insertion and RRF; oracle ceiling 0.357.
+
+Mechanism — the Phase 5.3 trajectory/mission divergence surfacing one
+stage earlier: held-outs are archetype-coherent, so they share concepts
+with kept reading, so their gap scores are LOW by design. Under 416
+books, gap roams to genuinely distant books and the trajectory-shaped
+held-outs fall out of the pool. embedding_read (the one
+trajectory-aligned source) became the tied-best held-out finder (0.125;
+median rank 2 when found). Pool slots are ~100 horizon-broadening vs ~27
+trajectory while the metric's ground truth is 100% trajectory.
+
+Also: saturated gap-ties WORSENED (18.3 -> 23.3 per user; auto-annotated
+books average ~6.5 concepts vs manual 8.7). gap_query unique contribution
+held at ~31% (gate passes).
+
+## 6.5b — Baselines re-run (trajectory axis, full strategies)
+
+| Strategy | 60-book regime | 416-book regime |
+|---|---|---|
+| popularity | 0.171 | 0.000 |
+| gap | 0.063 | 0.000 |
+| embedding | 0.047 | 0.081 |
+| tfidf | 0.048 | 0.013 |
+
+popularity's old crown confirmed as annotation-breadth artifact; the
+leaderboard inverted exactly as the 6.5a mechanism predicts.
+
+CORRECTION recorded: evaluate_baselines.py uses held-out identity
+relevance, not the concept-based definition this file previously
+described (v1 section). Every metric this project produced through
+Phase 6.5b — including all Phase 5 cross-encoder numbers — was
+trajectory prediction. No mission-aligned eval existed until 6.5c.
+
+## 6.5c — Mission-axis eval (NEW: scripts/evaluate_gap_fill.py)
+
+Primary metric: sequential_gap_ndcg@10 — gains computed against a gap
+vector that DEPLETES as each ranked book is "read," normalized by a
+greedy oracle. Penalizes redundancy. Secondary: static_gap_ndcg@10
+(gap_scoring's own objective; favors gap by construction). Drift-guarded
+in-memory gain math (asserted equal to score_candidate at startup).
+Fail-loud safeguard: refuses to run if the CE model is missing (never
+scores the production RRF fallback as "cross_encoder").
+
+| strategy | seq_ndcg@10 | static_ndcg | raw reduction | % gap closed |
+|---|---|---|---|---|
+| gap | 0.874 | 1.000 | 42.98 | 78.3% |
+| rrf | 0.847 | 0.925 | 44.03 | 80.1% |
+| popularity | 0.799 | 0.777 | 42.71 | 77.6% |
+| cross_encoder | 0.786 | 0.794 | 42.69 | 77.4% |
+| embedding | 0.253 | 0.236 | 14.78 | 27.2% |
+| tfidf | 0.225 | 0.196 | 13.10 | 24.7% |
+
+Sanity: gap's static_ndcg = 1.0000 exactly (it ranks by that quantity —
+metric implementation confirmed correct).
+
+Findings:
+- Sequential scoring exposed gap's REDUNDANCY: 0.874, losing ~13% to
+  stacking books that fill the same gaps. Static scoring is blind to it.
+- RRF out-fills the dedicated gap optimizer on raw volume (80.1% vs
+  78.3%): four-source diversity is implicit de-redundancy.
+- The similarity strategies genuinely fail the mission (~25%): they
+  recommend books about concepts the user already covered.
+- Caveat: four strategies cluster at 77-80% — ceiling compression; the
+  metric separates failures sharply but compresses leaders.
+
+## 6.5d — The missing cell (scripts/evaluate_ce_trajectory.py)
+
+cross_encoder trajectory NDCG@10 under the 416-book regime: 0.0237.
+Decomposition: 70% of held-outs never enter the Stage 1 pool (layer 1);
+most in-pool held-outs sit below the production top-50 rerank cap at
+median RRF rank ~57-59 (layer 2); of the ~3-4 held-outs the model ever
+saw, it converted 2 into top-10s (layer 3 — the model itself is fine).
+Note embedding's 0.081 ranks the full corpus directly; the CE is
+throttled behind mission-aligned retrieval — not an apples-to-apples
+model comparison.
+
+## THE TWO-AXIS TABLE (capstone)
+
+| strategy | trajectory NDCG@10 | mission seq-NDCG@10 |
+|---|---|---|
+| gap | 0.000 | 0.874 |
+| rrf | 0.000 | 0.847 |
+| popularity | 0.000 | 0.799 |
+| cross_encoder | 0.024 | 0.786 |
+| embedding | 0.081 | 0.253 |
+| tfidf | 0.013 | 0.225 |
+
+Two clean clusters: a mission cluster (~0.79-0.87 mission, ~0
+trajectory) and a similarity cluster (~0.24 mission, marginally nonzero
+trajectory). On the honest trajectory metric, EVERYONE is poor (best:
+0.081) — predicting 2 specific books of 468 by identity is brutally
+hard and nothing in the system optimizes for it.
+
+Capstone insight: **pipeline character is set by Stage 1 composition,
+not by the learned component's preference.** Phase 5.3 proved the CE
+model itself is a trajectory-continuer; embedded in a mission-aligned
+retrieval pipeline (~100:27 horizon:trajectory slots), the system's
+output is mission-shaped anyway (0.786 mission / 0.024 trajectory).
+Architecture dominates the model.
+
+## Status
+
+Phase 6 complete. Open v2 directions, in descending priority:
+1. Mission-aligned cross-encoder training data (positives that reward
+   gap-fill) — now measurable with the 6.5c instrument.
+2. Trajectory product, if wanted, needs its own Stage 1 mix (raise
+   embedding_read share) — a product decision, not a bug fix.
+3. Ground-truth revision: 2 thin manual books + ~4 conservative
+   auto-annotation misses.
+4. Score saturation fix (graded labels / temperature scaling).
