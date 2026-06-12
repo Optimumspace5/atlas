@@ -1,0 +1,469 @@
+corpus_row,google_volume_id,title,author,dedup_norm_key,duplicate_group,group_size,is_canonical,suggested_canonical_title
+1,pn1TDwAAQBAJ,Capital Markets Trading and Investment Strategies in China,Xiaojiang Zhang,capital markets trading investment strategies china|zhang,0,1,True,Capital Markets Trading and Investment Strategies in China
+2,GMiiAxZy_t0C,"An Introduction to Trading in the Financial Markets: Trading, Markets, Instruments, and Processes",R. Tee Williams,introduction trading financial markets|williams,1,2,False,An Introduction to Trading in the Financial Markets: Market Basics
+3,41jgAgAAQBAJ,22 Stock Market Trading Secrets,Ashu Dutt,22 stock market trading secrets|dutt,2,1,True,22 Stock Market Trading Secrets
+4,cfUKzgEACAAJ,Stock Market Investing,Mark Elder,stock market investing|elder,3,1,True,Stock Market Investing
+5,BFBlAQAACAAJ,How Markets Really Work,Larry Connors,how markets really work|connors,4,1,True,How Markets Really Work
+6,b_MdzgEACAAJ,STOCK MARKET INVESTING and FOREX TRADING FOR BEGINNERS - 6 Books in 1,Warren Ramsey,stock market investing forex trading beginners 6 books 1|ramsey,5,1,True,STOCK MARKET INVESTING and FOREX TRADING FOR BEGINNERS - 6 Books in 1
+7,QU2pLmie9SEC,An Introduction to Trading in the Financial Markets: Market Basics,R. Tee Williams,introduction trading financial markets|williams,1,2,True,An Introduction to Trading in the Financial Markets: Market Basics
+8,teitAAAAQBAJ,Technical Analysis of the Financial Markets,John J. Murphy,technical analysis financial markets|murphy,6,1,True,Technical Analysis of the Financial Markets
+9,27fDXUtmaUYC,Theory of Financial Markets,Jan Mossin,theory financial markets|mossin,7,1,True,Theory of Financial Markets
+10,j744AQAAIAAJ,Yearbook of International Financial and Economic Law 1997,Queen Mary and Westfield College Staff,yearbook international financial economic law 1997|mary,8,1,True,Yearbook of International Financial and Economic Law 1997
+11,WrCW5SI-T7AC,"Federal Regulatory Directory, 12th Edition","Kenneth Jost, David Masci, Brian Hansen, Mary H Cooper",federal regulatory directory|jost,9,1,True,"Federal Regulatory Directory, 12th Edition"
+12,8GF9zgEACAAJ,Investing and Trading Strategies,Dave Robert Warren Graham,investing trading strategies|graham,10,1,True,Investing and Trading Strategies
+13,ch9RAQAAIAAJ,Britain 1995,Great Britain. Central Office of Information,britain 1995|information,11,1,True,Britain 1995
+14,s7dTEQAAQBAJ,Mastering Value Investing,Peter Benedikt,mastering value investing|benedikt,12,1,True,Mastering Value Investing
+15,fj1oEQAAQBAJ,Simple Investing For Smart Kids:,Dean McNeil,simple investing smart kids|mcneil,13,1,True,Simple Investing For Smart Kids:
+16,GlY2pfZGrAkC,Contrarian Investment Strategies in the Next Generation,David Dreman,contrarian investment strategies next generation|dreman,14,1,True,Contrarian Investment Strategies in the Next Generation
+17,9fF3Gn_ZuvMC,Value Stocks beat Growth Stocks: An empirical Analysis for the German Stock Market,Christian Schießl,value stocks beat growth stocks|schießl,15,1,True,Value Stocks beat Growth Stocks: An empirical Analysis for the German Stock Market
+18,FPWzK0j2KU4C,Value versus Growth - An Empirical Analysis of Equity Fund Managers ́ Capabilities to Generate Alpha,Thomas Müller,value versus growth empirical analysis equity fund managers capabilities generate alpha|müller,16,1,True,Value versus Growth - An Empirical Analysis of Equity Fund Managers ́ Capabilities to Generate Alpha
+19,hgd3__K9cCkC,Value Investing,Martin J. Whitman,value investing|whitman,17,1,True,Value Investing
+20,5xdYDb1wD9YC,Fundamentals of Investments,Richard A. Stevenson,fundamentals investments|stevenson,18,1,True,Fundamentals of Investments
+21,u9xmEp_FB58C,What Is Value Investing?,Lawrence A. Cunningham,what is value investing|cunningham,19,1,True,What Is Value Investing?
+22,_Exwgz9_6oEC,Investor's Library,"Marvin Appel, Harry Domash, Michael N. Kahn CMT",investor s library|appel,20,1,True,Investor's Library
+23,60UkDwAAQBAJ,Good Stocks Cheap: Value Investing with Confidence for a Lifetime of Stock Market Outperformance,Kenneth Jeffrey Marshall,good stocks cheap|marshall,21,1,True,Good Stocks Cheap: Value Investing with Confidence for a Lifetime of Stock Market Outperformance
+24,PnK_cQAACAAJ,Fundamental Analysis in Value Investing,Chau Duong,fundamental analysis value investing|duong,22,1,True,Fundamental Analysis in Value Investing
+25,Bj9I9EzNZhsC,Investing Online For Dummies,Kathleen Sindell,investing online dummies|sindell,23,1,True,Investing Online For Dummies
+26,HPHqDwAAQBAJ,Value Investing For Dummies,"Peter J. Sander, Janet Haley",value investing dummies|sander,24,1,True,Value Investing For Dummies
+27,rPkmNfPEuIYC,Fundamental Analysis,John C. Ritchie,fundamental analysis|ritchie,25,1,True,Fundamental Analysis
+28,XY3pEAAAQBAJ,"The AFIRE Guide to U.S. Real Estate Investing, Fourth Edition: What Global Investors Need to Know about Commercial Real Estate Acquisition, Management, and Disposition",Will McIntosh,afire guide u s real estate investing|mcintosh,26,1,True,"The AFIRE Guide to U.S. Real Estate Investing, Fourth Edition: What Global Investors Need to Know about Commercial Real Estate Acquisition, Management, and Disposition"
+29,ZQ0QAQAAMAAJ,"Words on Cassette, 2002",R R Bowker Publishing,words cassette 2002|publishing,27,1,True,"Words on Cassette, 2002"
+30,pyeA4Bj3wAgC,The Money Answers Dictionary of Finance and Investment Terms,"John Downes, Jordan Elliot Goodman",money answers dictionary finance investment terms|downes,28,1,True,The Money Answers Dictionary of Finance and Investment Terms
+31,qRakBQAAQBAJ,Private Wealth Mangement 9th Ed (PB),"G. Victor Hallman, Jerry S. Rosenbloom",private wealth mangement ed pb|hallman,29,1,True,Private Wealth Mangement 9th Ed (PB)
+32,sqdmvYZrX3cC,Private Wealth Management: The Complete Reference for the Personal Financial Planner,"G. Victor Hallman, Jerry S. Rosenbloom",private wealth management|hallman,30,1,True,Private Wealth Management: The Complete Reference for the Personal Financial Planner
+33,9-1X9wA_bhEC,Teenvestor,"Emmanuel Modu, Andrea Walker",teenvestor|modu,31,1,True,Teenvestor
+34,DctIxcCoguoC,Kiss Your Stockbroker Goodbye,"John Wells, John G. Wells",kiss your stockbroker goodbye|wells,32,1,True,Kiss Your Stockbroker Goodbye
+35,DS-xeZMsAEUC,The Individual Investor's Guide to Winning on Wall Street,Peter J. DeAngelis,individual investor s guide winning wall street|deangelis,33,1,True,The Individual Investor's Guide to Winning on Wall Street
+36,Z1XT7_Afrk8C,Handbook for No-Load Fund Investors,Sheldon Jacobs,handbook no load fund investors|jacobs,34,1,True,Handbook for No-Load Fund Investors
+37,0N9-rpe1L4oC,Extra Dividends Supplement to Accompany Fundamentals of Investing,David J. McLaughlin,extra dividends supplement accompany fundamentals investing|mclaughlin,35,1,True,Extra Dividends Supplement to Accompany Fundamentals of Investing
+38,OmaeIdd95EQC,The Art and Science of Technical Analysis,Adam Grimes,art science technical analysis|grimes,36,1,True,The Art and Science of Technical Analysis
+39,2HpWnQiPqMYC,Intermarket Technical Analysis,John J. Murphy,intermarket technical analysis|murphy,37,1,True,Intermarket Technical Analysis
+40,3EfBDwAAQBAJ,MIDAS Technical Analysis,"Andrew Coles, David Hawkins",midas technical analysis|coles,38,1,True,MIDAS Technical Analysis
+41,yeM6viq7fAYC,"Bond and Money Markets: Strategy, Trading, Analysis",Moorad Choudhry,bond money markets|choudhry,39,1,True,"Bond and Money Markets: Strategy, Trading, Analysis"
+42,62-9CgAAQBAJ,Technical Analysis,"Charles D. Kirkpatrick II, Julie R. Dahlquist",technical analysis|ii,40,1,True,Technical Analysis
+43,iA0fEAAAQBAJ,Technical Analysis and Stock Market Profits (Harriman Definitive Edition),Richard Schabacker,technical analysis stock market profits harriman definitive|schabacker,41,1,True,Technical Analysis and Stock Market Profits (Harriman Definitive Edition)
+44,hOBhz7i6npcC,New Frontiers in Technical Analysis,Paul Ciana,frontiers technical analysis|ciana,42,1,True,New Frontiers in Technical Analysis
+45,y9l5CgAAQBAJ,Trading with Intermarket Analysis,John J. Murphy,trading with intermarket analysis|murphy,43,1,True,Trading with Intermarket Analysis
+46,UIxyWFkFJ4QC,Technical Analysis for the Trading Professional,Constance M. Brown,technical analysis trading professional|brown,44,1,True,Technical Analysis for the Trading Professional
+47,mP-Kb-R9aKcC,Technical Markets Indicators,"Richard J. Bauer, Julie R. Dahlquist",technical markets indicators|bauer,45,1,True,Technical Markets Indicators
+48,_TJKwgEACAAJ,Trading: Technical Analysis Masterclass: Master the Financial Markets,"Moritz Czubatinski, Rolf Schlotmann",trading|czubatinski,46,1,True,Trading: Technical Analysis Masterclass: Master the Financial Markets
+49,cVJmDwAAQBAJ,Technical Analysis of Stock Trends,"Robert D. Edwards, John Magee, W.H.C. Bassetti",technical analysis stock trends|edwards,47,1,True,Technical Analysis of Stock Trends
+50,XLRFDwAAQBAJ,Trader's Guide to Financial Markets and Technical Analysis,Jitender Yadav,trader s guide financial markets technical analysis|yadav,48,1,True,Trader's Guide to Financial Markets and Technical Analysis
+51,7HOiDwAAQBAJ,Trading the Markets the Point & Figure way,Prashant Shah,trading markets point figure way|shah,49,1,True,Trading the Markets the Point & Figure way
+52,VIruZ65OADgC,All About Candlestick Charting,Wayne A. Corbitt,all about candlestick charting|corbitt,50,1,True,All About Candlestick Charting
+53,BgjBzwEACAAJ,A Beginner's Guide To Technical Analysis,Three Candles Press,beginner s guide technical analysis|press,51,1,True,A Beginner's Guide To Technical Analysis
+54,Cm7H4m7bqmcC,The Trading Methodologies of W.D. Gann,Hima Reddy,trading methodologies w d gann|reddy,52,1,True,The Trading Methodologies of W.D. Gann
+55,YlzcEAAAQBAJ,Beyond Technical Analysis,Tushar S. Chande,beyond technical analysis|chande,53,1,True,Beyond Technical Analysis
+56,zcFHAeGZDtkC,Mapping the Markets,"Deborah Owen, Robin Griffiths",mapping markets|owen,54,1,True,Mapping the Markets
+57,OvaWoAEACAAJ,Technical Analysis,Alan Northcott,technical analysis|northcott,55,1,True,Technical Analysis
+58,2RZi42MSunkC,1999 Writer's Market,"Mark Garvey, Holm",1999 writer s market|garvey,56,1,True,1999 Writer's Market
+59,NQ5xDwAAQBAJ,"Mastering the Trade, Third Edition: Proven Techniques for Profiting from Intraday and Swing Trading Setups",John F. Carter,mastering trade|carter,57,1,True,"Mastering the Trade, Third Edition: Proven Techniques for Profiting from Intraday and Swing Trading Setups"
+60,Ab5PAQAAQBAJ,Trading For Dummies,"Michael Griffis, Lita Epstein",trading dummies|griffis,58,1,True,Trading For Dummies
+61,2lNpJqsuuqQC,The Market Guys' Five Points for Trading Success,"A. J. Monte, Rick Swope",market guys five points trading success|monte,59,1,True,The Market Guys' Five Points for Trading Success
+62,yXXCBwAAQBAJ,Trend Trading For Dummies,Barry Burns,trend trading dummies|burns,60,1,True,Trend Trading For Dummies
+63,_t1MzUWXfs8C,Investments,Mayo,investments|mayo,61,1,True,Investments
+64,gOSYCekK5GcC,Technical Analysis of the Currency Market,Boris Schlossberg,technical analysis currency market|schlossberg,62,1,True,Technical Analysis of the Currency Market
+65,_F3BAwAAQBAJ,Risk Management in Trading,Davis Edwards,risk management trading|edwards,63,1,True,Risk Management in Trading
+66,ji3LDwAAQBAJ,Investment Analysis & Portfolio Management,"Frank K. Reilly, Keith C. Brown, Brindha Gunasingham, Asjeet Lamba, Dr Frank Elston",investment analysis portfolio management|reilly,64,1,True,Investment Analysis & Portfolio Management
+67,PbXzAAAAMAAJ,Investing and Risk Management,Robert Lawrence Kuhn,investing risk management|kuhn,65,1,True,Investing and Risk Management
+68,UwN0AwAAQBAJ,Strategies of Banks and Other Financial Institutions,Rajesh Kumar,strategies banks other financial institutions|kumar,66,1,True,Strategies of Banks and Other Financial Institutions
+69,VRyfEK_cVpAC,"Risk, Risk Management and Regulation in the Banking Industry",Peter Pelzer,risk risk management regulation banking industry|pelzer,67,1,True,"Risk, Risk Management and Regulation in the Banking Industry"
+70,Mjd96ayZ98kC,Quality Money Management,"Andrew Kumiega, Benjamin Van Vliet",quality money management|kumiega,68,1,True,Quality Money Management
+71,UTD7Rct71JYC,"Trade, Investment and Development: Reaping the Full Benefits of Open Markets",OECD,trade investment development|oecd,69,1,True,"Trade, Investment and Development: Reaping the Full Benefits of Open Markets"
+72,MpbOHizSDVwC,Credit Derivatives,Geoff Chaplin,credit derivatives|chaplin,70,2,False,Credit Derivatives
+73,jc2SBQAAQBAJ,Investment Risk Management,"Harold Kent Baker, Greg Filbeck",investment risk management|baker,71,1,True,Investment Risk Management
+74,w-2_DQAAQBAJ,Energy Trading & Investing 2E (PB),Davis W. Edwards,energy trading investing 2e pb|edwards,72,1,True,Energy Trading & Investing 2E (PB)
+75,sD0PNeDmHmgC,The Essentials of Risk Management,"Michel Crouhy, Dan Galai, Robert Mark",essentials risk management|crouhy,73,1,True,The Essentials of Risk Management
+76,ZkNQEAAAQBAJ,Risk and Money Management for Day and Swing Trading,Wieland Arlt,risk money management day swing trading|arlt,74,1,True,Risk and Money Management for Day and Swing Trading
+77,aOsCDgAAQBAJ,Real-Time Risk,"Irene Aldridge, Steven Krawciw",real time risk|aldridge,75,1,True,Real-Time Risk
+78,fxdqJjfjV8kC,Credit Derivatives,Geoff Chaplin,credit derivatives|chaplin,70,2,True,Credit Derivatives
+79,hlDfEAAAQBAJ,Trading Risk,Kenneth L. Grant,trading risk|grant,76,1,True,Trading Risk
+80,Ot4IEAAAQBAJ,"Portfolio Management in Practice, Volume 1",CFA Institute,portfolio management practice 1|institute,77,1,True,"Portfolio Management in Practice, Volume 1"
+81,JDjDCAAAQBAJ,Portfolio Management,"John Bonner, Marcus Rees, Edward Ivanovic",portfolio management|bonner,78,1,True,Portfolio Management
+82,7_vxEAAAQBAJ,"Portfolio Management in Practice, Volume 2",CFA Institute,portfolio management practice 2|institute,79,2,True,"Portfolio Management in Practice, Volume 2"
+83,SbIz2gRbrF4C,Pioneering Portfolio Management,David F. Swensen,pioneering portfolio management|swensen,80,1,True,Pioneering Portfolio Management
+84,QN4IEAAAQBAJ,"Portfolio Management in Practice, Volume 2",CFA Institute,portfolio management practice 2|institute,79,2,False,"Portfolio Management in Practice, Volume 2"
+85,igZR2oxK-woC,"Mastering the Art of Asset Allocation, Chapter 10 - Sources of Information","CFA Darst, David M.",mastering art asset allocation chapter 10 sources information|darst,81,1,True,"Mastering the Art of Asset Allocation, Chapter 10 - Sources of Information"
+86,q80oFFsiI3kC,"Asset Allocation, 4th Ed",Roger C. Gibson,asset allocation ed|gibson,82,1,True,"Asset Allocation, 4th Ed"
+87,pUilEQAAQBAJ,Managing Your Firm's 401(k) Plan,Matthew X. Smith,managing your firm s 401 k plan|smith,83,1,True,Managing Your Firm's 401(k) Plan
+88,R12JEQAAQBAJ,Modern Fund Management and Sustainable Development of Emerging Financial Markets,Ephraim Matanda,modern fund management sustainable development emerging financial markets|matanda,84,1,True,Modern Fund Management and Sustainable Development of Emerging Financial Markets
+89,kPfrA0qhG4AC,Mastering the Art of Asset Allocation : Comprehensive Approaches to Managing Risk and Optimizing Returns,CFA David M. Darst,mastering art asset allocation|darst,85,1,True,Mastering the Art of Asset Allocation : Comprehensive Approaches to Managing Risk and Optimizing Returns
+90,_pZTS-QgMHcC,Global Asset Allocation,"Jess Lederman, Robert A. Klein",global asset allocation|lederman,86,1,True,Global Asset Allocation
+91,cXsxQ1yzWwsC,Core-Satellite Portfolio Management,J. Clay Singleton,core satellite portfolio management|singleton,87,1,True,Core-Satellite Portfolio Management
+92,CWrD8aoKejYC,Streetsmart Guide to Managing Your Portfolio,Frank Yao,streetsmart guide managing your portfolio|yao,88,1,True,Streetsmart Guide to Managing Your Portfolio
+93,COQoNN7mAnsC,The Theory and Practice of Investment Management,"Frank J. Fabozzi, Harry M. Markowitz",theory practice investment management|fabozzi,89,1,True,The Theory and Practice of Investment Management
+94,-JosEQAAQBAJ,Asset Management and Institutional Investors,"Ignazio Basile, Pierpaolo Ferrari",asset management institutional investors|basile,90,1,True,Asset Management and Institutional Investors
+95,KcbcDWIgzpQC,Dynamic Portfolio Theory and Management,Richard E. Oberuc,dynamic portfolio theory management|oberuc,91,1,True,Dynamic Portfolio Theory and Management
+96,mFLNUdvuE0kC,Behavioral Investment Management: An Efficient Alternative to Modern Portfolio Theory,"Greg B. Davies, Arnaud de Servigny",behavioral investment management|davies,92,1,True,Behavioral Investment Management: An Efficient Alternative to Modern Portfolio Theory
+97,Ozt1OaXe5qwC,The Practical Guide to Practically Everything,"Peter L Bernstein, Peter W. Bernstein, Christopher Ma",practical guide practically everything|bernstein,93,1,True,The Practical Guide to Practically Everything
+98,Q7IzEAAAQBAJ,Asset Allocation,"William Kinlaw, Mark P. Kritzman, David Turkington",asset allocation|kinlaw,94,1,True,Asset Allocation
+99,NEgbAQAAMAAJ,Canadian Almanac and Directory 2002,Canadian Almanac & Directory,canadian almanac directory 2002|almanac,95,1,True,Canadian Almanac and Directory 2002
+100,g6iODwAAQBAJ,Portfolio Management,"Scott D. Stewart, Christopher D. Piros, Jeffrey C. Heisler",portfolio management|stewart,96,1,True,Portfolio Management
+101,fq2CB5YTqssC,Portfolio Management Using Black-Litterman,Henning Padberg,portfolio management using black litterman|padberg,97,1,True,Portfolio Management Using Black-Litterman
+102,L3d9nom4JPsC,Portfolio Management in Practice,Christine Brentani,portfolio management practice|brentani,98,1,True,Portfolio Management in Practice
+103,z-joAwAAQBAJ,Asset Rotation,Matthew P. Erickson,asset rotation|erickson,99,1,True,Asset Rotation
+104,O75mDwAAQBAJ,Advances in the Practice of Public Investment Management,"Narayan Bulusu, Joachim Coche, Alejandro Reveiz, Francisco Rivadeneyra, Vahe Sahakyan, Ghislain Yanou",advances practice public investment management|bulusu,100,1,True,Advances in the Practice of Public Investment Management
+105,yt8wCwAAQBAJ,Buy and Hold is Still Dead (Again),Kenneth R. Solow,buy hold is still dead again|solow,101,1,True,Buy and Hold is Still Dead (Again)
+106,8-xBSh1avUsC,Managing Investment Portfolios,"John L. Maginn, Donald L. Tuttle, Dennis W. McLeavey, Jerald E. Pinto",managing investment portfolios|maginn,102,2,False,Managing Investment Portfolios
+107,rWW8AwAAQBAJ,Asset Management,Andrew Ang,asset management|ang,103,1,True,Asset Management
+108,VEcREAAAQBAJ,Asset Management: Tools And Issues,"Frank J Fabozzi, Francesco A Fabozzi, Marcos Lopez De Prado, Stoyan V Stoyanov",asset management|fabozzi,104,1,True,Asset Management: Tools And Issues
+109,fjdYDwAAQBAJ,Portfolio Construction for Today's Markets,Russ Koesterich,portfolio construction today s markets|koesterich,105,1,True,Portfolio Construction for Today's Markets
+110,zbDmmWWKOkAC,Buy and Hold Is Dead (Again),Kenneth R. Solow,buy hold is dead again|solow,106,1,True,Buy and Hold Is Dead (Again)
+111,yVlAb08VCCkC,Global Asset Allocation,"Heinz Zimmermann, Wolfgang Drobetz, Peter Oertmann",global asset allocation|zimmermann,107,1,True,Global Asset Allocation
+112,k4zMDgAAQBAJ,A Practitioner's Guide to Asset Allocation,"William Kinlaw, Mark P. Kritzman, David Turkington",practitioner s guide asset allocation|kinlaw,108,1,True,A Practitioner's Guide to Asset Allocation
+113,vLWnDwAAQBAJ,Quantitative Management of Bond Portfolios,Lev Dynkin,quantitative management bond portfolios|dynkin,109,1,True,Quantitative Management of Bond Portfolios
+114,aSDkFQtysy8C,Active Portfolio Management: A Quantitative Approach for Producing Superior Returns and Selecting Superior Returns and Controlling Risk,"Richard C. Grinold, Ronald N. Kahn",active portfolio management|grinold,110,1,True,Active Portfolio Management: A Quantitative Approach for Producing Superior Returns and Selecting Superior Returns and Controlling Risk
+115,loUgCwAAQBAJ,Portfolio Construction and Analytics,"Frank J. Fabozzi, Dessislava A. Pachamanova",portfolio construction analytics|fabozzi,111,1,True,Portfolio Construction and Analytics
+116,_e1lDwAAQBAJ,Strategic and Tactical Asset Allocation,Henrik Lumholdt,strategic tactical asset allocation|lumholdt,112,1,True,Strategic and Tactical Asset Allocation
+117,t1F9DAAAQBAJ,"Quantitative Portfolio Optimisation, Asset Allocation and Risk Management",M. Rasmussen,quantitative portfolio optimisation asset allocation risk management|rasmussen,113,1,True,"Quantitative Portfolio Optimisation, Asset Allocation and Risk Management"
+118,1BXZjwEACAAJ,The Endowment Model of Investing,"Martin L. Leibowitz, Anthony Bova, P. Brett Hammond",endowment model investing|leibowitz,114,1,True,The Endowment Model of Investing
+119,LYcqAgAAQBAJ,Portfolio Management under Stress,"Riccardo Rebonato, Alexander Denev",portfolio management under stress|rebonato,115,1,True,Portfolio Management under Stress
+120,lInvAQAACAAJ,Forex Traders Psychology. A Behavioral Finance Research Paper,Qais Sbaih,forex traders psychology behavioral finance research paper|sbaih,116,1,True,Forex Traders Psychology. A Behavioral Finance Research Paper
+121,Zt5CDwAAQBAJ,The Psychology of Successful Trading,Tim Short,psychology successful trading|short,117,1,True,The Psychology of Successful Trading
+122,J6On0QEACAAJ,Trading Psychology & Neuroscience,"Brian Dale Babiak, MD",trading psychology neuroscience|babiak,118,1,True,Trading Psychology & Neuroscience
+123,wB3dCQAAQBAJ,Financial Risk Taking,Mike Elvin,financial risk taking|elvin,119,1,True,Financial Risk Taking
+124,dq_TEQAAQBAJ,Behavioural Finance,"Sujata Kapoor, Jaya Mamta Prosad",behavioural finance|kapoor,120,1,True,Behavioural Finance
+125,a296EAAAQBAJ,Trading Psychology For Dummies,Roland Ullrich,trading psychology dummies|ullrich,121,1,True,Trading Psychology For Dummies
+126,_7zRAgAAQBAJ,Investor Behavior,"H. Kent Baker, Victor Ricciardi",investor behavior|baker,122,1,True,Investor Behavior
+127,bLT_DwAAQBAJ,Finance Psychology: How To Begin Thinking Like A Professional Trader (This Workbook About Behavioral Finance Is All You Need To Be Successful In Trading),Forex Investment Lounge,finance psychology|lounge,123,1,True,Finance Psychology: How To Begin Thinking Like A Professional Trader (This Workbook About Behavioral Finance Is All You Need To Be Successful In Trading)
+128,JmFMvgCm2G8C,The Psychology of Trading,Brett N. Steenbarger,psychology trading|steenbarger,124,1,True,The Psychology of Trading
+129,JETKCQAAQBAJ,The Three Skills of Top Trading,Hank Pruden,three skills top trading|pruden,125,1,True,The Three Skills of Top Trading
+130,aH_W0QEACAAJ,Psychology of the Stock Market,G C (George Charles) Selden,psychology stock market|selden,126,1,True,Psychology of the Stock Market
+131,iOF6RexINHAC,"Trading Stategies for Capital Markets, Chapter 22 - Psychology and Markets: Behavioral Finance",Joseph Benning,trading stategies capital markets chapter 22 psychology markets|benning,127,1,True,"Trading Stategies for Capital Markets, Chapter 22 - Psychology and Markets: Behavioral Finance"
+132,0vH2zQEACAAJ,BEHAVIORAL FINANCE,Gregor Kaufmann,behavioral finance|kaufmann,128,1,True,BEHAVIORAL FINANCE
+133,ag21rQEACAAJ,"Bridging Trading Psychology, Behavioral Finance and Neurofinance, Towards Becoming a Consistent Profitable Trader",Ciprian Sebastian Turcan,bridging trading psychology behavioral finance neurofinance towards becoming consistent profitable trader|turcan,129,1,True,"Bridging Trading Psychology, Behavioral Finance and Neurofinance, Towards Becoming a Consistent Profitable Trader"
+134,zZDr-3DRMqcC,Quantitative Trading Strategies,Lars Kestner,quantitative trading strategies|kestner,130,1,True,Quantitative Trading Strategies
+135,WkrgzgEACAAJ,Trading Behavioural Finance - Money Management and Trading Psychology,David Carli,trading behavioural finance money management trading psychology|carli,131,1,True,Trading Behavioural Finance - Money Management and Trading Psychology
+136,vvlcCgAAQBAJ,Trading Psychology 2.0,Brett N. Steenbarger,trading psychology 2 0|steenbarger,132,1,True,Trading Psychology 2.0
+137,KlLNZ6g_pgMC,The Mental Strategies of Top Traders,Ari Kiev,mental strategies top traders|kiev,133,1,True,The Mental Strategies of Top Traders
+138,esdm6ijCSrMC,The Story of Behavioral Finance,"Brandon Adams, Brian Finn",story behavioral finance|adams,134,1,True,The Story of Behavioral Finance
+139,rIfr3k3EJswC,Streetsmart Guide to Valuing a Stock,"Gary Gray, Patrick Cusatis, J. Randall Woolridge",streetsmart guide valuing stock|gray,135,1,True,Streetsmart Guide to Valuing a Stock
+140,OZEKAwAAQBAJ,An Investigation of the “Flash Crash” of 2010 using the principles of behavioral finance,Jovana Paraca,investigation flash crash 2010 using principles behavioral finance|paraca,136,1,True,An Investigation of the “Flash Crash” of 2010 using the principles of behavioral finance
+141,4QbRAQAAQBAJ,Behavioral Finance and Capital Markets,A. Szyszka,behavioral finance capital markets|szyszka,137,1,True,Behavioral Finance and Capital Markets
+142,zOqtEQAAQBAJ,From Human Bias to Machine Intelligence. An Empirical Study on Investor Behaviour and AI-Based Investment Decision Making,S. J. Sanjana,from human bias machine intelligence empirical study investor behaviour ai based investment decision making|sanjana,138,1,True,From Human Bias to Machine Intelligence. An Empirical Study on Investor Behaviour and AI-Based Investment Decision Making
+143,Sc3wMcq6aO4C,Inside the Investor's Brain,Richard L. Peterson,inside investor s brain|peterson,139,1,True,Inside the Investor's Brain
+144,_7VZAAAAYAAJ,2003 CFA Level III Candidate Readings,Association for Investment Management and Research,2003 cfa level iii candidate readings|management,140,1,True,2003 CFA Level III Candidate Readings
+145,l46JEAAAQBAJ,"Stocks for the Long Run: The Definitive Guide to Financial Market Returns & Long-Term Investment Strategies, Sixth Edition",Jeremy J. Siegel,stocks long run|siegel,141,1,True,"Stocks for the Long Run: The Definitive Guide to Financial Market Returns & Long-Term Investment Strategies, Sixth Edition"
+146,9usJAQAAMAAJ,"Handbook of Finance, Investment Management and Financial Management",Frank J. Fabozzi,handbook finance investment management financial management|fabozzi,142,1,True,"Handbook of Finance, Investment Management and Financial Management"
+147,82WIY84Hx-kC,Behavioral Finance,"Edwin T. Burton, Sunit N. Shah",behavioral finance|burton,143,1,True,Behavioral Finance
+148,WNHOEQAAQBAJ,Trading Global Macro Markets,"Dirk Willer, Alex Saunders",trading global macro markets|willer,144,1,True,Trading Global Macro Markets
+149,p9sMEAAAQBAJ,Crypto Asset Investing in the Age of Autonomy,Jake Ryan,crypto asset investing age autonomy|ryan,145,1,True,Crypto Asset Investing in the Age of Autonomy
+150,Yj0LIWZocugC,The New Investment Superstars,Lois Peltz,investment superstars|peltz,146,1,True,The New Investment Superstars
+151,Y3arwUNcUWoC,Real World Macro 24th Edition,"Daniel Fireside, John Miller, Dollars & Sense",real world macro|fireside,147,1,True,Real World Macro 24th Edition
+152,RJiTlGs1NSIC,Real World Macro,Randy Pearl Albelda,real world macro|albelda,148,1,True,Real World Macro
+153,H-qgY68qMc8C,Managing World Economic Change,Robert A. Isaak,managing world economic change|isaak,149,1,True,Managing World Economic Change
+154,FHKgAwAAQBAJ,Global Macro Trading,Greg Gliner,global macro trading|gliner,150,1,True,Global Macro Trading
+155,H4YpAQAAMAAJ,International Capital Markets,International Monetary Fund,international capital markets|fund,151,1,True,International Capital Markets
+156,nVQS2ia3N6MC,Parallel and Distributed Processing and Applications,Yi Pan,parallel distributed processing applications|pan,152,1,True,Parallel and Distributed Processing and Applications
+157,WTiyBSxXmukC,The Encyclopedia of Trading Strategies,"Jeffrey Katz, Donna McCormick",encyclopedia trading strategies|katz,153,1,True,The Encyclopedia of Trading Strategies
+158,GoZFNGeHktAC,Building Winning Trading Systems with TradeStation,"George Pruitt, John R. Hill",building winning trading systems with tradestation|pruitt,154,1,True,Building Winning Trading Systems with TradeStation
+159,yUaFVfvU2-cC,"High-Probability Trading, Chapter 13 - A Little about Backtesting",Marcel Link,high probability trading chapter 13 little about backtesting|link,155,1,True,"High-Probability Trading, Chapter 13 - A Little about Backtesting"
+160,4igizlbY-T8C,The Individual Investor's Guide to Computerized Investing,American Association of Individual Investors,individual investor s guide computerized investing|investors,156,2,True,The Individual Investor's Guide to Computerized Investing
+161,_TxWa7OQNOEC,Mastering Trade Selection and Management: Advanced Strategies for Long-Term Profitability,"Jay Norris, Al Gaskill",mastering trade selection management|norris,157,1,True,Mastering Trade Selection and Management: Advanced Strategies for Long-Term Profitability
+162,dTmr94EhEoUC,Tradings Systems That Work: Building and Evaluating Effective Trading Systems,Thomas Stridsman,tradings systems that work|stridsman,158,1,True,Tradings Systems That Work: Building and Evaluating Effective Trading Systems
+163,ZGbTV69f-koC,Trading Strategies for Direct Access Trading,Robert Sales,trading strategies direct access trading|sales,159,1,True,Trading Strategies for Direct Access Trading
+164,zYMwAi5ZfhQC,Individual Investor's Guide to Computerized Investing,"American Association of Individual Investors, Amer",individual investor s guide computerized investing|investors,156,2,False,The Individual Investor's Guide to Computerized Investing
+165,GHG3p6H8XXsC,All About Stock Market Strategies,"David Brown, Kassandra Bentley",all about stock market strategies|brown,160,1,True,All About Stock Market Strategies
+166,I2Qe26bkXpgC,"High-Probability Trading, Chapter 10 - Making the High Probability Trades",Marcel Link,high probability trading chapter 10 making high probability trades|link,161,1,True,"High-Probability Trading, Chapter 10 - Making the High Probability Trades"
+167,PJUua8Z1SHAC,All About Market Timing,Leslie Masonson,all about market timing|masonson,162,1,True,All About Market Timing
+168,enB5DwAAQBAJ,Trend Trading for a Living (PB),Thomas K. Carr,trend trading living pb|carr,163,1,True,Trend Trading for a Living (PB)
+169,vmsKEqZkFBYC,Managing a Hedge Fund,Keith H. Black,managing hedge fund|black,164,1,True,Managing a Hedge Fund
+170,QTgfnM_ylxYC,Successful Investing with Fidelity Funds,Jack Bowers,successful investing with fidelity funds|bowers,165,1,True,Successful Investing with Fidelity Funds
+171,FlR3oYhlwb4C,Momentum Stock Selection: Using The Momentum Method For Maximum Profits,Jake Bernstein,momentum stock selection|bernstein,166,1,True,Momentum Stock Selection: Using The Momentum Method For Maximum Profits
+172,Lh7YHl9yiAYC,Building Reliable Trading Systems,Keith Fitschen,building reliable trading systems|fitschen,167,1,True,Building Reliable Trading Systems
+173,UhGUzQEACAAJ,The Book of Back-tests,Sofien Kaabar,book back tests|kaabar,168,1,True,The Book of Back-tests
+174,du5qDwAAQBAJ,CFA Program Curriculum 2019 Level III Volumes 1-6 Box Set,CFA Institute,cfa program curriculum 2019 level iii volumes 1 6 box set|institute,169,1,True,CFA Program Curriculum 2019 Level III Volumes 1-6 Box Set
+175,ZHW7DwAAQBAJ,Applications of Computational Intelligence in Data-Driven Trading,Cris Doloc,applications computational intelligence data driven trading|doloc,170,1,True,Applications of Computational Intelligence in Data-Driven Trading
+176,Yr0aZdSQA2kC,Managing Investment Portfolios,"John L. Maginn, Donald L. Tuttle, Dennis W. McLeavey, Jerald E. Pinto",managing investment portfolios|maginn,102,2,True,Managing Investment Portfolios
+177,kR1wAAAAQBAJ,Market Microstructure in Emerging and Developed Markets,"H. Kent Baker, Halil Kiymaz",market microstructure emerging developed markets|baker,171,1,True,Market Microstructure in Emerging and Developed Markets
+178,jyv8EAAAQBAJ,C++ High Performance for Financial Systems,Ariel Silahian,c high performance financial systems|silahian,172,1,True,C++ High Performance for Financial Systems
+179,OCY60QEACAAJ,Market Microstructure and Algorithmic Trading,Venice Trex,market microstructure algorithmic trading|trex,173,1,True,Market Microstructure and Algorithmic Trading
+180,-uxaAAAAYAAJ,The Microstructure of Financial Derivatives Markets,"Brenda González-Hermosillo, Bank of Canada",microstructure financial derivatives markets|gonzález-hermosillo,174,1,True,The Microstructure of Financial Derivatives Markets
+181,6l0DDQAAQBAJ,High-Frequency Trading,Irene Aldridge,high frequency trading|aldridge,175,1,True,High-Frequency Trading
+182,RR2m9vsSqboC,Market Microstructure,"Frédéric Abergel, Jean-Philippe Bouchaud, Thierry Foucault, Charles-Albert Lehalle, Mathieu Rosenbaum",market microstructure|abergel,176,1,True,Market Microstructure
+183,EuU2CwAAQBAJ,The Role of Market-Maker/Dealer Inventories in the Price Formation Process,Evelyn Rill,role market maker dealer inventories price formation process|rill,177,1,True,The Role of Market-Maker/Dealer Inventories in the Price Formation Process
+184,RzOIDwAAQBAJ,Lecture Notes In Market Microstructure And Trading,Peter Joakim Westerholm,lecture notes market microstructure trading|westerholm,178,1,True,Lecture Notes In Market Microstructure And Trading
+185,ZfQJAQAAMAAJ,Encyclopedia of Business Ethics and Society,Robert W. Kolb,encyclopedia business ethics society|kolb,179,1,True,Encyclopedia of Business Ethics and Society
+186,S_0GEQAAQBAJ,Financial Statement Analysis for Value Investing,"Stephen Penman, Peter F. Pope",financial statement analysis value investing|penman,180,1,True,Financial Statement Analysis for Value Investing
+187,_aN7swEACAAJ,Financial Statement Analysis,Andrew P. C.,financial statement analysis|c.,181,1,True,Financial Statement Analysis
+188,te4FEQAAQBAJ,Investment Analysis and Portfolio Management,"Dr.Girija Nandini, Dr.Pramod Kumar Patjoshi",investment analysis portfolio management|nandini,182,1,True,Investment Analysis and Portfolio Management
+189,IlizCgAAQBAJ,Quantitative Investment Analysis,"Richard A. DeFusco, Dennis W. McLeavey, Jerald E. Pinto, David E. Runkle, Mark J. P. Anson",quantitative investment analysis|defusco,183,1,True,Quantitative Investment Analysis
+190,2cl6EAAAQBAJ,Financial Statement Analysis,"Martin S. Fridson, Fernando Alvarez",financial statement analysis|fridson,184,2,False,Financial Statement Analysis
+191,UUeaAAAAQBAJ,Financial Statement Analysis,"Martin S. Fridson, Fernando Alvarez",financial statement analysis|fridson,184,2,True,Financial Statement Analysis
+192,B_wwBgAAQBAJ,International Financial Statement Analysis,"Thomas R. Robinson, Elaine Henry, Wendy L. Pirie, Michael A. Broihahn",international financial statement analysis|robinson,185,2,False,International Financial Statement Analysis
+193,w5JR5o6QGI4C,Financial Reporting and Analysis,Lawrence Revsine,financial reporting analysis|revsine,186,1,True,Financial Reporting and Analysis
+194,8cAiAwAAQBAJ,Asian Financial Statement Analysis,"ChinHwee Tan, Thomas R. Robinson",asian financial statement analysis|tan,187,1,True,Asian Financial Statement Analysis
+195,Nya7Nls60RgC,Investment Analysis & Portfolio Selection,"Herbert E. Phillips, John C. Ritchie",investment analysis portfolio selection|phillips,188,1,True,Investment Analysis & Portfolio Selection
+196,hWXHTSkKsVEC,International Financial Statement Analysis,"Thomas R. Robinson, Hennie van Greuning, CFA, Elaine Henry, Michael A. Broihahn",international financial statement analysis|robinson,185,2,True,International Financial Statement Analysis
+197,7_krPwAACAAJ,Financial Statement Analysis and Security Valuation,Stephen Penman,financial statement analysis security valuation|penman,189,2,True,Financial Statement Analysis and Security Valuation
+198,M4GzEAAAQBAJ,Fundamental Analysis For Dummies,Matthew Krantz,fundamental analysis dummies|krantz,190,1,True,Fundamental Analysis For Dummies
+199,K6t3q8sVcocC,Financial and Management Accounting,"Diamond, Hansen",financial management accounting|diamond,191,1,True,Financial and Management Accounting
+200,u7IYEQAAQBAJ,High-Performance Algorithmic Trading Using AI,Melick R. Baranasooriya,high performance algorithmic trading using ai|baranasooriya,192,1,True,High-Performance Algorithmic Trading Using AI
+201,PUXxAAAAQBAJ,Professional Automated Trading,Eugene A. Durenard,professional automated trading|durenard,193,1,True,Professional Automated Trading
+202,MqlMEQAAQBAJ,The Evolution of On-Chain Trading,Dwayne Anderson,evolution chain trading|anderson,194,1,True,The Evolution of On-Chain Trading
+203,KUq7EQAAQBAJ,Treasury Bond Futures and Options,"Owain Johnson, Eric Leininger, Jonathan Kronstein, Agha Mirza",treasury bond futures options|johnson,195,1,True,Treasury Bond Futures and Options
+204,F-7hM6Fc36AC,Breaking the Black Box,Martin J. Pring,breaking black box|pring,196,1,True,Breaking the Black Box
+205,tkj7zGTNlmEC,All About Technical Analysis,Constance M. Brown,all about technical analysis|brown,197,1,True,All About Technical Analysis
+206,RLDa-quGM8MC,Secrets of the SOES Bandit,"Harvey I. Houtkin, David Waldman",secrets soes bandit|houtkin,198,1,True,Secrets of the SOES Bandit
+207,5z3BDgAAQBAJ,Currency Kings: How Billionaire Traders Made their Fortune Trading Forex and How You Can Too,Ben Robson,currency kings|robson,199,1,True,Currency Kings: How Billionaire Traders Made their Fortune Trading Forex and How You Can Too
+208,e9Fx3qMbt48C,The Trading Systems Toolkit,Joe Krutsinger,trading systems toolkit|krutsinger,200,1,True,The Trading Systems Toolkit
+209,yxHOYMzHTUYC,Mastering Futures Trading,Bo Yoder,mastering futures trading|yoder,201,1,True,Mastering Futures Trading
+210,sAm7AAAAIAAJ,International Directory of Company Histories,"Tina Grant, Thomas Derdak",international directory company histories|grant,202,1,True,International Directory of Company Histories
+211,LmnU0QEACAAJ,Algorithmic FX & Currency Trading with Python,"Vincent Bisette, James Preston",algorithmic fx currency trading with python|bisette,203,1,True,Algorithmic FX & Currency Trading with Python
+212,ySLJEQAAQBAJ,Zero-Fee Illusion,Ada T. Thornhill,zero fee illusion|thornhill,204,1,True,Zero-Fee Illusion
+213,tNjEK17eth4C,Strategic Trading in Illiquid Markets,Burkart Mönch,strategic trading illiquid markets|mönch,205,1,True,Strategic Trading in Illiquid Markets
+214,c97m0QEACAAJ,The Structural Trading Constitution,Donovan Sandifer,structural trading constitution|sandifer,206,1,True,The Structural Trading Constitution
+215,R05zEQAAQBAJ,The Liquidity Blueprint,Ishan Saraf,liquidity blueprint|saraf,207,1,True,The Liquidity Blueprint
+216,N1eGEQAAQBAJ,"The Hidden Cost Trap: Uncovering Fees, Spreads, and Slippage—and the Simple Strategies to Keep More of Your Money",Quentin Ashbourne,hidden cost trap|ashbourne,208,1,True,"The Hidden Cost Trap: Uncovering Fees, Spreads, and Slippage—and the Simple Strategies to Keep More of Your Money"
+217,OAib0QEACAAJ,Market Microstructure & High-Frequency Trading,"Hayden Van Der Post, James Preston",market microstructure high frequency trading|post,209,1,True,Market Microstructure & High-Frequency Trading
+218,ypHi0QEACAAJ,Architecting AI Forex Trading Systems,Konstantin Titov,architecting ai forex trading systems|titov,210,1,True,Architecting AI Forex Trading Systems
+219,dcqv0QEACAAJ,Reinforcement Learning for Live Market Execution,Sterling Whitmore,reinforcement learning live market execution|whitmore,211,1,True,Reinforcement Learning for Live Market Execution
+220,urS70QEACAAJ,Execution Intelligence,James Preston,execution intelligence|preston,212,1,True,Execution Intelligence
+221,kIPd0QEACAAJ,Nonlinear Risk Systems,James Preston,nonlinear risk systems|preston,213,1,True,Nonlinear Risk Systems
+222,yrFbEAAAQBAJ,Trading and Investing for Beginners,Rubén Villahermosa,trading investing beginners|villahermosa,214,1,True,Trading and Investing for Beginners
+223,e_G4AAAAIAAJ,Financial Market Liberalization,Olin Lewis Wethington,financial market liberalization|wethington,215,1,True,Financial Market Liberalization
+224,skQUAQAAMAAJ,Protecting Shareholder Value,Abraham M. George,protecting shareholder value|george,216,1,True,Protecting Shareholder Value
+225,oG0uAQAAIAAJ,Towards Harmonious Society,Alfred Aisedionlen,towards harmonious society|aisedionlen,217,1,True,Towards Harmonious Society
+226,UMcPs3gyA6oC,Impact of the COVID-19 Pandemic on Trade and Development,United Nations Publications,impact covid 19 pandemic trade development|publications,218,1,True,Impact of the COVID-19 Pandemic on Trade and Development
+227,5E0nAQAAIAAJ,"American Book Publishing Record Cumulative, 1876-1949",R.R. Bowker Company. Department of Bibliography,american book publishing record cumulative 1876 1949|bibliography,219,1,True,"American Book Publishing Record Cumulative, 1876-1949"
+228,1-YEAQAAIAAJ,Basics of Multilateral Institutions and Multinational Organizations,G. Gregory Letterman,basics multilateral institutions multinational organizations|letterman,220,1,True,Basics of Multilateral Institutions and Multinational Organizations
+229,XZSPvoEQMCMC,Monetary Policy in the Countries of the European Economic Community,European Economic Community. Monetary Committee,monetary policy countries european economic community|committee,221,1,True,Monetary Policy in the Countries of the European Economic Community
+230,r2ymAAAAIAAJ,European Monetary Union,Georges Caravelis,european monetary union|caravelis,222,1,True,European Monetary Union
+231,KerLEQAAQBAJ,Value Investing: A Guide for Individual Investors,Miguel A. Muñoz,value investing|muñoz,223,1,True,Value Investing: A Guide for Individual Investors
+232,rRH9EAAAQBAJ,"Value Investing Essentials: Principles, Strategies, and Insights",Abhishek Parihar,value investing essentials|parihar,224,1,True,"Value Investing Essentials: Principles, Strategies, and Insights"
+233,leX6EAAAQBAJ,Stock Market Investing Course,Brian Smith,stock market investing course|smith,225,1,True,Stock Market Investing Course
+234,NaMQEQAAQBAJ,Mastering Stock Market Investing: From History to Strategy,HECTOR J. M,mastering stock market investing|m,226,1,True,Mastering Stock Market Investing: From History to Strategy
+235,7QVFAAAAYAAJ,Fundamentals of Investment Management,"Geoffrey A. Hirt, Stanley B. Block",fundamentals investment management|hirt,227,1,True,Fundamentals of Investment Management
+236,TnoeAQAAIAAJ,Fundamentals of Investments,"Gordon J. Alexander, William F. Sharpe, Jeffery V. Bailey",fundamentals investments|alexander,228,1,True,Fundamentals of Investments
+237,ctoTAQAAIAAJ,Investing in the Nigerian Capital Market,Suleiman Akwu-Odo Salihu Aruwa,investing nigerian capital market|aruwa,229,1,True,Investing in the Nigerian Capital Market
+238,qKBzRDHHD2IC,Valuing Financial Institutions,Z. Christopher Mercer,valuing financial institutions|mercer,230,1,True,Valuing Financial Institutions
+239,OugJAQAAMAAJ,Electronic Swing Trading for Maximum Profit,Misha T. Sarkovich,electronic swing trading maximum profit|sarkovich,231,1,True,Electronic Swing Trading for Maximum Profit
+240,SGYPAQAAMAAJ,Practical Investment Management,Robert A. Strong,practical investment management|strong,232,1,True,Practical Investment Management
+241,3OAJAQAAMAAJ,Active Asset Allocation,"Walter R. Good, Jack R. Meyer",active asset allocation|good,233,1,True,Active Asset Allocation
+242,FvwJAQAAMAAJ,Investing with Exchange-Traded Funds Made Easy,Marvin Appel,investing with exchange traded funds made easy|appel,234,1,True,Investing with Exchange-Traded Funds Made Easy
+243,gk4UAQAAMAAJ,Value Investing Today,Charles H. Brandes,value investing today|brandes,235,1,True,Value Investing Today
+244,vna3AAAAIAAJ,Investment Banking and Investment Opportunities in China,K. Thomas Liaw,investment banking investment opportunities china|liaw,236,1,True,Investment Banking and Investment Opportunities in China
+245,QouyAAAAIAAJ,Finance and Investment Handbook,"John Downes, Jordan Elliot Goodman",finance investment handbook|downes,237,1,True,Finance and Investment Handbook
+246,KIsrAQAAMAAJ,The Intelligent Guide to Stock Market Investment,"Kevin Keasey, Robert Hudson, Kevin Littler",intelligent guide stock market investment|keasey,238,1,True,The Intelligent Guide to Stock Market Investment
+247,g21aAAAAYAAJ,Value Investing with the Masters,Kirk Kazanjian,value investing with masters|kazanjian,239,1,True,Value Investing with the Masters
+248,a20PAQAAMAAJ,"Financial Institutions, Investments, and Management",Herbert B. Mayo,financial institutions investments management|mayo,240,1,True,"Financial Institutions, Investments, and Management"
+249,GeYJAQAAMAAJ,"Investing with the Insiders, Legally","Aaron B. Feigen, Donald James Christensen",investing with insiders legally|feigen,241,1,True,"Investing with the Insiders, Legally"
+250,su0JAQAAMAAJ,The Psychology of Electronic Trading,Brendon C. W. Seeto,psychology electronic trading|seeto,242,1,True,The Psychology of Electronic Trading
+251,gxsWAQAAMAAJ,British Financial Markets and Institutions,"Jenifer Piesse, K. V. Peasnell, Charles W. R. Ward",british financial markets institutions|piesse,243,1,True,British Financial Markets and Institutions
+252,sgVDAAAAIAAJ,Fundamentals of Investment,Samuel O. Rice,fundamentals investment|rice,244,1,True,Fundamentals of Investment
+253,JlLtAAAAMAAJ,The Pension Plan Investor,Daniel M. Kehrer,pension plan investor|kehrer,245,1,True,The Pension Plan Investor
+254,AyAjCpE6G04C,Technical Analysis of the Futures Markets,John J. Murphy,technical analysis futures markets|murphy,246,1,True,Technical Analysis of the Futures Markets
+255,yQwwBwAAQBAJ,Technical Analysis Of Stock Market For Beginners,Stock Market Guru,technical analysis stock market beginners|guru,247,1,True,Technical Analysis Of Stock Market For Beginners
+256,ZRzJoUYAYFoC,The Day Trader's Manual,William F. Eng,day trader s manual|eng,248,1,True,The Day Trader's Manual
+257,zlAUAQAAMAAJ,Jake Bernstein's Facts on Futures,Jacob Bernstein,jake bernstein s facts futures|bernstein,249,1,True,Jake Bernstein's Facts on Futures
+258,3tgpAQAAMAAJ,How the Average Investor Can Use Technical Analysis for Stock Profits,James Dines,how average investor can use technical analysis stock profits|dines,250,1,True,How the Average Investor Can Use Technical Analysis for Stock Profits
+259,x9SwAAAAIAAJ,International Money and Foreign Exchange Markets,Julian Walmsley,international money foreign exchange markets|walmsley,251,1,True,International Money and Foreign Exchange Markets
+260,N6CxAAAAIAAJ,The Valuation of Shares and the Efficient-markets Theory,Michael Arthur Firth,valuation shares efficient markets theory|firth,252,1,True,The Valuation of Shares and the Efficient-markets Theory
+261,9FGyAAAAIAAJ,How Well Do Foreign Exchange Markets Function,Jeffrey A. Frankel,how well do foreign exchange markets function|frankel,253,1,True,How Well Do Foreign Exchange Markets Function
+262,XYYhzUWOs78C,Booms and busts,James Ciment,booms busts|ciment,254,1,True,Booms and busts
+263,UdbBAAAAIAAJ,Behavioral Finance,"Joachim Goldberg, Rüdiger von Nitzsch",behavioral finance|goldberg,255,1,True,Behavioral Finance
+264,7583AAAAMAAJ,"Writer's Market, 1997",Kirsten C. Holm,writer s market 1997|holm,256,1,True,"Writer's Market, 1997"
+265,0UIUAQAAMAAJ,Timing the Market,Curtis M. Arnold,timing market|arnold,257,1,True,Timing the Market
+266,WrwWvgL1YRkC,The Corporation Trust Company's Federal Trade Commission Service: Docket of complaints; Stipulations,Corporation Trust Company,corporation trust company s federal trade commission service|company,258,1,True,The Corporation Trust Company's Federal Trade Commission Service: Docket of complaints; Stipulations
+267,BJUpAQAAMAAJ,Financial Futures,"Carroll R. Melton, Terry Vance Pukula",financial futures|melton,259,1,True,Financial Futures
+268,Iw5BDwAAQBAJ,Risk Management for Forex Trading Beginners,J.R. Bosanko,risk management forex trading beginners|bosanko,260,1,True,Risk Management for Forex Trading Beginners
+269,rvMJAQAAMAAJ,Global Investment Risk Management,Ezra Zask,global investment risk management|zask,261,1,True,Global Investment Risk Management
+270,nYZFDwAAQBAJ,Risk Management for Forex Trading Beginners,Jose Pecunia,risk management forex trading beginners|pecunia,262,1,True,Risk Management for Forex Trading Beginners
+271,nGrsAAAAMAAJ,Economic Review,Federal Reserve Bank of Atlanta,economic review|atlanta,263,1,True,Economic Review
+272,t1IPAQAAMAAJ,Financial Engineering,John Francis Marshall,financial engineering|marshall,264,1,True,Financial Engineering
+273,QXnsAAAAMAAJ,Chasing Alpha,Philip Augar,chasing alpha|augar,265,1,True,Chasing Alpha
+274,LxsWAQAAMAAJ,The Current State of Business Disciplines: Finance,Shri Bhagwan Dahiya,current state business disciplines|dahiya,266,1,True,The Current State of Business Disciplines: Finance
+275,pdvm-2qT2hIC,Report of the Trade and Development Board ...,United Nations Conference on Trade and Development. Trade and Development Board,report trade development board|trade,267,1,True,Report of the Trade and Development Board ...
+276,gaoYNaEUGm0C,The Internet Investor,J. Timothy Maude,internet investor|maude,268,1,True,The Internet Investor
+277,DmEPAQAAMAAJ,Behavioral Finance,Hersh Shefrin,behavioral finance|shefrin,269,1,True,Behavioral Finance
+278,CZQMoJbYfn4C,Annual Report,Suomen Pankki,annual report|pankki,270,1,True,Annual Report
+279,Vqjfnk0pf2kC,Planning Your First International Investment Trip,Canada. Department of Foreign Affairs and International Trade. Investment Marketing Division,planning your international investment trip|affairs,271,1,True,Planning Your First International Investment Trip
+280,QyVFAAAAYAAJ,Forest Carbon and Local Livelihoods,"Joyotee Smith, Sara J. Scherr",forest carbon local livelihoods|smith,272,1,True,Forest Carbon and Local Livelihoods
+281,uBYWAQAAMAAJ,Proceedings of the Insurance Accounting and Systems Association,Insurance Accounting and Systems Association,proceedings insurance accounting systems association|accounting,273,1,True,Proceedings of the Insurance Accounting and Systems Association
+282,vMJLAAAAYAAJ,The Redemption of Labour,Cecil Balfour Phipson,redemption labour|phipson,274,1,True,The Redemption of Labour
+283,jH5AAQAAIAAJ,Takeovers and Freezeouts,"Martin Lipton, Erica H. Steinberger",takeovers freezeouts|lipton,275,1,True,Takeovers and Freezeouts
+284,WKowAQAAMAAJ,The New Science of Asset Allocation,Warren E. Bitters,science asset allocation|bitters,276,1,True,The New Science of Asset Allocation
+285,pyIUAQAAMAAJ,Managing Pension Funds in a Volatile Environment,Patrick J. Davey,managing pension funds volatile environment|davey,277,1,True,Managing Pension Funds in a Volatile Environment
+286,Iv0gqPfGTq4C,Annual Report,Hong Kong Monetary Authority,annual report|authority,278,1,True,Annual Report
+287,aqPXEQAAQBAJ,Trading Psychology and Decision Making,Chism Faustino,trading psychology decision making|faustino,279,1,True,Trading Psychology and Decision Making
+288,Z0yBEQAAQBAJ,Trading Psychology: Mastering Your Mind in the Crypto Markets,Rozan Spirit,trading psychology|spirit,280,1,True,Trading Psychology: Mastering Your Mind in the Crypto Markets
+289,0M7m5EhDRFsC,Three Essays on Behavioral Finance,Gabriele M. Lepori,three essays behavioral finance|lepori,281,1,True,Three Essays on Behavioral Finance
+290,1KdHAAAAYAAJ,Psychological Traits and Trading Strategies,Bruno Biais,psychological traits trading strategies|biais,282,1,True,Psychological Traits and Trading Strategies
+291,_yw-AQAAIAAJ,Insider Trading,"William K. S. Wang, Marc I. Steinberg",insider trading|wang,283,1,True,Insider Trading
+292,FnwrAQAAMAAJ,Counterintuitive Investing,Harlan D. Platt,counterintuitive investing|platt,284,1,True,Counterintuitive Investing
+293,_mlaAAAAYAAJ,Technical Analysis,"Charles D. Kirkpatrick, Julie R. Dahlquist",technical analysis|kirkpatrick,285,1,True,Technical Analysis
+294,CUQSAQAAIAAJ,Social Simulation,"Bruce Edmonds, Cesareo Hernandez, Klaus G. Troitzsch",social simulation|edmonds,286,1,True,Social Simulation
+295,gaaZAAAAIAAJ,Pioneers of Financial Economics: Twentieth-century contributions,"Geoffrey Poitras, Franck Jovanovic",pioneers financial economics|poitras,287,1,True,Pioneers of Financial Economics: Twentieth-century contributions
+296,79s-AQAAIAAJ,Securities Regulation,"John C. Coffee, Hillary A. Sale",securities regulation|coffee,288,1,True,Securities Regulation
+297,EM5XAAAAYAAJ,The Psychology of Investing,John R. Nofsinger,psychology investing|nofsinger,289,1,True,The Psychology of Investing
+298,Dk1xwkeqGI8C,"A THEORY OF OVERCONFIDENCE, SELF-ATTRIBUTIONS AND SECURITY MARKET UNDER- AND OVERRACTIONS",KENT DANIEL,theory overconfidence self attributions security market under overractions|daniel,290,1,True,"A THEORY OF OVERCONFIDENCE, SELF-ATTRIBUTIONS AND SECURITY MARKET UNDER- AND OVERRACTIONS"
+299,EB9JAAAAYAAJ,Cornell University Courses of Study,Cornell University,cornell university courses study|university,291,1,True,Cornell University Courses of Study
+300,C_YJAQAAMAAJ,From Early Warning Systems to Asset Managers' Behavior,Daniela Beckmann,from early warning systems asset managers behavior|beckmann,292,1,True,From Early Warning Systems to Asset Managers' Behavior
+301,kQdFAAAAYAAJ,Investments,"Frank K. Reilly, Edgar Norton",investments|reilly,293,1,True,Investments
+302,25qyAAAAIAAJ,Dictionary of Finance and Investment Terms,"John Downes, Jordan Elliot Goodman",dictionary finance investment terms|downes,294,1,True,Dictionary of Finance and Investment Terms
+303,O-zrAAAAMAAJ,Investment Cycles in Capitalist Economies,Jerry Courvisanos,investment cycles capitalist economies|courvisanos,295,1,True,Investment Cycles in Capitalist Economies
+304,Y1Y-gTPm0AMC,Comprehensive Annual Financial Report,Fire and Police Pension Association of Colorado,comprehensive annual financial report|fire,296,1,True,Comprehensive Annual Financial Report
+305,hnerUBxF0esC,Forbes,Bertie Charles Forbes,forbes|forbes,297,1,True,Forbes
+306,ko626Pmb70cC,International Journal of Production Economics,Elsevier,international journal production economics|elsevier,298,1,True,International Journal of Production Economics
+307,duUJAQAAMAAJ,A Practical Guide to Sovereign Wealth Funds,Adnan Hassan,practical guide sovereign wealth funds|hassan,299,1,True,A Practical Guide to Sovereign Wealth Funds
+308,FSG3AAAAIAAJ,"Banking, Financial Integration, and International Crises","Leonardo Hernández, Klaus Schmidt-Hebbel",banking financial integration international crises|hernández,300,1,True,"Banking, Financial Integration, and International Crises"
+309,GIUnAQAAIAAJ,International Handbook of Development Economics,"Amitava Krishna Dutt, Jaime Ros",international handbook development economics|dutt,301,1,True,International Handbook of Development Economics
+310,KV2SuNO1r8AC,Catalog,University of Colorado Boulder,catalog|boulder,302,1,True,Catalog
+311,PKn6aOHVBgMC,Congressional Record,United States. Congress,congressional record|congress,303,1,True,Congressional Record
+312,PlnIUbpCi6gC,Access Register,Canada,access register|canada,304,1,True,Access Register
+313,jEyyAAAAIAAJ,International Trade and Business Cycles,Marianne Baxter,international trade business cycles|baxter,305,1,True,International Trade and Business Cycles
+314,sX63AAAAIAAJ,World Economic Interdependence and the Evolving North-South Relationship,Organisation for Economic Co-operation and Development,world economic interdependence evolving north south relationship|co-operation,306,1,True,World Economic Interdependence and the Evolving North-South Relationship
+315,YyRZAAAAYAAJ,Surplus Capacity in the International Metals Industry,"John Cordes, Thomas F. Torries",surplus capacity international metals industry|cordes,307,1,True,Surplus Capacity in the International Metals Industry
+316,R8nxAAAAMAAJ,Trustee Investment Strategy for Endowments and Foundations,Chris Russell,trustee investment strategy endowments foundations|russell,308,1,True,Trustee Investment Strategy for Endowments and Foundations
+317,OJjwAAAAMAAJ,Rekindling Investment for Economic Development in Nigeria,Nigerian Economic Society. Annual Conference,rekindling investment economic development nigeria|conference,309,1,True,Rekindling Investment for Economic Development in Nigeria
+318,s9Y3AQAAIAAJ,Aanwinsten van de Centrale Bibliotheek (Queteletfonds),Bibliothèque centrale (Fonds Quetelet),aanwinsten van de centrale bibliotheek queteletfonds|quetelet),310,1,True,Aanwinsten van de Centrale Bibliotheek (Queteletfonds)
+319,aRxqslpQs5EC,Index to Overhead Transparencies,National Information Center for Educational Media,index overhead transparencies|media,311,1,True,Index to Overhead Transparencies
+320,fpJYAAAAYAAJ,Index to Educational Overhead Transparencies,National Information Center for Educational Media,index educational overhead transparencies|media,312,1,True,Index to Educational Overhead Transparencies
+321,W1cdAQAAMAAJ,Transactions Costs and Internal Labor Markets,Sherwin Rosen,transactions costs internal labor markets|rosen,313,1,True,Transactions Costs and Internal Labor Markets
+322,QpxUcdX9rK0C,Tax Neutrality and Intangible Capital,"Don Fullerton, Andrew B. Lyon",tax neutrality intangible capital|fullerton,314,1,True,Tax Neutrality and Intangible Capital
+323,wWZZAAAAYAAJ,Contraction and Expansion,Richard Barry Freeman,contraction expansion|freeman,315,1,True,Contraction and Expansion
+324,KWFHAQAAIAAJ,Can States Stop Corporate Takeovers?,Sharon Pamepinto,can states stop corporate takeovers|pamepinto,316,1,True,Can States Stop Corporate Takeovers?
+325,IicNAQAAMAAJ,The Parliamentary Debates (Hansard).,Great Britain. Parliament. House of Lords,parliamentary debates hansard|lords,317,1,True,The Parliamentary Debates (Hansard).
+326,bSAuAAAAMAAJ,Marketing and Economic Development,"James E. Littlefield, Magdolna Csath",marketing economic development|littlefield,318,1,True,Marketing and Economic Development
+327,tbiAEQAAQBAJ,Python for Automated Trading Systems,J.P.Morgan,python automated trading systems|j.p.morgan,319,1,True,Python for Automated Trading Systems
+328,0eYJAQAAMAAJ,Strategic Futures Trading,Jacob Bernstein,strategic futures trading|bernstein,320,1,True,Strategic Futures Trading
+329,JdgpAQAAMAAJ,Computerized Trading,Mark Jurik,computerized trading|jurik,321,1,True,Computerized Trading
+330,mtoJAQAAMAAJ,Electronic Currency Trading for Maximum Profit,"Keith Long, Kurt Walter",electronic currency trading maximum profit|long,322,1,True,Electronic Currency Trading for Maximum Profit
+331,U4kiAQAAMAAJ,The Compleat Day-trader,Jacob Bernstein,compleat day trader|bernstein,323,1,True,The Compleat Day-trader
+332,0o0WAQAAMAAJ,The C.F.A. Digest,Institute of Chartered Financial Analysts,c f digest|analysts,324,1,True,The C.F.A. Digest
+333,Uu4JAQAAMAAJ,What Works in Online Trading,Mark Etzkorn,what works online trading|etzkorn,325,1,True,What Works in Online Trading
+334,BM8QAQAAMAAJ,Getting More Out of TIAA-CREF,John J. Harrigan,getting more out tiaa cref|harrigan,326,1,True,Getting More Out of TIAA-CREF
+335,gnVaAAAAYAAJ,The Austrian Financial Markets,Wolfgang Müller,austrian financial markets|müller,327,1,True,The Austrian Financial Markets
+336,P9IJAQAAMAAJ,How to Select Top-performing Mutual Fund Investments,"Aaron H. Coleman, David H. Coleman",how select top performing mutual fund investments|coleman,328,1,True,How to Select Top-performing Mutual Fund Investments
+337,j-QbAQAAMAAJ,Emerging Governance Practices in Enterprise Risk Management,Matteo Tonello,emerging governance practices enterprise risk management|tonello,329,1,True,Emerging Governance Practices in Enterprise Risk Management
+338,VM6RAAAAIAAJ,Annual Report,Mitsubishi Tōkyō Fainansharu Gurūpu,annual report|gurūpu,330,1,True,Annual Report
+339,0W9aAAAAYAAJ,INFORMS Annual Meeting,Institute for Operations Research and the Management Sciences. National Meeting,informs annual meeting|research,331,1,True,INFORMS Annual Meeting
+340,6GNaAAAAYAAJ,Consultants and Consulting Organizations Directory,Janice W. McLean,consultants consulting organizations directory|mclean,332,1,True,Consultants and Consulting Organizations Directory
+341,GgIrEQAAQBAJ,Building Algorithmic Trading Systems,William Johnson,building algorithmic trading systems|johnson,333,1,True,Building Algorithmic Trading Systems
+342,QY0qEQAAQBAJ,Financial Econometrics,William Johnson,financial econometrics|johnson,334,1,True,Financial Econometrics
+343,nuoJAQAAMAAJ,Continuous-time Methods and Market Microstructure,Andrew Wen-Chuan Lo,continuous time methods market microstructure|lo,335,1,True,Continuous-time Methods and Market Microstructure
+344,Hju3AAAAIAAJ,Market Microstructure and Market Liquidity,"Jun Muranaga, Tokiko Shimizu",market microstructure market liquidity|muranaga,336,1,True,Market Microstructure and Market Liquidity
+345,Wa4-rpTArC0C,Econometric Models of Limit-order Executions,"Andrew Wen-Chuan Lo, Archie Craig MacKinlay, June Zhang",econometric models limit order executions|lo,337,1,True,Econometric Models of Limit-order Executions
+346,TDu3AAAAIAAJ,Expectations and Market Microstructure when Liquidity is Lost,"Jun Muranaga, Tokiko Shimizu",expectations market microstructure when liquidity is lost|muranaga,338,1,True,Expectations and Market Microstructure when Liquidity is Lost
+347,0i0-AQAAIAAJ,The Law and Economics of Best Execution,Jonathan R. Macey,law economics best execution|macey,339,1,True,The Law and Economics of Best Execution
+348,U19JS5EWBA4C,The Microstructure of Securities Markets,Kalman J. Cohen,microstructure securities markets|cohen,340,1,True,The Microstructure of Securities Markets
+349,kMfvaoBR7CgC,The Flow of Information in Financial Markets,Allan A. Zebedee,flow information financial markets|zebedee,341,1,True,The Flow of Information in Financial Markets
+350,mTsojU123lMC,Journal of Financial Economics,"Graduate School of Management, Harvard University, University of Rochester",journal financial economics|management,342,1,True,Journal of Financial Economics
+351,5vPukh99wHkC,An Intraday Analysis of Stock Market Liquidity,Joe Lange,intraday analysis stock market liquidity|lange,343,1,True,An Intraday Analysis of Stock Market Liquidity
+352,JlBJAAAAYAAJ,Transaction Costs and Institutional Investor Trading Strategies,"Robert Alan Schwartz, David K. Whitcomb",transaction costs institutional investor trading strategies|schwartz,344,1,True,Transaction Costs and Institutional Investor Trading Strategies
+353,-B5NAQAAMAAJ,"An Analysis of Market Organization, Order Strategy and Market Quality",Gail Michele Belonsky,analysis market organization order strategy market quality|belonsky,345,1,True,"An Analysis of Market Organization, Order Strategy and Market Quality"
+354,brAsAQAAIAAJ,Financial Futures and Options Markets,Robert T. Daigler,financial futures options markets|daigler,346,1,True,Financial Futures and Options Markets
+355,mDLHDRtFVEgC,Effects of Trading Halt System on Market Functioning,"Jun Muranaga, Tokiko Shimizu",effects trading halt system market functioning|muranaga,347,1,True,Effects of Trading Halt System on Market Functioning
+356,78EiAQAAMAAJ,An Ordered Probit Analysis of Transaction Stock Prices,"Jerry A. Hausman, Andrew Wen-Chuan Lo, Archie Craig MacKinlay",ordered probit analysis transaction stock prices|hausman,348,1,True,An Ordered Probit Analysis of Transaction Stock Prices
+357,BfS3AAAAIAAJ,International Investments,Bruno H. Solnik,international investments|solnik,349,1,True,International Investments
+358,xKlHAAAAYAAJ,Limit Order Book as a Market for Liquidity,"Thierry Foucault, Ohad Kadan, Eugene Kandel",limit order book as market liquidity|foucault,350,1,True,Limit Order Book as a Market for Liquidity
+359,UM8JAQAAMAAJ,Performance of International Securities Markets,Heiko Schmiedel,performance international securities markets|schmiedel,351,1,True,Performance of International Securities Markets
+360,YVVSAQAAIAAJ,Regulating Exchanges and Alternative Trading Systems,"Jonathan R. Macey, Maureen O'Hara",regulating exchanges alternative trading systems|macey,352,1,True,Regulating Exchanges and Alternative Trading Systems
+361,4pbwAAAAMAAJ,Share Liquidity and Corporate Efforts to Enhance it,Maria Gårdängen,share liquidity corporate efforts enhance it|gårdängen,353,1,True,Share Liquidity and Corporate Efforts to Enhance it
+362,57fuAAAAMAAJ,Financial Modelling,Andrzej M. J. Skulimowski,financial modelling|skulimowski,354,1,True,Financial Modelling
+363,_rC3AAAAIAAJ,The Challenge of Information Technology for the Securities Markets,Salomon Brothers Center for the Study of Financial Institutions,challenge information technology securities markets|institutions,355,1,True,The Challenge of Information Technology for the Securities Markets
+364,ZerzAAAAMAAJ,Financial Statement Analysis and Security Valuation,Stephen H. Penman,financial statement analysis security valuation|penman,189,2,False,Financial Statement Analysis and Security Valuation
+365,a1EPAQAAMAAJ,Financial Statement Analysis,Charles H. Gibson,financial statement analysis|gibson,356,1,True,Financial Statement Analysis
+366,KGgPAQAAMAAJ,Financial Statement Analysis,"Ray Ball, S. P. Kothari",financial statement analysis|ball,357,1,True,Financial Statement Analysis
+367,8TwPAQAAMAAJ,Financial Reporting and Statement Analysis,Clyde P. Stickney,financial reporting statement analysis|stickney,358,1,True,Financial Reporting and Statement Analysis
+368,Tg9LAAAAYAAJ,Analysis of American and Canadian Securities for the Use of English Investors,Kenneth Ffarington Bellairs,analysis american canadian securities use english investors|bellairs,359,1,True,Analysis of American and Canadian Securities for the Use of English Investors
+369,c-m2AAAAIAAJ,Financial Statement Analysis,Leopold A. Bernstein,financial statement analysis|bernstein,360,1,True,Financial Statement Analysis
+370,EmYPAQAAMAAJ,Modern Strategy for Successful Investing,"Keith V. Smith, David K. Eiteman",modern strategy successful investing|smith,361,1,True,Modern Strategy for Successful Investing
+371,UuBDAQAAIAAJ,Practical Financial Statement Analysis,Roy A. Foulke,practical financial statement analysis|foulke,362,1,True,Practical Financial Statement Analysis
+372,ZEEPAQAAMAAJ,The Analysis of Financial Statements,Harry George Guthmann,analysis financial statements|guthmann,363,1,True,The Analysis of Financial Statements
+373,owAdAAAAIAAJ,Badger on Investment Principles and Practices,Ralph Eastman Badger,badger investment principles practices|badger,364,1,True,Badger on Investment Principles and Practices
+374,eUU6AAAAMAAJ,Sources of Investment Information,Special Libraries Association. Exhibit Committee,sources investment information|committee,365,1,True,Sources of Investment Information
+375,VOC2AAAAIAAJ,Handbook of International Accounting,Frederick D. S. Choi,handbook international accounting|choi,366,1,True,Handbook of International Accounting
+376,vm5aAAAAYAAJ,Insurance Company Investment Management Handbook,"Edmund A. Mennis, Stanley D. Ryals",insurance company investment management handbook|mennis,367,1,True,Insurance Company Investment Management Handbook
+377,pNOxAAAAIAAJ,Venture's Guide to Investing in Private Companies,"Arthur Lipper, George Ryan",venture s guide investing private companies|lipper,368,1,True,Venture's Guide to Investing in Private Companies
+378,V3u3AAAAIAAJ,Techniques of Financial Analysis,Erich A. Helfert,techniques financial analysis|helfert,369,1,True,Techniques of Financial Analysis
+379,GXj9zOzLur0C,The Evening Sessions,University of Toledo,evening sessions|toledo,370,1,True,The Evening Sessions
+380,tdJOAQAAMAAJ,Investment Basics,Joyce Edna Jones,investment basics|jones,371,1,True,Investment Basics
+381,F1EPAQAAMAAJ,Understanding Financial Statements,"Lyn M. Fraser, Aileen Ormiston",understanding financial statements|fraser,372,1,True,Understanding Financial Statements
+382,uPxCAAAAIAAJ,Analyzing Financial Statements,Stephen Gilman,analyzing financial statements|gilman,373,1,True,Analyzing Financial Statements
+383,OHrPAAAAMAAJ,An Analysis of Investment Banking for Vocational Guidance,Investment Bankers Association of America. Education Committee,analysis investment banking vocational guidance|committee,374,1,True,An Analysis of Investment Banking for Vocational Guidance
+384,KWkUAAAAIAAJ,Annual Report of the President of the University for the Year Ending ...,Stanford University,annual report president university year ending|university,375,1,True,Annual Report of the President of the University for the Year Ending ...
+385,X8NHAAAAIAAJ,The Analysis of Financial Statements,Aaron Morton Sakolski,analysis financial statements|sakolski,376,1,True,The Analysis of Financial Statements
+386,ri79a3ckTX8C,Moody's Analyses of Railroad Investments,John Sherman Porter,moody s analyses railroad investments|porter,377,1,True,Moody's Analyses of Railroad Investments
+387,ADAUAQAAMAAJ,An Analysis of Issues Related to Criteria for Determining Materiality,Financial Accounting Standards Board,analysis issues related criteria determining materiality|board,378,1,True,An Analysis of Issues Related to Criteria for Determining Materiality
+388,P7ALAQAAIAAJ,Ratio Analysis of Financial Statements,"Alexander Wall, Raymond William Duning",ratio analysis financial statements|wall,379,1,True,Ratio Analysis of Financial Statements
+389,21g6AQAAMAAJ,Investment Analysis,Walter Edwards Lagerquist,investment analysis|lagerquist,380,1,True,Investment Analysis
+390,mHFIAQAAMAAJ,2400 Business Books and Guide to Business Literature,New Jersey. Public Library,2400 business books guide business literature|library,381,1,True,2400 Business Books and Guide to Business Literature
+391,jjJCAQAAMAAJ,2400 Business Books,"Newark Public Library. Business Branch, Linda Huckel Morley, Adelaide Cecilia Knight",2400 business books|branch,382,1,True,2400 Business Books
+392,_xY7AQAAMAAJ,"2100 Business Books, and Guide to Business Literature",Newark Public Library. Business Branch,2100 business books guide business literature|branch,383,1,True,"2100 Business Books, and Guide to Business Literature"
+393,UIEYAAAAIAAJ,Barron's Finance & Investment Handbook,"John Downes, Jordan Elliot Goodman",barron s finance investment handbook|downes,384,1,True,Barron's Finance & Investment Handbook
+394,P2MiAQAAMAAJ,Coordination of Investments in Transport Infrastructures,Commission of the European Communities,coordination investments transport infrastructures|communities,385,1,True,Coordination of Investments in Transport Infrastructures
+395,X4RFAAAAYAAJ,Models for Investors in Real World Markets,"James R. Thompson, Edward E. Williams, M. Chapman Findlay, III",models investors real world markets|thompson,386,1,True,Models for Investors in Real World Markets
+396,pVIUAQAAMAAJ,Analysis of Industrial Securities,Carl Kraft,analysis industrial securities|kraft,387,1,True,Analysis of Industrial Securities
+397,tEYUAQAAMAAJ,"Audits of Investment Companies, with Conforming Changes as of May 1, 1994",American Institute of Certified Public Accountants. Investment Companies Special Committee,audits investment companies with conforming changes as may 1 1994|committee,388,1,True,"Audits of Investment Companies, with Conforming Changes as of May 1, 1994"
+398,u2m4EAAAQBAJ,The Quant Trader's Handbook,Josh Luberisse,quant trader s handbook|luberisse,389,1,True,The Quant Trader's Handbook
+399,GVTHEQAAQBAJ,The 3-Level Bitcoin & Crypto Investing Framework,Andreas Tulong,3 level bitcoin crypto investing framework|tulong,390,1,True,The 3-Level Bitcoin & Crypto Investing Framework
+400,gARFAAAAYAAJ,"Applied Commodity Price Analysis, Forecasting, and Risk Management",NCR-134 (Committee : U.S.). Conference,applied commodity price analysis forecasting risk management|conference,391,1,True,"Applied Commodity Price Analysis, Forecasting, and Risk Management"
+401,8EAfAQAAIAAJ,Forecasting Volatility in the Financial Markets,"John Knight, Stephen Satchell",forecasting volatility financial markets|knight,392,1,True,Forecasting Volatility in the Financial Markets
+402,3NHs46dQsqcC,Market Integration and Price Execution for NYSE-listed Securities,Charles M. C. Lee,market integration price execution nyse listed securities|lee,393,1,True,Market Integration and Price Execution for NYSE-listed Securities
+403,wP8fIoP0NrMC,Purchase of Order Flows and Favorable Executions,Charles M. C. Lee,purchase order flows favorable executions|lee,394,1,True,Purchase of Order Flows and Favorable Executions
+404,s55ya9gwYTQC,Optimal Execution of Multiasset Block Orders Under Stochastic Liquidity,"Naoki Makimoto, Yoshihiko Sugihara",optimal execution multiasset block orders under stochastic liquidity|makimoto,395,1,True,Optimal Execution of Multiasset Block Orders Under Stochastic Liquidity
+405,U2laAAAAYAAJ,Microstructure,Hans R. Stoll,microstructure|stoll,396,1,True,Microstructure
+406,u6i3AAAAIAAJ,The Dow Jones-Irwin Guide to Trading Systems,Bruce Babcock,dow jones irwin guide trading systems|babcock,397,1,True,The Dow Jones-Irwin Guide to Trading Systems
+407,--LHAAAAIAAJ,Risk Management and Financial Derivatives,Satyajit Das,risk management financial derivatives|das,398,1,True,Risk Management and Financial Derivatives
+408,at0PAQAAMAAJ,Technical Traders Guide to Computer Analysis of the Futures Markets,"Charles Lebeau, David W. Lucas",technical traders guide computer analysis futures markets|lebeau,399,1,True,Technical Traders Guide to Computer Analysis of the Futures Markets
+409,dQm4AAAAIAAJ,Global Equity Markets,Robert Alan Schwartz,global equity markets|schwartz,400,1,True,Global Equity Markets
+410,WtdKAQAAIAAJ,Proposals for a Securities Market Law for Canada: Background papers,"Philip Anisman, Canada. Department of Consumer and Corporate Affairs",proposals securities market law canada|anisman,401,1,True,Proposals for a Securities Market Law for Canada: Background papers
+411,Q_AJAQAAMAAJ,The New Laws of the Stock Market Jungle,Michael J. Panzner,laws stock market jungle|panzner,402,1,True,The New Laws of the Stock Market Jungle
+412,ZYDAEQAAQBAJ,Trading Forex by Liquidity,Konstantin Titov,trading forex by liquidity|titov,403,1,True,Trading Forex by Liquidity
+413,ZB6hEQAAQBAJ,Crypto Market Microstructure,Victor Trex,crypto market microstructure|trex,404,1,True,Crypto Market Microstructure
+414,qi8izwEACAAJ,Optimal Trade Execution Under Stochastic Volatility and Liquidity,Patrick Cheridito,optimal trade execution under stochastic volatility liquidity|cheridito,405,1,True,Optimal Trade Execution Under Stochastic Volatility and Liquidity
+415,4MoazwEACAAJ,"Liquidity, Resiliency and Market Quality Around Predictable Trades",Hendrik Bessembinder,liquidity resiliency market quality around predictable trades|bessembinder,406,1,True,"Liquidity, Resiliency and Market Quality Around Predictable Trades"
+416,QGzozgEACAAJ,Hidden Liquidity,Bidisha Chakrabarty,hidden liquidity|chakrabarty,407,1,True,Hidden Liquidity
+417,SL6cEQAAQBAJ,"Trade Like a Rebel vol. 5 Pro Tools Margin, Leverage & Execution",FlexMind,trade like rebel 5 pro tools margin leverage execution|flexmind,408,1,True,"Trade Like a Rebel vol. 5 Pro Tools Margin, Leverage & Execution"
+418,3-azEQAAQBAJ,Mastering Forex Spread Dynamics,Konstantin Titov,mastering forex spread dynamics|titov,409,1,True,Mastering Forex Spread Dynamics
+419,f3G6EQAAQBAJ,Trade the Wild FX Exotics,Konstantin Titov,trade wild fx exotics|titov,410,1,True,Trade the Wild FX Exotics
+420,Rk13rgEACAAJ,The Intelligent Investor,Benjamin Graham,intelligent investor|graham,411,1,True,The Intelligent Investor
+421,TnrrDwAAQBAJ,The Psychology of Money,Morgan Housel,psychology money|housel,412,1,True,The Psychology of Money
+422,8SL6VVMa9AcC,Trading in the Zone,Mark Douglas,trading zone|douglas,413,1,True,Trading in the Zone
+423,Z9GNzwEACAAJ,Big Debt Crises,Ray Dalio,big debt crises|dalio,414,1,True,Big Debt Crises
+424,t-TQCwAAQBAJ,Trading and Exchanges,Larry Harris,trading exchanges|harris,415,1,True,Trading and Exchanges
+425,5NAZE-RBJoEC,Trade Your Way to Financial Freedom,Van K. Tharp,trade your way financial freedom|tharp,416,1,True,Trade Your Way to Financial Freedom
+426,mna7CdjGdcYC,Come Into My Trading Room,Alexander Elder,come into my trading room|elder,417,1,True,Come Into My Trading Room
+427,237PaZVtDjMC,The New Sell and Sell Short,Alexander Elder,sell sell short|elder,418,1,True,The New Sell and Sell Short
+428,rSkyvwEACAAJ,Entries & Exits,Alexander Elder,entries exits|elder,419,1,True,Entries & Exits
+429,jbD47VkOHAEC,Evidence-Based Technical Analysis,David Aronson,evidence based technical analysis|aronson,420,1,True,Evidence-Based Technical Analysis
+430,pSUJAQAAMAAJ,Market Wizards,Jack D. Schwager,market wizards|schwager,421,1,True,Market Wizards
+431,3cioifqOLxkC,A Random Walk Down Wall Street,Burton Gordon Malkiel,random walk down wall street|malkiel,422,1,True,A Random Walk Down Wall Street
+432,hMY2DwAAQBAJ,The Little Book of Common Sense Investing,John C. Bogle,little book common sense investing|bogle,423,1,True,The Little Book of Common Sense Investing
+433,NYh93U24mesC,The Little Book That Builds Wealth,Pat Dorsey,little book that builds wealth|dorsey,424,1,True,The Little Book That Builds Wealth
+434,cb6_SJN09qoC,The Four Pillars of Investing,William J. Bernstein,four pillars investing|bernstein,425,1,True,The Four Pillars of Investing
+435,bju_QwAACAAJ,Security Analysis,"Benjamin Graham, David Le Fevre Dodd",security analysis|graham,426,1,True,Security Analysis
+436,1QpjAAAACAAJ,Margin of Safety,Seth A. Klarman,margin safety|klarman,427,1,True,Margin of Safety
+437,njy3PQAACAAJ,The Essays of Warren Buffett,Warren Buffett,essays warren buffett|buffett,428,1,True,The Essays of Warren Buffett
+438,AKwWNQjLQQ4C,Common Stocks and Uncommon Profits,Philip A. Fisher,common stocks uncommon profits|fisher,429,1,True,Common Stocks and Uncommon Profits
+439,TYOdIrFJ2SkC,One Up On Wall Street,Peter Lynch,one up wall street|lynch,430,1,True,One Up On Wall Street
+440,2n0VImAHVv0C,The Most Important Thing,Howard Marks,most important thing|marks,431,1,True,The Most Important Thing
+441,66xTDwAAQBAJ,You Can Be a Stock Market Genius,Joel Greenblatt,you can be stock market genius|greenblatt,432,1,True,You Can Be a Stock Market Genius
+442,dkeyU_3FhsMC,The Little Book That Beats the Market,Joel Greenblatt,little book that beats market|greenblatt,433,1,True,The Little Book That Beats the Market
+443,2unAEAAAQBAJ,Poor Charlie’s Almanack,Charles T. Munger,poor charlie s almanack|munger,434,1,True,Poor Charlie’s Almanack
+444,XCL9bkrOrpcC,Equity Asset Valuation,"Jerald E. Pinto, Elaine Henry, Thomas R. Robinson, John D. Stowe",equity asset valuation|pinto,435,1,True,Equity Asset Valuation
+445,sLQhYjndgwEC,Investment Valuation,Aswath Damodaran,investment valuation|damodaran,436,1,True,Investment Valuation
+446,3MPnCgAAQBAJ,Quality Investing,"Torkell T. Eide, Patrick Hargreaves, Lawrence A. Cunningham",quality investing|eide,437,1,True,Quality Investing
+447,tH4MwgEACAAJ,Financial Shenanigans,"Howard M. Schilit, Yoni Engelhart, Jeremy Perler",financial shenanigans|schilit,438,1,True,Financial Shenanigans
+448,vGk00l8PqeMC,Common Sense on Mutual Funds,John C. Bogle,common sense mutual funds|bogle,439,1,True,Common Sense on Mutual Funds
+449,vpsrAQAAMAAJ,All About Asset Allocation,Richard Ferri,all about asset allocation|ferri,440,1,True,All About Asset Allocation
+450,P7TCSLpJ7AYC,Asset Allocation: Balancing Financial Risk,Roger C. Gibson,asset allocation|gibson,441,1,True,Asset Allocation: Balancing Financial Risk
+451,lujLawVLS3YC,Fixed Income Analysis,Frank J. Fabozzi,fixed income analysis|fabozzi,442,1,True,Fixed Income Analysis
+452,G17OAwAAQBAJ,The Bogleheads' Guide to Investing,"Mel Lindauer, Taylor Larimore, Michael LeBoeuf",bogleheads guide investing|lindauer,443,1,True,The Bogleheads' Guide to Investing
+453,SBmyEAAAQBAJ,"Manias, Panics, and Crashes","Robert Z. Aliber, Charles P. Kindleberger, Robert N. McCauley",manias panics crashes|aliber,444,1,True,"Manias, Panics, and Crashes"
+454,Iihe6s0XincC,This Time Is Different,"Carmen M. Reinhart, Kenneth S. Rogoff",this time is different|reinhart,445,1,True,This Time Is Different
+455,qxkiYul2wgoC,The Alchemy of Finance,George Soros,alchemy finance|soros,446,1,True,The Alchemy of Finance
+456,fljfDwAAQBAJ,Principles for Dealing with the Changing World Order,Ray Dalio,principles dealing with changing world order|dalio,447,1,True,Principles for Dealing with the Changing World Order
+457,4ZmxzMrGRf4C,Lords of Finance,Liaquat Ahamed,lords finance|ahamed,448,1,True,Lords of Finance
+458,oV1tXT3HigoC,"Thinking, Fast and Slow",Daniel Kahneman,thinking fast slow|kahneman,449,1,True,"Thinking, Fast and Slow"
+459,uzkX3Vpj3ywC,Fooled by Randomness,Nassim Nicholas Taleb,fooled by randomness|taleb,450,1,True,Fooled by Randomness
+460,-gXKAgAAQBAJ,Japanese Candlestick Charting Techniques,Steve Nison,japanese candlestick charting techniques|nison,451,1,True,Japanese Candlestick Charting Techniques
+461,i2j3nQEACAAJ,Market Microstructure in Practice,"Charles-Albert Lehalle, Sophie Laruelle",market microstructure practice|lehalle,452,1,True,Market Microstructure in Practice
+462,CMybzwEACAAJ,Algorithmic Trading & DMA,Barry Johnson (analiza finansowa),algorithmic trading dma|finansowa),453,1,True,Algorithmic Trading & DMA
+463,NZlV0M5Ije4C,Quantitative Trading,Ernie Chan,quantitative trading|chan,454,1,True,Quantitative Trading
+464,y3dxCgAAQBAJ,Systematic Trading,Robert Carver,systematic trading|carver,455,1,True,Systematic Trading
+465,psSLKgV8IO4C,The Outsiders,William Thorndike,outsiders|thorndike,456,1,True,The Outsiders
+466,mNcBEAAAQBAJ,Value Investing,"Bruce C. Greenwald, Judd Kahn, Erin Bellissimo, Mark A. Cooper, Tano Santos",value investing|greenwald,457,1,True,Value Investing
+467,5EhKCgAAQBAJ,Valuation,"McKinsey & Company Inc., Tim Koller, Marc Goedhart, David Wessels",valuation|mckinsey,458,1,True,Valuation
+468,4vrIAgAAQBAJ,Against the Gods,Peter L. Bernstein,against gods|bernstein,459,1,True,Against the Gods
