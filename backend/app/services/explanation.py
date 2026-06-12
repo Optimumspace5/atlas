@@ -32,6 +32,7 @@ from backend.app.services.gap_scoring import get_gap_vector
 # --- Configuration ---
 PROMPT_VERSION: int = 1
 DAILY_LIMIT: int = 20
+GLOBAL_DAILY_LIMIT: int = 20  # hard ceiling on NEW explanations/day across ALL users (public-deploy cost guard)
 DEFAULT_CLAUDE_MODEL: str = "claude-haiku-4-5-20251001"
 MAX_TOKENS: int = 300
 TOP_GAPS_IN_PROMPT: int = 5
@@ -86,6 +87,16 @@ def get_today_count(session: Session, user_id: uuid.UUID) -> int:
     return session.scalar(
         select(func.count(ExplanationRequest.id)).where(
             ExplanationRequest.user_id == user_id,
+            ExplanationRequest.created_at >= _today_utc_start(),
+        )
+    ) or 0
+def get_global_today_count(session: Session) -> int:
+    """How many NEW explanations the whole app has generated today (UTC),
+    across all users. Cache hits do not count. Backs the global daily cap
+    that guards against runaway API cost on the public deployment.
+    """
+    return session.scalar(
+        select(func.count(ExplanationRequest.id)).where(
             ExplanationRequest.created_at >= _today_utc_start(),
         )
     ) or 0
@@ -202,6 +213,12 @@ def generate_or_get_explanation(
             f"Daily limit of {DAILY_LIMIT} new explanations exceeded "
             f"for user {user_id}"
         )
+    if get_global_today_count(session) >= GLOBAL_DAILY_LIMIT:
+        raise QuotaExceededError(
+            f"The app's daily limit of {GLOBAL_DAILY_LIMIT} new explanations "
+            f"has been reached. Try again tomorrow."
+        )
+
 
     book = session.scalar(select(Book).where(Book.id == book_id))
     if book is None:
