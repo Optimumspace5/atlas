@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Grid2X2, List, MoreVertical, Plus, Search, SlidersHorizontal } from "lucide-react";
+import { Grid2X2, List, Plus, Search, SlidersHorizontal, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import {
   getConcepts,
   getUserBooks,
   getUserCoverage,
+  removeUserBook,
   type BookSearchResult,
   type ConceptParent,
   type CoverageResponse,
@@ -65,6 +66,21 @@ export default function LibraryPage() {
       );
     });
   }, [query, state]);
+
+  async function handleRemove(bookId: string) {
+    if (state.kind !== "loaded") return;
+    const snapshot = state;
+    // Optimistic removal — no full-page loading flash.
+    setState({ ...state, books: state.books.filter((b) => b.id !== bookId) });
+    try {
+      await removeUserBook(TEST_USER_ID, bookId);
+      // Coverage changes when a book is removed; refresh it quietly.
+      const coverage = await getUserCoverage(TEST_USER_ID);
+      setState((s) => (s.kind === "loaded" ? { ...s, coverage } : s));
+    } catch {
+      setState(snapshot); // rollback on failure
+    }
+  }
 
   return (
     <main className="mx-auto w-full max-w-[1360px] py-4 lg:px-4">
@@ -160,7 +176,12 @@ export default function LibraryPage() {
             ) : (
               <ul className="overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]">
                 {filteredBooks.map((book, index) => (
-                  <LibraryRow key={book.id} book={book} index={index} />
+                  <LibraryRow
+                    key={book.id}
+                    book={book}
+                    index={index}
+                    onRemove={() => handleRemove(book.id)}
+                  />
                 ))}
               </ul>
             )}
@@ -261,9 +282,11 @@ function LibraryCoveragePanel({
 function LibraryRow({
   book,
   index,
+  onRemove,
 }: {
   book: BookSearchResult;
   index: number;
+  onRemove: () => void;
 }) {
   const tags = [
     "Market Foundations",
@@ -314,8 +337,17 @@ function LibraryRow({
         {book.publication_year ? `Read ${book.publication_year}` : "Recently added"}
       </div>
 
-      <button className="flex h-10 w-10 items-center justify-center rounded-md border border-white/10 text-slate-400">
-        <MoreVertical className="h-4 w-4" />
+      <button
+        type="button"
+        onClick={() => {
+          if (window.confirm(`Remove "${book.title}" from your library?`)) {
+            onRemove();
+          }
+        }}
+        className="flex h-10 w-10 items-center justify-center rounded-md border border-white/10 text-slate-400 transition hover:border-red-400/40 hover:text-red-300"
+        aria-label="Remove book"
+      >
+        <Trash2 className="h-4 w-4" />
       </button>
     </li>
   );

@@ -117,6 +117,31 @@ def add_user_book(
     db.commit()
     response.status_code = status.HTTP_201_CREATED
     return UserBookResponse(user_id=new_row.user_id, book_id=new_row.book_id)
+# -----------------------------------------------------------------------------
+# DELETE /users/{user_id}/books/{book_id} — remove a logged book
+# -----------------------------------------------------------------------------
+@router.delete(
+    "/{user_id}/books/{book_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+def remove_user_book(
+    user_id: uuid.UUID,
+    book_id: uuid.UUID,
+    db: Session = Depends(get_db),
+) -> Response:
+    """Remove a book from the user's library. Idempotent: returns 204
+    whether or not the book was logged (removing an absent book is a no-op)."""
+    _get_user_or_404(db, user_id)
+    existing = db.scalar(
+        select(UserBook).where(
+            UserBook.user_id == user_id,
+            UserBook.book_id == book_id,
+        )
+    )
+    if existing is not None:
+        db.delete(existing)
+        db.commit()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 # -----------------------------------------------------------------------------

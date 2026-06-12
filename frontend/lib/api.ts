@@ -74,6 +74,19 @@ export async function getUserBooks(userId: string): Promise<BookSearchResult[]> 
   return r.json();
 }
 
+export async function removeUserBook(
+  userId: string,
+  bookId: string,
+): Promise<void> {
+  const r = await fetch(`${API_URL}/users/${userId}/books/${bookId}`, {
+    method: "DELETE",
+  });
+  if (!r.ok) {
+    throw new Error(`Remove book failed: ${r.status}`);
+  }
+}
+
+
 
 // ---------------------------------------------------------------------------
 // Recommendation endpoints
