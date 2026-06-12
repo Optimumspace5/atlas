@@ -164,6 +164,34 @@ def generate_candidates(
     return list(pool.values())
 
 
+def _rrf_scored(
+    candidates: list[Candidate],
+    weights: dict[str, float] | None = None,
+    k_constant: int = RRF_K_CONSTANT,
+) -> list[tuple[Candidate, float]]:
+    """Compute each candidate's RRF score; return (candidate, score) pairs
+    sorted by score descending. Shared by reciprocal_rank_fusion (ordering
+    only) and rank_by_hybrid (ordering + scores) so the formula lives once.
+    """
+    w = weights or RRF_WEIGHTS
+    rank_attr = {
+        "gap": "gap_rank",
+        "gap_query_embedding": "gap_query_rank",
+        "embedding_read": "embedding_rank",
+        "popularity": "popularity_rank",
+    }
+    scored: list[tuple[Candidate, float]] = []
+    for c in candidates:
+        score = 0.0
+        for source in SOURCE_ORDER:
+            rank = getattr(c, rank_attr[source], None)
+            if rank is not None:
+                score += w.get(source, 0.0) / (k_constant + rank)
+        scored.append((c, score))
+    scored.sort(key=lambda pair: pair[1], reverse=True)
+    return scored
+
+
 def reciprocal_rank_fusion(
     candidates: list[Candidate],
     weights: dict[str, float] | None = None,
@@ -178,23 +206,31 @@ def reciprocal_rank_fusion(
 
     Returns a NEW list, sorted by RRF score descending.
     """
-    w = weights or RRF_WEIGHTS
+    return [c for c, _ in _rrf_scored(candidates, weights, k_constant)]
 
-    rank_attr = {
-        "gap": "gap_rank",
-        "gap_query_embedding": "gap_query_rank",
-        "embedding_read": "embedding_rank",
-        "popularity": "popularity_rank",
+def rank_by_hybrid(
+    session: Session,
+    read_book_ids: list[uuid.UUID],
+    top_k: int,
+) -> list[tuple[Book, float]]:
+    """Stage 1a + 1b as a standalone strategy: hybrid candidate generation
+    followed by RRF rank fusion. Returns the top_k (Book, rrf_score) pairs,
+    matching the contract of the other ranking strategies.
+
+    This is Atlas's mission-aligned production default — see
+    docs/EVAL_RESULTS.md Phase 6.5: RRF closes the most gap volume of any
+    strategy (80.1%), beating even standalone gap scoring.
+    """
+    if not read_book_ids:
+        return []
+    pool = generate_candidates(session, read_book_ids)
+    if not pool:
+        return []
+    scored = _rrf_scored(pool)[:top_k]
+    book_ids = [c.book_id for c, _ in scored]
+    books = {
+        b.id: b for b in session.execute(
+            select(Book).where(Book.id.in_(book_ids))
+        ).scalars().all()
     }
-
-    scored: list[tuple[Candidate, float]] = []
-    for c in candidates:
-        score = 0.0
-        for source in SOURCE_ORDER:
-            rank = getattr(c, rank_attr[source], None)
-            if rank is not None:
-                score += w.get(source, 0.0) / (k_constant + rank)
-        scored.append((c, score))
-
-    scored.sort(key=lambda pair: pair[1], reverse=True)
-    return [c for c, _ in scored]
+    return [(books[c.book_id], score) for c, score in scored if c.book_id in books]
