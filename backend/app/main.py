@@ -7,15 +7,22 @@ from backend.app.routers import books, concepts, recommendations, users
 
 app = FastAPI(title="Atlas API")
 
-# CORS origins come from ALLOWED_ORIGINS (comma-separated). Defaults to
-# local dev; in production set it to the deployed frontend URL, e.g.
-# ALLOWED_ORIGINS="https://your-app.vercel.app"
+# Static allowed origins (local dev + any explicit ones via env, comma-separated).
 _origins_env = os.environ.get("ALLOWED_ORIGINS", "http://localhost:3000")
 ALLOWED_ORIGINS = [o.strip() for o in _origins_env.split(",") if o.strip()]
+
+# Vercel assigns a new URL on every deploy (per-deploy hash + branch previews),
+# so match the whole project's *.vercel.app domains with a regex instead of
+# pinning one URL. Override via ALLOWED_ORIGIN_REGEX if the project slug changes.
+ALLOWED_ORIGIN_REGEX = os.environ.get(
+    "ALLOWED_ORIGIN_REGEX",
+    r"https://atlas-.*\.vercel\.app",
+)
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
+    allow_origin_regex=ALLOWED_ORIGIN_REGEX,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
