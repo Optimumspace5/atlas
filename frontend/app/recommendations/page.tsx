@@ -3,12 +3,15 @@
 import {
   ArrowRight,
   BarChart3,
+  Boxes,
   Filter,
+  Layers,
   Settings2,
   Sparkles,
   Star,
   Target,
 } from "lucide-react";
+
 import { useEffect, useMemo, useState } from "react";
 import {
   explainRecommendation,
@@ -18,12 +21,14 @@ import {
 } from "@/lib/api";
 import { BookCover } from "../components/BookCover";
 
-const TEST_USER_ID = "00000000-0000-0000-0000-000000000001";
+const TEST_USER_ID = "00000000-0000-0000-0000-0000000000aa";
 
 const STRATEGIES: { value: Strategy; label: string; icon: typeof Target }[] = [
+  { value: "hybrid", label: "Hybrid", icon: Layers },
   { value: "gap", label: "Gap-fill", icon: Target },
   { value: "popularity", label: "Popularity", icon: Star },
   { value: "tfidf", label: "TF-IDF", icon: BarChart3 },
+  { value: "embedding", label: "Embedding", icon: Boxes },
 ];
 
 type LoadState =
@@ -43,7 +48,7 @@ type ExplainState =
   | { kind: "error"; message: string };
 
 export default function RecommendationsPage() {
-  const [strategy, setStrategy] = useState<Strategy>("gap");
+  const [strategy, setStrategy] = useState<Strategy>("hybrid");
   const [state, setState] = useState<LoadState>({ kind: "loading" });
   const [explanations, setExplanations] = useState<Record<string, ExplainState>>({});
 
@@ -103,7 +108,7 @@ export default function RecommendationsPage() {
       </header>
 
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="inline-grid overflow-hidden rounded-lg border border-white/10 bg-white/[0.03] sm:grid-cols-3">
+                <div className="inline-grid overflow-hidden rounded-lg border border-white/10 bg-white/[0.03] sm:grid-cols-5">
           {STRATEGIES.map((s) => {
             const active = strategy === s.value;
             const Icon = s.icon;

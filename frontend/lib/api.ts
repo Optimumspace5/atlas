@@ -78,7 +78,7 @@ export async function getUserBooks(userId: string): Promise<BookSearchResult[]> 
 // ---------------------------------------------------------------------------
 // Recommendation endpoints
 // ---------------------------------------------------------------------------
-export type Strategy = "gap" | "popularity" | "tfidf";
+export type Strategy = "hybrid" | "gap" | "popularity" | "tfidf" | "embedding";
 
 export type BookResult = {
   id: string;
@@ -99,7 +99,7 @@ export type ExplainResponse = {
 
 export async function getRecommendations(
   userId: string,
-  strategy: Strategy = "gap",
+  strategy: Strategy = "hybrid",
   topK = 10,
 ): Promise<BookResult[]> {
   const url = new URL(`${API_URL}/recommendations/${userId}`);
