@@ -3,7 +3,7 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.app.routers import books, concepts, recommendations, users
+from backend.app.routers import books, concepts, me, recommendations
 
 app = FastAPI(title="Atlas API")
 
@@ -11,9 +11,8 @@ app = FastAPI(title="Atlas API")
 _origins_env = os.environ.get("ALLOWED_ORIGINS", "http://localhost:3000")
 ALLOWED_ORIGINS = [o.strip() for o in _origins_env.split(",") if o.strip()]
 
-# Vercel assigns a new URL on every deploy (per-deploy hash + branch previews),
-# so match the whole project's *.vercel.app domains with a regex instead of
-# pinning one URL. Override via ALLOWED_ORIGIN_REGEX if the project slug changes.
+# Vercel assigns a new URL on every deploy; match the whole project's
+# *.vercel.app domains with a regex instead of pinning one URL.
 ALLOWED_ORIGIN_REGEX = os.environ.get(
     "ALLOWED_ORIGIN_REGEX",
     r"https://atlas-.*\.vercel\.app",
@@ -29,9 +28,9 @@ app.add_middleware(
 )
 
 app.include_router(recommendations.router)
-app.include_router(users.router)
 app.include_router(books.router)
 app.include_router(concepts.router)
+app.include_router(me.router)
 
 @app.get("/health")
 def health():

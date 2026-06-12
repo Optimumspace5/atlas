@@ -2,7 +2,7 @@
 
 import {
   getConcepts,
-  getUserCoverage,
+  getMyCoverage,
   type ConceptParent,
   type CoverageResponse,
 } from "@/lib/api";
@@ -20,11 +20,11 @@ type LoadState =
   | { kind: "error"; message: string };
 
 
-export function CoverageChart({ userId }: { userId: string }) {
+export function CoverageChart() {
   const [state, setState] = useState<LoadState>({ kind: "loading" });
 
   useEffect(() => {
-    Promise.all([getConcepts(), getUserCoverage(userId)])
+    Promise.all([getConcepts(), getMyCoverage()])
       .then(([concepts, coverage]) =>
         setState({ kind: "loaded", concepts, coverage }),
       )
@@ -34,7 +34,7 @@ export function CoverageChart({ userId }: { userId: string }) {
           message: e instanceof Error ? e.message : "Unknown error",
         }),
       );
-  }, [userId]);
+  }, []);
 
   if (state.kind === "loading") {
     return <div className="text-sm text-gray-500">Loading coverage…</div>;

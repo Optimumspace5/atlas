@@ -12,3 +12,4 @@ SQLAlchemy>=2.0
 uvicorn
 datasets
 accelerate>=1.1.0
+pyjwt[crypto]

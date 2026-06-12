@@ -3,14 +3,13 @@
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
-  addUserBook,
+  addMyBook,
   getHealth,
   searchBooks,
   type BookSearchResult,
 } from "@/lib/api";
 import { BookCover } from "./components/BookCover";
 
-const TEST_USER_ID = "00000000-0000-0000-0000-000000000001";
 const SEARCH_DEBOUNCE_MS = 250;
 
 type HealthStatus = "checking" | "ok" | "error";
@@ -66,7 +65,7 @@ export default function HomePage() {
     setAddState({ kind: "adding", bookId: book.id });
 
     try {
-      await addUserBook(TEST_USER_ID, book.id);
+      await addMyBook(book.id);
       setAddState({ kind: "added", title: book.title });
       setQuery("");
       setResults([]);
@@ -85,7 +84,7 @@ export default function HomePage() {
 
       <section className="relative z-10 ml-[6vw] flex min-h-[720px] max-w-4xl flex-col justify-center py-20">
         <p className="mb-8 text-sm font-semibold uppercase tracking-[0.38em] text-transparent bg-gradient-to-r from-cyan-300 via-blue-300 to-violet-300 bg-clip-text">
-          Welcome Back, Clarence
+          Welcome Back
         </p>
 
         <h1 className="max-w-4xl text-6xl font-semibold leading-[1.08] tracking-tight text-white sm:text-7xl lg:text-8xl">

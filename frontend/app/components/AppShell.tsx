@@ -1,13 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ArrowRight, Bell, BookOpen, ChevronRight, Home, Library, Sparkles, Target, UserCircle } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { ArrowRight, Bell, BookOpen, Home, Library, Sparkles, Target, UserCircle } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getUserCoverage } from "@/lib/api";
+import { getMyCoverage } from "@/lib/api";
+import { useAuth } from "@/lib/auth";
 import { ProgressRing } from "./ProgressRing";
-
-const TEST_USER_ID = "00000000-0000-0000-0000-000000000001";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
@@ -17,6 +16,30 @@ const navItems = [
 ];
 
 export function AppShell({ children }: { children: React.ReactNode }) {
+  const { user, loading } = useAuth();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && !user && pathname !== "/login") {
+      router.replace("/login");
+    }
+  }, [loading, user, pathname, router]);
+
+  // Initial session check — don't flash a redirect while we don't know yet.
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#050812] text-slate-400">
+        Loading...
+      </div>
+    );
+  }
+
+  // Unauthenticated on a protected route — render nothing while redirecting.
+  if (!user && pathname !== "/login") {
+    return null;
+  }
+
   return (
     <div className="min-h-screen bg-[#050812] text-slate-100">
       <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[296px_1fr]">
@@ -34,13 +57,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
 function Sidebar() {
   const pathname = usePathname();
-  const [covered, setCovered] = useState(21);
+  const { user, signOut } = useAuth();
+  const [covered, setCovered] = useState(0);
 
   useEffect(() => {
-    getUserCoverage(TEST_USER_ID)
+    if (!user) return;
+    getMyCoverage()
       .then((coverage) => setCovered(coverage.covered_count))
-      .catch(() => setCovered(21));
-  }, []);
+      .catch(() => setCovered(0));
+  }, [user]);
 
   const percent = Math.round((covered / 48) * 100);
 
@@ -106,14 +131,29 @@ function Sidebar() {
           </Link>
         </div>
 
-        <div className="mt-auto flex items-center gap-3 border-t border-white/10 pt-5">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-slate-800 text-lg font-semibold">C</div>
-          <div className="min-w-0 flex-1">
-            <div className="truncate font-medium text-white">Clarence Lee</div>
-            <div className="text-sm text-violet-300">◇ Pro Plan</div>
+        {user ? (
+          <div className="mt-auto flex items-center gap-3 border-t border-white/10 pt-5">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-slate-800 text-lg font-semibold uppercase">
+              {user.email?.[0] ?? "U"}
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="truncate font-medium text-white">{user.email}</div>
+              <button
+                onClick={() => signOut()}
+                className="text-sm text-violet-300 transition hover:text-violet-200"
+              >
+                Sign out
+              </button>
+            </div>
           </div>
-          <ChevronRight className="h-5 w-5 text-slate-500" />
-        </div>
+        ) : (
+          <Link
+            href="/login"
+            className="mt-auto flex h-12 items-center justify-center gap-2 rounded-md border border-violet-400/50 bg-violet-500/10 text-sm font-semibold text-violet-200 transition hover:bg-violet-500/20"
+          >
+            Sign in
+          </Link>
+        )}
       </div>
     </aside>
   );

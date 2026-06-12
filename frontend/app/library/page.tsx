@@ -5,9 +5,9 @@ import { Grid2X2, List, Plus, Search, SlidersHorizontal, Trash2 } from "lucide-r
 import { useEffect, useMemo, useState } from "react";
 import {
   getConcepts,
-  getUserBooks,
-  getUserCoverage,
-  removeUserBook,
+  getMyBooks,
+  getMyCoverage,
+  removeMyBook,
   type BookSearchResult,
   type ConceptParent,
   type CoverageResponse,
@@ -15,7 +15,6 @@ import {
 import { BookCover } from "../components/BookCover";
 import { ProgressRing } from "../components/ProgressRing";
 
-const TEST_USER_ID = "00000000-0000-0000-0000-000000000001";
 const COVERAGE_TARGET = 2.0;
 
 type LoadState =
@@ -33,11 +32,7 @@ export default function LibraryPage() {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    Promise.all([
-      getUserBooks(TEST_USER_ID),
-      getConcepts(),
-      getUserCoverage(TEST_USER_ID),
-    ])
+    Promise.all([getMyBooks(), getConcepts(), getMyCoverage()])
       .then(([books, concepts, coverage]) =>
         setState({ kind: "loaded", books, concepts, coverage }),
       )
@@ -70,15 +65,13 @@ export default function LibraryPage() {
   async function handleRemove(bookId: string) {
     if (state.kind !== "loaded") return;
     const snapshot = state;
-    // Optimistic removal — no full-page loading flash.
     setState({ ...state, books: state.books.filter((b) => b.id !== bookId) });
     try {
-      await removeUserBook(TEST_USER_ID, bookId);
-      // Coverage changes when a book is removed; refresh it quietly.
-      const coverage = await getUserCoverage(TEST_USER_ID);
+      await removeMyBook(bookId);
+      const coverage = await getMyCoverage();
       setState((s) => (s.kind === "loaded" ? { ...s, coverage } : s));
     } catch {
-      setState(snapshot); // rollback on failure
+      setState(snapshot);
     }
   }
 

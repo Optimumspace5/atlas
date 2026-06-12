@@ -11,17 +11,14 @@ import {
   Star,
   Target,
 } from "lucide-react";
-
 import { useEffect, useMemo, useState } from "react";
 import {
-  explainRecommendation,
-  getRecommendations,
+  explainMyRecommendation,
+  getMyRecommendations,
   type BookResult,
   type Strategy,
 } from "@/lib/api";
 import { BookCover } from "../components/BookCover";
-
-const TEST_USER_ID = "00000000-0000-0000-0000-0000000000aa";
 
 const STRATEGIES: { value: Strategy; label: string; icon: typeof Target }[] = [
   { value: "hybrid", label: "Hybrid", icon: Layers },
@@ -54,7 +51,7 @@ export default function RecommendationsPage() {
 
   useEffect(() => {
     setState({ kind: "loading" });
-    getRecommendations(TEST_USER_ID, strategy)
+    getMyRecommendations(strategy)
       .then((books) => setState({ kind: "loaded", books }))
       .catch((e) =>
         setState({
@@ -68,7 +65,7 @@ export default function RecommendationsPage() {
     setExplanations((prev) => ({ ...prev, [bookId]: { kind: "loading" } }));
 
     try {
-      const res = await explainRecommendation(TEST_USER_ID, bookId);
+      const res = await explainMyRecommendation(bookId);
       setExplanations((prev) => ({
         ...prev,
         [bookId]: {
@@ -108,7 +105,7 @@ export default function RecommendationsPage() {
       </header>
 
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div className="inline-grid overflow-hidden rounded-lg border border-white/10 bg-white/[0.03] sm:grid-cols-5">
+        <div className="inline-grid overflow-hidden rounded-lg border border-white/10 bg-white/[0.03] sm:grid-cols-5">
           {STRATEGIES.map((s) => {
             const active = strategy === s.value;
             const Icon = s.icon;
@@ -368,8 +365,8 @@ function descriptionForStrategy(strategy: Strategy) {
     return "Broadly annotated across the corpus, making it a strong general baseline recommendation.";
   }
 
-  if (strategy === "tfidf") {
-    return "Textually similar to books already in your library based on title, author, and description.";
+  if (strategy === "tfidf" || strategy === "embedding") {
+    return "Textually or semantically similar to books already in your library.";
   }
 
   return "Covers under-represented concepts in your current reading profile while minimizing redundancy.";
