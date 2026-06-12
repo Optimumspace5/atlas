@@ -79,7 +79,7 @@ export default function HomePage() {
   }
 
   return (
-    <main className="relative min-h-[calc(100vh-4rem)] overflow-hidden">
+    <main className="relative min-h-[calc(100vh-4rem)] overflow-visible">
       <MarketMesh />
 
       <section className="relative z-10 ml-[6vw] flex min-h-[720px] max-w-4xl flex-col justify-center py-20">
@@ -115,7 +115,7 @@ export default function HomePage() {
           </div>
 
           {query.trim() && (
-            <div className="absolute left-0 right-0 top-[calc(100%+0.75rem)] z-20 overflow-hidden rounded-lg border border-white/10 bg-[#080d18]/95 shadow-2xl backdrop-blur">
+            <div className="relative z-30 mt-3 max-h-[28rem] overflow-y-auto rounded-lg border border-white/10 bg-[#080d18]/95 shadow-2xl backdrop-blur">
               {searching && results.length === 0 && (
                 <div className="px-5 py-4 text-sm text-slate-400">Searching...</div>
               )}
