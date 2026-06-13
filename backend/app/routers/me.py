@@ -22,6 +22,7 @@ from backend.app.schemas import (
     GapEntry,
     GapsResponse,
     RecommendationResponse,
+    RoadmapResponse,
     UserBookResponse,
 )
 from backend.app.services.gap_scoring import get_coverage_vector, get_gap_vector
@@ -36,6 +37,7 @@ from backend.app.routers.recommendations import (
     rank_for_strategy,
     rank_to_response,
 )
+from backend.app.services.roadmaps import VALID_ROLES, build_roadmap
 
 router = APIRouter(prefix="/me", tags=["me"])
 
@@ -194,3 +196,21 @@ def explain(
         cached=cached,
         quota_remaining=quota_remaining,
     )
+
+
+# ---- roadmaps ----
+@router.get("/roadmaps/{role}", response_model=RoadmapResponse)
+def roadmap(
+    role: str,
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> RoadmapResponse:
+    """Ordered learning journey for a role (investor|trader), with the caller's
+    read books flagged and the first unread rung marked as 'next'."""
+    if role not in VALID_ROLES:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Unknown roadmap role {role!r}. Valid: {', '.join(VALID_ROLES)}",
+        )
+    read_ids = set(_read_book_ids(db, user.id))
+    return build_roadmap(db, role, read_ids)

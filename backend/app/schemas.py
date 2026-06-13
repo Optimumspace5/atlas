@@ -175,3 +175,34 @@ class ConceptParent(BaseModel):
     slug: str
     name: str
     leaves: list[ConceptLeaf]
+
+
+# -----------------------------------------------------------------------------
+# Schemas for GET /me/roadmaps/{role}
+# -----------------------------------------------------------------------------
+class RoadmapRung(BaseModel):
+    """One ordered step on a learning roadmap."""
+
+    rung: int
+    book_id: uuid.UUID | None = Field(
+        None, description="Resolved catalog book, or null if the title didn't match."
+    )
+    title: str
+    author: str
+    cover_url: str | None
+    new_concepts: list[str] = Field(
+        default_factory=list,
+        description="Concepts this rung adds that earlier rungs didn't cover.",
+    )
+    why: str
+    read: bool = Field(..., description="True if the user has this book in their library.")
+    is_next: bool = Field(..., description="True for the first unread rung — read this next.")
+
+
+class RoadmapResponse(BaseModel):
+    """Body of GET /me/roadmaps/{role}."""
+
+    role: str
+    rungs: list[RoadmapRung]
+    read_count: int = Field(..., description="How many rungs the user has already read.")
+    total: int

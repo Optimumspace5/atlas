@@ -1,0 +1,242 @@
+{
+  "investor": [
+    {
+      "rung": 1,
+      "title": "The Psychology of Money",
+      "author": "Morgan Housel",
+      "new_concepts": [
+        "emotional_discipline",
+        "cognitive_biases",
+        "loss_aversion_and_drawdown_psychology",
+        "overtrading_and_impulse_control",
+        "probabilistic_thinking_and_uncertainty",
+        "process_oriented_decision_making",
+        "time_horizon_and_goal_based_investing"
+      ],
+      "why": "Pinned anchor; establishes the behavioral and psychological foundation every investor needs before touching a single financial concept."
+    },
+    {
+      "rung": 2,
+      "title": "The Little Book of Common Sense Investing",
+      "author": "John C. Bogle",
+      "new_concepts": [
+        "passive_vs_active_portfolio_management",
+        "diversification",
+        "asset_allocation",
+        "price_formation_and_market_efficiency",
+        "risk_return_tradeoff"
+      ],
+      "why": "Pinned anchor; translates psychology into a concrete, low-cost indexing philosophy and introduces core portfolio concepts."
+    },
+    {
+      "rung": 3,
+      "title": "A Random Walk Down Wall Street",
+      "author": "Burton Gordon Malkiel",
+      "new_concepts": [
+        "portfolio_rebalancing",
+        "risk_return_tradeoff (deeper empirical grounding)"
+      ],
+      "why": "High review-count classic that deepens market-efficiency theory and adds empirical evidence for passive investing, broadening what Bogle introduced."
+    },
+    {
+      "rung": 4,
+      "title": "The Bogleheads' Guide to Investing",
+      "author": "Mel Lindauer, Taylor Larimore, Michael LeBoeuf",
+      "new_concepts": [
+        "asset_classes_and_financial_instruments",
+        "inflation_and_purchasing_power"
+      ],
+      "why": "Accessible, highly-reviewed practical guide that moves from theory to real-world account setup, tax efficiency, and inflation awareness."
+    },
+    {
+      "rung": 5,
+      "title": "The Intelligent Investor",
+      "author": "Benjamin Graham",
+      "new_concepts": [
+        "intrinsic_value_estimation",
+        "margin_of_safety",
+        "financial_statement_analysis",
+        "valuation_multiples_and_relative_valuation"
+      ],
+      "why": "Foundational value-investing text that introduces security analysis, margin of safety, and the Mr. Market allegory as a counterpoint to pure indexing."
+    },
+    {
+      "rung": 6,
+      "title": "One Up On Wall Street",
+      "author": "Peter Lynch",
+      "new_concepts": [
+        "earnings_growth_and_profitability_drivers",
+        "business_quality_and_competitive_advantage",
+        "market_participants_and_incentives"
+      ],
+      "why": "Approachable growth-investing perspective that teaches readers to identify great businesses using everyday observations, complementing Graham's defensive approach."
+    },
+    {
+      "rung": 7,
+      "title": "The Most Important Thing",
+      "author": "Howard Marks",
+      "new_concepts": [
+        "business_cycles_and_market_cycles",
+        "risk_reward_and_expectancy",
+        "second-level thinking"
+      ],
+      "why": "Elevates risk thinking from avoidance to active calibration, introducing market cycles and the concept of price relative to value."
+    },
+    {
+      "rung": 8,
+      "title": "Stocks for the Long Run: The Definitive Guide to Financial Market Returns & Long-Term Investment Strategies, Sixth Edition",
+      "author": "Jeremy J. Siegel",
+      "new_concepts": [
+        "economic_indicators_and_data_interpretation",
+        "interest_rates_and_monetary_policy",
+        "currency_and_global_macro_forces",
+        "backtesting_and_strategy_validation"
+      ],
+      "why": "Provides long-horizon empirical data across asset classes and macro variables, grounding the investor in historical return patterns and global context."
+    },
+    {
+      "rung": 9,
+      "title": "Pioneering Portfolio Management",
+      "author": "David F. Swensen",
+      "new_concepts": [
+        "institutional_asset_allocation",
+        "alternative_asset_classes",
+        "journaling_and_performance_review"
+      ],
+      "why": "Introduces endowment-style portfolio construction with true diversification across uncorrelated asset classes, adding institutional-level thinking."
+    },
+    {
+      "rung": 10,
+      "title": "Antifragile",
+      "author": "Nassim Nicholas Taleb",
+      "new_concepts": [
+        "drawdown_management",
+        "leverage_and_margin_risk",
+        "credit_debt_and_financial_crises",
+        "convexity_and_tail_risk"
+      ],
+      "why": "Capstone philosophical work that reframes risk as opportunity under uncertainty, teaching the advanced investor to build portfolios that benefit from volatility."
+    }
+  ],
+  "trader": [
+    {
+      "rung": 1,
+      "title": "Technical Analysis of the Financial Markets",
+      "author": "John J. Murphy",
+      "new_concepts": [
+        "chart_patterns_and_price_action",
+        "trend_analysis",
+        "support_and_resistance",
+        "momentum_and_technical_indicators",
+        "volume_analysis",
+        "market_structure_and_regime_identification",
+        "order_types_and_execution_mechanics",
+        "strategy_design_and_rule_definition"
+      ],
+      "why": "Pinned anchor; the definitive encyclopedic reference that establishes the full vocabulary and toolkit of technical analysis."
+    },
+    {
+      "rung": 2,
+      "title": "Japanese Candlestick Charting Techniques",
+      "author": "Steve Nison",
+      "new_concepts": [
+        "candlestick_pattern_interpretation",
+        "trade_planning_and_preparation"
+      ],
+      "why": "Highly popular and accessible deep-dive into candlestick patterns that adds a precise price-action language missing from Murphy's broader survey."
+    },
+    {
+      "rung": 3,
+      "title": "Trading in the Zone",
+      "author": "Mark Douglas",
+      "new_concepts": [
+        "emotional_discipline",
+        "cognitive_biases",
+        "loss_aversion_and_drawdown_psychology",
+        "probabilistic_thinking_and_uncertainty",
+        "process_oriented_decision_making"
+      ],
+      "why": "Establishes the psychological operating system required before live trading, addressing the mental pitfalls that cause most traders to fail."
+    },
+    {
+      "rung": 4,
+      "title": "Market Wizards",
+      "author": "Jack D. Schwager",
+      "new_concepts": [
+        "position_sizing",
+        "drawdown_management",
+        "stop_loss_and_exit_rules",
+        "system_iteration_and_continuous_improvement"
+      ],
+      "why": "Widely-read interviews with elite traders crystallize diverse real-world strategies and reinforce that risk management and discipline trump any single setup."
+    },
+    {
+      "rung": 5,
+      "title": "The Art and Science of Technical Analysis",
+      "author": "Adam Grimes",
+      "new_concepts": [
+        "risk_reward_and_expectancy",
+        "journaling_and_performance_review",
+        "evidence-based_chart_reading"
+      ],
+      "why": "Bridges pattern recognition and statistical thinking, teaching traders to test and validate setups rather than rely on folklore."
+    },
+    {
+      "rung": 6,
+      "title": "Trade Your Way to Financial Freedom",
+      "author": "Van K. Tharp",
+      "new_concepts": [
+        "backtesting_and_strategy_validation",
+        "expectancy_calculation",
+        "system_design_framework"
+      ],
+      "why": "Introduces a rigorous framework for designing, sizing, and evaluating complete trading systems, elevating craft beyond individual setups."
+    },
+    {
+      "rung": 7,
+      "title": "Come Into My Trading Room",
+      "author": "Alexander Elder",
+      "new_concepts": [
+        "exposure_and_concentration_limits",
+        "multi-timeframe_analysis",
+        "triple_screen_methodology"
+      ],
+      "why": "Integrates technical signals, money management, and trader psychology into a unified daily operating routine with concrete rules."
+    },
+    {
+      "rung": 8,
+      "title": "Trading and Exchanges",
+      "author": "Larry Harris",
+      "new_concepts": [
+        "exchanges_brokers_and_market_infrastructure",
+        "liquidity_and_market_depth",
+        "execution_quality_and_trade_implementation",
+        "market_participants_and_incentives"
+      ],
+      "why": "Reveals the microstructure layer beneath price charts, teaching traders how orders interact with market makers and why execution quality matters."
+    },
+    {
+      "rung": 9,
+      "title": "Quantitative Trading",
+      "author": "Ernie Chan",
+      "new_concepts": [
+        "algorithmic_strategy_development",
+        "leverage_and_margin_risk",
+        "statistical_edge_measurement"
+      ],
+      "why": "Introduces systematic and quantitative methods for building, testing, and deploying automated strategies, extending discretionary skills into code-driven frameworks."
+    },
+    {
+      "rung": 10,
+      "title": "The Alchemy of Finance",
+      "author": "George Soros",
+      "new_concepts": [
+        "reflexivity_theory",
+        "currency_and_global_macro_forces",
+        "macro_regime_trading",
+        "credit_debt_and_financial_crises"
+      ],
+      "why": "Capstone macro-philosophical work that teaches advanced traders to think in feedback loops and trade regime shifts at the highest level of abstraction."
+    }
+  ]
+}

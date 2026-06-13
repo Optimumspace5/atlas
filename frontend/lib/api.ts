@@ -130,6 +130,35 @@ export async function getMyRecommendations(
   return body.recommendations;
 }
 
+export type RoadmapRole = "investor" | "trader";
+
+export type RoadmapRung = {
+  rung: number;
+  book_id: string | null;
+  title: string;
+  author: string;
+  cover_url: string | null;
+  new_concepts: string[];
+  why: string;
+  read: boolean;
+  is_next: boolean;
+};
+
+export type RoadmapResponse = {
+  role: string;
+  rungs: RoadmapRung[];
+  read_count: number;
+  total: number;
+};
+
+export async function getMyRoadmap(role: RoadmapRole): Promise<RoadmapResponse> {
+  const r = await fetch(`${API_URL}/me/roadmaps/${role}`, {
+    headers: await authHeaders(),
+  });
+  if (!r.ok) throw new Error(`Failed to load roadmap: ${r.status}`);
+  return r.json();
+}
+
 export async function explainMyRecommendation(
   bookId: string,
 ): Promise<ExplainResponse> {
