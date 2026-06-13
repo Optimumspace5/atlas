@@ -47,6 +47,10 @@ class Book(Base):
     source: Mapped[str] = mapped_column(
         String(64), nullable=False, server_default="manual"
     )
+    curated: Mapped[bool] = mapped_column(
+        nullable=False, server_default=text("false")
+    )
+    difficulty_tier: Mapped[int | None] = mapped_column(Integer, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         nullable=False, server_default=func.now()
     )

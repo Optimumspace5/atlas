@@ -65,7 +65,7 @@ def rank_by_embedding(
     stmt = (
         select(Book, distance_expr.label("distance"))
         .join(BookEmbedding, BookEmbedding.book_id == Book.id)
-        .where(Book.id.notin_(read_set))
+        .where(Book.curated.is_(True), Book.id.notin_(read_set))
         .order_by(distance_expr)
         .limit(top_k)
     )

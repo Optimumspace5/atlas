@@ -24,7 +24,10 @@ def search_books(
     pattern = f"%{q}%"
     stmt = (
         select(Book)
-        .where(or_(Book.title.ilike(pattern), Book.author.ilike(pattern)))
+        .where(
+            Book.curated.is_(True),
+            or_(Book.title.ilike(pattern), Book.author.ilike(pattern)),
+        )
         .order_by(Book.title)
         .limit(limit)
     )

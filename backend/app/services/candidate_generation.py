@@ -110,7 +110,9 @@ def generate_candidates(
     pool: dict[uuid.UUID, Candidate] = {}
 
     # ---- Source 1: gap_scoring ----
-    all_book_ids = list(session.execute(select(Book.id)).scalars().all())
+    all_book_ids = list(
+        session.execute(select(Book.id).where(Book.curated.is_(True))).scalars().all()
+    )
     gap_ranked = rank_candidates(session, read_book_ids, all_book_ids)
     rank_in_source = 0
     for book, score in gap_ranked:

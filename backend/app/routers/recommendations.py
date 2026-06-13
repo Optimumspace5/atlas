@@ -49,7 +49,9 @@ def rank_for_strategy(
     """Dispatch a strategy to its ranking function. Shared by the stateless
     endpoint and the authenticated /me/recommendations route."""
     if strategy == RecommendationStrategy.GAP:
-        candidate_ids = db.execute(select(Book.id)).scalars().all()
+        candidate_ids = db.execute(
+            select(Book.id).where(Book.curated.is_(True))
+        ).scalars().all()
         return rank_candidates(db, read_book_ids, candidate_ids)
     if strategy == RecommendationStrategy.POPULARITY:
         return rank_by_popularity(db, read_book_ids, top_k)

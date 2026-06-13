@@ -36,6 +36,7 @@ def rank_by_popularity(
     stmt = (
         select(Book, func.count(BookConceptAnnotation.book_id).label("score"))
         .join(BookConceptAnnotation, BookConceptAnnotation.book_id == Book.id)
+        .where(Book.curated.is_(True))
         .group_by(Book.id)
         .order_by(func.count(BookConceptAnnotation.book_id).desc())
     )
