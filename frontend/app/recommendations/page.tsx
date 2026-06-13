@@ -6,10 +6,12 @@ import {
   Boxes,
   Filter,
   Layers,
+  Plus,
   Settings2,
   Sparkles,
   Star,
   Target,
+  X,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import {
@@ -27,6 +29,11 @@ const STRATEGIES: { value: Strategy; label: string; icon: typeof Target }[] = [
   { value: "tfidf", label: "TF-IDF", icon: BarChart3 },
   { value: "embedding", label: "Embedding", icon: Boxes },
 ];
+
+// Fetch a deep reserve so dismiss-and-replace + "Show more" have books to pull
+// from beyond the visible top slice.
+const POOL_SIZE = 50;
+const PAGE = 10;
 
 type LoadState =
   | { kind: "loading" }
@@ -48,10 +55,14 @@ export default function RecommendationsPage() {
   const [strategy, setStrategy] = useState<Strategy>("hybrid");
   const [state, setState] = useState<LoadState>({ kind: "loading" });
   const [explanations, setExplanations] = useState<Record<string, ExplainState>>({});
+  const [dismissed, setDismissed] = useState<Set<string>>(new Set());
+  const [visibleCount, setVisibleCount] = useState(PAGE);
 
   useEffect(() => {
     setState({ kind: "loading" });
-    getMyRecommendations(strategy)
+    setDismissed(new Set());
+    setVisibleCount(PAGE);
+    getMyRecommendations(strategy, POOL_SIZE)
       .then((books) => setState({ kind: "loaded", books }))
       .catch((e) =>
         setState({
@@ -60,6 +71,10 @@ export default function RecommendationsPage() {
         }),
       );
   }, [strategy]);
+
+  function dismiss(id: string) {
+    setDismissed((prev) => new Set(prev).add(id));
+  }
 
   async function handleExplain(bookId: string) {
     setExplanations((prev) => ({ ...prev, [bookId]: { kind: "loading" } }));
@@ -85,6 +100,10 @@ export default function RecommendationsPage() {
       }));
     }
   }
+
+  const available =
+    state.kind === "loaded" ? state.books.filter((b) => !dismissed.has(b.id)) : [];
+  const visible = available.slice(0, visibleCount);
 
   return (
     <main className="mx-auto w-full max-w-[1180px] py-4">
@@ -147,18 +166,20 @@ export default function RecommendationsPage() {
         </div>
       )}
 
-      {state.kind === "loaded" && state.books.length === 0 && (
+      {state.kind === "loaded" && available.length === 0 && (
         <div className="rounded-lg border border-dashed border-white/15 bg-white/[0.03] p-10 text-center">
           <p className="text-slate-300">
-            No recommendations yet. Add more books to your library first.
+            {state.books.length === 0
+              ? "No recommendations yet. Add more books to your library first."
+              : "You've dismissed all of these. Switch strategy or reload for a fresh set."}
           </p>
         </div>
       )}
 
-      {state.kind === "loaded" && state.books.length > 0 && (
+      {state.kind === "loaded" && available.length > 0 && (
         <>
           <ul className="space-y-4">
-            {state.books.map((book, index) => {
+            {visible.map((book, index) => {
               const expState = explanations[book.id] ?? { kind: "idle" };
               return (
                 <RecommendationCard
@@ -168,10 +189,24 @@ export default function RecommendationsPage() {
                   strategy={strategy}
                   explainState={expState}
                   onExplain={() => handleExplain(book.id)}
+                  onDismiss={() => dismiss(book.id)}
                 />
               );
             })}
           </ul>
+
+          {available.length > visibleCount && (
+            <div className="mt-6 flex justify-center">
+              <button
+                type="button"
+                onClick={() => setVisibleCount((c) => c + PAGE)}
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-6 text-sm font-semibold text-slate-200 transition hover:bg-white/[0.08]"
+              >
+                <Plus className="h-4 w-4" />
+                Show more ({available.length - visibleCount} left)
+              </button>
+            </div>
+          )}
 
           <div className="mt-6 rounded-lg border border-violet-400/20 bg-violet-500/10 px-5 py-4">
             <div className="flex items-center justify-between gap-4">
@@ -205,12 +240,14 @@ function RecommendationCard({
   strategy,
   explainState,
   onExplain,
+  onDismiss,
 }: {
   book: BookResult;
   rank: number;
   strategy: Strategy;
   explainState: ExplainState;
   onExplain: () => void;
+  onDismiss: () => void;
 }) {
   const fitScore = useMemo(() => displayFitScore(book.score, strategy, rank), [
     book.score,
@@ -221,7 +258,16 @@ function RecommendationCard({
   const category = categoryForRank(rank);
 
   return (
-    <li className="rounded-lg border border-white/10 bg-white/[0.035] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.18)]">
+    <li className="relative rounded-lg border border-white/10 bg-white/[0.035] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.18)]">
+      <button
+        type="button"
+        onClick={onDismiss}
+        aria-label="Dismiss recommendation"
+        title="Not interested — replace with the next book"
+        className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-slate-400 transition hover:bg-red-500/15 hover:text-red-300"
+      >
+        <X className="h-4 w-4" />
+      </button>
       <div className="grid gap-5 lg:grid-cols-[52px_260px_1fr_150px_140px] lg:items-center">
         <div className="text-4xl font-semibold text-violet-300">#{rank}</div>
 
